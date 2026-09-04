@@ -6,18 +6,9 @@
 <title>Verint Mapping Manager</title>
 <style>
   :root{
-    --bg:#f4f5f7;
-    --panel:#ffffff;
-    --ink:#1f2430;
-    --muted:#6b7280;
-    --line:#e5e7eb;
-    --brand:#2f6fed;
-    --brand-soft:#e8f0fe;
-    --awd:#2f6fed;
-    --manual:#0f9d76;
-    --danger:#e0483b;
-    --radius:10px;
-    --shadow:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.10);
+    --bg:#f4f5f7; --panel:#ffffff; --ink:#1f2430; --muted:#6b7280; --line:#e5e7eb;
+    --brand:#2f6fed; --brand-soft:#e8f0fe; --awd:#2f6fed; --manual:#0f9d76; --danger:#e0483b;
+    --radius:10px; --shadow:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.10);
     --font:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   }
   *{box-sizing:border-box}
@@ -33,7 +24,6 @@
   .brand .mark svg{width:16px;height:16px;stroke:#fff}
   .brand-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .topbar .spacer{flex:1}
-  .topbar-actions{display:contents}
   .menu-toggle{display:none;width:36px;height:36px;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:8px;align-items:center;justify-content:center;flex:0 0 auto}
   .menu-toggle:hover{background:#f7f8fa}
   .menu-toggle .icon{width:18px;height:18px}
@@ -53,8 +43,17 @@
   .search{flex:1;display:flex;align-items:center;gap:8px;height:34px;padding:0 10px;background:var(--bg);border:1px solid var(--line);border-radius:8px}
   .search input{border:0;background:transparent;outline:none;width:100%;font-size:13px;color:var(--ink)}
   .search .icon{color:var(--muted)}
-  .addfn{height:34px;width:34px;display:flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid var(--brand);background:var(--brand);color:#fff}
+  .addfn{height:34px;width:34px;display:flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid var(--brand);background:var(--brand);color:#fff;flex:0 0 auto}
   .addfn:hover{background:#2560d8}
+  .side-controls{margin-top:10px;padding:10px;background:var(--bg);border:1px solid var(--line);border-radius:9px;display:flex;flex-direction:column;gap:8px}
+  .sc-row{display:flex;align-items:center;gap:8px}
+  .sc-row label{font-size:11px;font-weight:600;color:var(--muted);width:42px;flex:0 0 auto}
+  .sc-sel{flex:1;height:30px;font-size:12px;padding:0 8px;min-width:0}
+  .sc-dir{width:30px;height:30px;flex:0 0 auto;border:1px solid var(--line);background:var(--panel);border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--brand)}
+  .sc-dir:hover{background:#f0f2f5}
+  .sc-dir .icon{width:14px;height:14px}
+  .sc-clear{border:0;background:transparent;color:var(--brand);font-size:12px;font-weight:600;cursor:pointer;padding:2px;text-align:left}
+  .sc-clear:hover{text-decoration:underline}
   .side-stats{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
   .chip{font-size:11px;color:var(--muted);background:var(--bg);border:1px solid var(--line);border-radius:20px;padding:3px 9px}
   .tree{overflow:auto;padding:8px;flex:1}
@@ -84,11 +83,9 @@
   .minibtn.del:hover{background:#fde7e5;color:var(--danger)}
   .minibtn.ok:hover{background:#e4f6ef;color:var(--manual)}
   .children{margin-left:14px;border-left:1px solid var(--line);padding-left:4px}
-
   .tag{font-size:10px;font-weight:700;letter-spacing:.4px;padding:2px 6px;border-radius:5px;text-transform:uppercase}
   .tag.awd{background:#e8f0fe;color:var(--awd)}
   .tag.manual{background:#e4f6ef;color:var(--manual)}
-
   .addline{display:flex;align-items:center;gap:6px;padding:5px 8px;margin:2px 0;color:var(--brand);font-size:12px;font-weight:600;border-radius:7px;cursor:pointer}
   .addline:hover{background:var(--brand-soft)}
 
@@ -98,18 +95,15 @@
   .empty svg{width:44px;height:44px;color:#c3c8d0}
   .empty h3{margin:6px 0 0;color:var(--ink);font-weight:600}
   .empty p{margin:0;max-width:380px;line-height:1.5}
-
   .detail-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:18px}
   .breadcrumb{font-size:12px;color:var(--muted);margin-bottom:6px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
   .breadcrumb b{color:var(--ink);font-weight:600}
   .detail-head h1{margin:0;font-size:20px;font-weight:700;display:flex;align-items:center;gap:10px}
   .detail-head .spacer{flex:1}
-
   .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:20px}
   .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
   .card .k{font-size:12px;color:var(--muted)}
   .card .v{font-size:22px;font-weight:700;margin-top:2px}
-
   .section-bar{display:flex;align-items:center;margin:0 0 12px}
   .section-bar h2{font-size:15px;margin:0;font-weight:600}
   .section-bar .spacer{flex:1}
@@ -122,6 +116,11 @@
   tbody tr:hover{background:#fafbfc}
   tbody tr.editing{background:#f5f8ff !important}
   .org-pill{display:inline-block;background:var(--brand-soft);color:var(--brand);border-radius:6px;padding:2px 8px;font-weight:600;font-size:12px;margin:1px 0}
+  .muted{color:var(--muted)}
+  .cellactions{display:flex;gap:4px;justify-content:flex-end}
+  .table-empty{padding:34px;text-align:center;color:var(--muted)}
+  .inline-input{width:100%;min-width:70px;height:32px;padding:0 8px;border:1px solid var(--brand);border-radius:6px;font-size:13px;font-family:inherit;color:var(--ink);outline:none;background:#fff}
+  .inline-input:focus{box-shadow:0 0 0 3px rgba(47,111,237,.14)}
   .upd{display:flex;flex-direction:column;gap:2px;white-space:nowrap}
   .ver-badge{display:inline-block;background:#eef0f3;color:var(--muted);border-radius:5px;padding:1px 7px;font-size:11px;font-weight:700;width:fit-content}
   .upd-date{font-size:11px;color:var(--muted)}
@@ -134,11 +133,36 @@
   .vchk:hover .box{border-color:var(--manual)}
   .vchk .vtxt{font-size:11px;color:var(--manual);font-weight:600}
   .vchk:not(.on) .vtxt{font-weight:400}
-  .muted{color:var(--muted)}
-  .cellactions{display:flex;gap:4px;justify-content:flex-end}
-  .table-empty{padding:34px;text-align:center;color:var(--muted)}
-  .inline-input{width:100%;min-width:70px;height:32px;padding:0 8px;border:1px solid var(--brand);border-radius:6px;font-size:13px;font-family:inherit;color:var(--ink);outline:none;background:#fff}
-  .inline-input:focus{box-shadow:0 0 0 3px rgba(47,111,237,.14)}
+  .statustog{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--panel);border-radius:20px;padding:3px 10px 3px 8px;cursor:pointer;white-space:nowrap;font-family:inherit}
+  .statustog:hover{border-color:#c3c8d0}
+  .statustog .dot{width:8px;height:8px;border-radius:50%;flex:0 0 auto}
+  .statustog.on .dot{background:var(--manual);box-shadow:0 0 0 3px rgba(15,157,118,.16)}
+  .statustog.off .dot{background:#c3c8d0;box-shadow:0 0 0 3px rgba(150,150,150,.14)}
+  .statustog .st-lbl{font-size:12px;font-weight:700}
+  .statustog.on .st-lbl{color:var(--manual)}
+  .statustog.off .st-lbl{color:var(--muted)}
+  .statustog .st-date{font-size:10px;color:var(--muted)}
+  /* row selection checkbox */
+  .rowcb{display:inline-flex;align-items:center;cursor:pointer}
+  .rowcb input{position:absolute;opacity:0;width:0;height:0}
+  .rowcb .cbbox{width:18px;height:18px;border:1.6px solid #c3c8d0;border-radius:5px;display:flex;align-items:center;justify-content:center;color:#fff;transition:.12s}
+  .rowcb .cbbox .icon{width:13px;height:13px;stroke-width:2.8}
+  .rowcb.on .cbbox{background:var(--brand);border-color:var(--brand)}
+  .rowcb:hover .cbbox{border-color:var(--brand)}
+  tbody tr.row-selected{background:var(--brand-soft) !important}
+  /* bulk action bar */
+  .bulkbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--ink);color:#fff;border-radius:10px;padding:9px 12px;margin-bottom:12px;box-shadow:var(--shadow);animation:bbIn .18s ease}
+  @keyframes bbIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+  .bb-count{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700}
+  .bb-count .icon{width:15px;height:15px;color:#4ade80}
+  .bb-sep{width:1px;height:20px;background:rgba(255,255,255,.2)}
+  .bb-act{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 11px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#fff;border-radius:7px;font-size:12.5px;font-weight:500}
+  .bb-act:hover{background:rgba(255,255,255,.18)}
+  .bb-act .icon{width:14px;height:14px}
+  .bb-act.danger{border-color:rgba(224,72,59,.5);background:rgba(224,72,59,.22)}
+  .bb-act.danger:hover{background:rgba(224,72,59,.4)}
+  .bb-clear{border:0;background:transparent;color:#cbd5e1;font-size:12.5px;font-weight:600;cursor:pointer;margin-left:auto}
+  .bb-clear:hover{color:#fff;text-decoration:underline}
 
   /* Buttons */
   .btn{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 13px;border:1px solid var(--line);background:var(--panel);border-radius:8px;font-size:13px;font-weight:500;color:var(--ink)}
@@ -157,7 +181,7 @@
   .modal-head .x{margin-left:auto;width:30px;height:30px;border:0;background:transparent;color:var(--muted);border-radius:7px;display:flex;align-items:center;justify-content:center}
   .modal-head .x:hover{background:#f0f1f3;color:var(--ink)}
   .modal-body{padding:18px 20px;overflow:auto}
-  .modal-foot{padding:14px 20px;border-top:1px solid var(--line);display:flex;gap:10px;justify-content:flex-end;background:#fafbfc}
+  .modal-foot{padding:14px 20px;border-top:1px solid var(--line);display:flex;gap:10px;justify-content:flex-end;background:#fafbfc;align-items:center}
 
   .field{margin-bottom:14px}
   .field label{display:block;font-size:12px;font-weight:600;color:var(--ink);margin-bottom:6px}
@@ -168,7 +192,6 @@
   .input:focus,.select:focus,textarea:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(47,111,237,.12)}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 
-  /* type toggle */
   .toggle{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .toggle .opt{border:1.5px solid var(--line);border-radius:10px;padding:12px;cursor:pointer;display:flex;gap:10px;align-items:flex-start}
   .toggle .opt:hover{border-color:#cfd6e4}
@@ -178,12 +201,16 @@
   .toggle .opt .t{font-weight:600;font-size:13px}
   .toggle .opt .d{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.35}
 
-  /* org tokens */
-  .orgbox{border:1px solid var(--line);border-radius:8px;padding:8px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-height:40px}
-  .orgbox input{border:0;outline:none;flex:1;min-width:120px;height:26px;font-size:13px;font-family:inherit}
+  /* token multi-input */
+  .tokbox{border:1px solid var(--line);border-radius:8px;padding:7px 8px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-height:40px}
+  .tokbox:focus-within{border-color:var(--brand);box-shadow:0 0 0 3px rgba(47,111,237,.12)}
+  .tokbox input{border:0;outline:none;flex:1;min-width:120px;height:26px;font-size:13px;font-family:inherit;background:transparent}
   .token{display:inline-flex;align-items:center;gap:6px;background:var(--brand-soft);color:var(--brand);border-radius:6px;padding:3px 6px 3px 9px;font-size:12px;font-weight:600}
-  .token button{border:0;background:transparent;color:var(--brand);cursor:pointer;display:flex;padding:0;line-height:0}
+  .token.org{background:#e4f6ef;color:var(--manual)}
+  .token button{border:0;background:transparent;color:inherit;cursor:pointer;display:flex;padding:0;line-height:0}
   .token button:hover{color:var(--danger)}
+  .combo-note{font-size:12px;color:var(--muted);margin-right:auto}
+  .combo-note b{color:var(--brand)}
 
   /* directories modal */
   .dir-layout{display:flex;min-height:360px}
@@ -225,28 +252,22 @@
   .tl-fields .f.chg .fv{color:var(--brand);font-weight:600}
   .hist-empty{color:var(--muted);text-align:center;padding:26px 10px;font-size:13px}
 
-  /* list view */
+  /* list view + sortable headers */
   .list-filters{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
   .lv-select{width:auto;min-width:150px}
-  /* sortable headers */
   th.th-sort{cursor:pointer;user-select:none;white-space:nowrap}
   th.th-sort:hover{background:#f0f2f5;color:var(--ink)}
   th.th-sort.active{color:var(--brand)}
   th.th-sort .tha{color:var(--brand);font-size:10px}
-  /* sidebar controls */
-  .side-controls{margin-top:10px;padding:10px;background:var(--bg);border:1px solid var(--line);border-radius:9px;display:flex;flex-direction:column;gap:8px}
-  .sc-row{display:flex;align-items:center;gap:8px}
-  .sc-row label{font-size:11px;font-weight:600;color:var(--muted);width:42px;flex:0 0 auto}
-  .sc-sel{flex:1;height:30px;font-size:12px;padding:0 8px;min-width:0}
-  .sc-dir{width:30px;height:30px;flex:0 0 auto;border:1px solid var(--line);background:var(--panel);border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--brand)}
-  .sc-dir:hover{background:#f0f2f5}
-  .sc-dir .icon{width:14px;height:14px}
-  .sc-clear{border:0;background:transparent;color:var(--brand);font-size:12px;font-weight:600;cursor:pointer;padding:2px;text-align:left}
-  .sc-clear:hover{text-decoration:underline}
   .keycode{font-family:"Consolas",ui-monospace,monospace;font-size:12px;background:#f1f3f6;border:1px solid var(--line);border-radius:5px;padding:2px 7px;color:var(--ink);white-space:nowrap}
   .lv-val{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;white-space:nowrap}
   .lv-val.on{color:var(--manual)}
   .lv-val.on .icon{width:13px;height:13px;stroke-width:2.6}
+  .lv-status{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;white-space:nowrap}
+  .lv-status .dot{width:8px;height:8px;border-radius:50%;flex:0 0 auto}
+  .lv-status.on{color:var(--manual)} .lv-status.on .dot{background:var(--manual)}
+  .lv-status.off{color:var(--muted)} .lv-status.off .dot{background:#c3c8d0}
+  .lv-status-date{font-size:10px;color:var(--muted);font-weight:400}
 
   /* about */
   .ab-hero{display:flex;align-items:center;gap:14px;margin-bottom:14px}
@@ -278,36 +299,22 @@
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
   .toast .icon{color:#4ade80}
 
-  /* ============================================================
-     RESPONSIVE  ·  tablet & mobile
-     ============================================================ */
-
-  /* Tablet & down: narrower sidebar, icon-only topbar buttons */
+  /* ===================== RESPONSIVE ===================== */
   @media (max-width:1080px){
     .tbtn{font-size:0;gap:0;padding:0 11px}
     .tbtn .icon{width:17px;height:17px}
     .sidebar{width:300px;flex-basis:300px}
     .main{padding:20px 20px}
   }
-
-  /* Below 900px: sidebar becomes an off-canvas drawer */
   @media (max-width:900px){
     .menu-toggle{display:flex}
     .layout{position:relative}
-    .sidebar{
-      position:fixed;top:56px;left:0;bottom:0;z-index:39;
-      width:320px;max-width:86vw;flex-basis:auto;
-      transform:translateX(-100%);
-      box-shadow:0 12px 40px rgba(0,0,0,.18);
-    }
+    .sidebar{position:fixed;top:56px;left:0;bottom:0;z-index:39;width:320px;max-width:86vw;flex-basis:auto;transform:translateX(-100%);box-shadow:0 12px 40px rgba(0,0,0,.18)}
     .sidebar.open{transform:translateX(0)}
     .main{width:100%}
-    /* tables scroll horizontally instead of crushing */
     .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
     .table-wrap table{min-width:720px}
   }
-
-  /* Phones */
   @media (max-width:640px){
     .topbar{gap:8px;padding:0 12px}
     .brand{font-size:14px}
@@ -317,20 +324,18 @@
     .detail-head .btn{flex:1 1 auto;justify-content:center}
     .cards{grid-template-columns:repeat(2,1fr);gap:10px}
     .card .v{font-size:19px}
-    /* filter bars stack full width */
     .list-filters{gap:8px}
     .list-filters .search{max-width:none;width:100%;flex:1 1 100%}
     .lv-select{flex:1 1 calc(50% - 5px);min-width:0}
     .list-filters .chip{margin-left:0 !important}
-    /* modals go near-fullscreen */
     .overlay{padding:0;align-items:flex-end}
     .modal,.modal.wide{max-width:100%;width:100%;max-height:94vh;border-radius:16px 16px 0 0}
     .modal-body{padding:16px}
     .modal-foot{flex-wrap:wrap}
     .modal-foot .btn{flex:1 1 auto;justify-content:center}
+    .combo-note{width:100%;margin-bottom:6px}
     .grid2{grid-template-columns:1fr}
     .toggle{grid-template-columns:1fr}
-    /* directories: stack categories on top */
     .dir-layout{flex-direction:column;min-height:0}
     .dir-cats{width:auto;border-right:0;border-bottom:1px solid var(--line);padding:0 0 10px;flex-direction:row;flex-wrap:wrap;gap:6px}
     .dir-cat{width:auto}
@@ -338,19 +343,14 @@
     .dir-entries{padding-left:0;padding-top:12px}
     .dir-list{max-height:46vh}
     .dir-add{flex-wrap:wrap}
-    /* about panel */
     .ab-stats{grid-template-columns:repeat(2,1fr)}
     .ab-feats{grid-template-columns:1fr}
     .ab-kv>div{flex-direction:column;gap:2px}
     .ab-kv>div span{flex-basis:auto}
-    /* version history timeline fields */
     .tl-fields{grid-template-columns:1fr 1fr}
     .hist-meta{gap:12px}
-    /* sidebar controls stack */
     .sc-row label{width:38px}
   }
-
-  /* Small phones */
   @media (max-width:400px){
     .brand-text{display:none}
     .cards{grid-template-columns:1fr 1fr}
@@ -358,16 +358,8 @@
     .tl-fields{grid-template-columns:1fr}
     .ab-stats{grid-template-columns:1fr 1fr}
   }
-
-  /* Landscape / short screens: keep modals scrollable */
-  @media (max-height:520px){
-    .modal,.modal.wide{max-height:96vh}
-  }
-
-  /* Larger desktops: let the workspace breathe */
-  @media (min-width:1600px){
-    .main{padding:26px 40px}
-  }
+  @media (max-height:520px){ .modal,.modal.wide{max-height:96vh} }
+  @media (min-width:1600px){ .main{padding:26px 40px} }
 </style>
 </head>
 <body>
@@ -377,9 +369,7 @@
     <svg class="icon" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
   </button>
   <div class="brand">
-    <span class="mark">
-      <svg class="icon" viewBox="0 0 24 24"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>
-    </span>
+    <span class="mark"><svg class="icon" viewBox="0 0 24 24"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></span>
     <span class="brand-text">Verint Mapping Manager</span>
   </div>
   <div class="spacer"></div>
@@ -402,12 +392,8 @@
           <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg>
           <input id="searchInput" placeholder="Search worktypes, orgs, queues…" />
         </div>
-        <button class="addfn" id="btnAddFunction" title="Add Function">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-        </button>
-        <button class="addfn side-filter-btn" id="btnSideFilter" title="Filter &amp; sort" style="background:var(--panel);border-color:var(--line);color:var(--muted)">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M3 5h18M6 12h12M10 19h4"/></svg>
-        </button>
+        <button class="addfn" id="btnAddFunction" title="Add Function"><svg class="icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+        <button class="addfn" id="btnSideFilter" title="Filter &amp; sort" style="background:var(--panel);border-color:var(--line);color:var(--muted)"><svg class="icon" viewBox="0 0 24 24"><path d="M3 5h18M6 12h12M10 19h4"/></svg></button>
       </div>
       <div class="side-controls" id="sideControls" style="display:none">
         <div class="sc-row">
@@ -419,7 +405,7 @@
             <option value="mappings">Mapping count</option>
             <option value="validated">Validated count</option>
           </select>
-          <button class="sc-dir" id="scDir" title="Toggle direction">${''}</button>
+          <button class="sc-dir" id="scDir" title="Toggle direction"></button>
         </div>
         <div class="sc-row">
           <label>Type</label>
@@ -452,34 +438,25 @@
       </div>
     </div>
   </aside>
-
   <main class="main" id="main"></main>
 </div>
 
-<!-- Generic entity modal (function / sub-function / worktype) -->
+<!-- Entity modal -->
 <div class="overlay" id="entityOverlay">
   <div class="modal">
-    <div class="modal-head">
-      <h3 id="entityTitle">Add</h3>
-      <button class="x" data-close="entity"><svg class="icon" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-    </div>
+    <div class="modal-head"><h3 id="entityTitle">Add</h3><button class="x" data-close="entity"><svg class="icon" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
     <div class="modal-body" id="entityBody"></div>
-    <div class="modal-foot">
-      <button class="btn" data-close="entity">Cancel</button>
-      <button class="btn primary" id="entitySave">Save</button>
-    </div>
+    <div class="modal-foot"><button class="btn" data-close="entity">Cancel</button><button class="btn primary" id="entitySave">Save</button></div>
   </div>
 </div>
 
 <!-- Mapping modal -->
 <div class="overlay" id="mapOverlay">
   <div class="modal wide">
-    <div class="modal-head">
-      <h3 id="mapTitle">Add Mapping</h3>
-      <button class="x" data-close="map"><svg class="icon" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-    </div>
+    <div class="modal-head"><h3 id="mapTitle">Add Mapping</h3><button class="x" data-close="map"><svg class="icon" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
     <div class="modal-body" id="mapBody"></div>
     <div class="modal-foot">
+      <span class="combo-note" id="comboNote"></span>
       <button class="btn" data-close="map">Cancel</button>
       <button class="btn primary" id="mapSave">Save mapping</button>
     </div>
@@ -489,42 +466,27 @@
 <!-- Directories modal -->
 <div class="overlay" id="dirOverlay">
   <div class="modal wide">
-    <div class="modal-head">
-      <h3>Directories <span class="hint" style="font-weight:400;color:var(--muted)">— master values used for autocomplete</span></h3>
-      <button class="x" data-close="dir"><svg class="icon" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-    </div>
+    <div class="modal-head"><h3>Directories <span class="hint" style="font-weight:400;color:var(--muted)">— master values used for autocomplete</span></h3><button class="x" data-close="dir"><svg class="icon" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
     <div class="modal-body" id="dirBody"></div>
-    <div class="modal-foot">
-      <button class="btn primary" data-close="dir">Done</button>
-    </div>
+    <div class="modal-foot"><button class="btn primary" data-close="dir">Done</button></div>
   </div>
 </div>
 
-<!-- Version history modal -->
+<!-- History modal -->
 <div class="overlay" id="histOverlay">
   <div class="modal wide">
-    <div class="modal-head">
-      <h3 id="histTitle">Version History</h3>
-      <button class="x" data-close="hist"><svg class="icon" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-    </div>
+    <div class="modal-head"><h3 id="histTitle">Version History</h3><button class="x" data-close="hist"><svg class="icon" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
     <div class="modal-body" id="histBody"></div>
-    <div class="modal-foot">
-      <button class="btn primary" data-close="hist">Close</button>
-    </div>
+    <div class="modal-foot"><button class="btn primary" data-close="hist">Close</button></div>
   </div>
 </div>
 
-<!-- About / App information modal -->
+<!-- About modal -->
 <div class="overlay" id="aboutOverlay">
   <div class="modal wide">
-    <div class="modal-head">
-      <h3>App Information</h3>
-      <button class="x" data-close="about"><svg class="icon" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-    </div>
+    <div class="modal-head"><h3>App Information</h3><button class="x" data-close="about"><svg class="icon" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
     <div class="modal-body" id="aboutBody"></div>
-    <div class="modal-foot">
-      <button class="btn primary" data-close="about">Close</button>
-    </div>
+    <div class="modal-foot"><button class="btn primary" data-close="about">Close</button></div>
   </div>
 </div>
 
@@ -533,1347 +495,548 @@
 
 <script>
 /* ============================================================
-   Verint Mapping Manager
-   Single-file · localStorage + IndexedDB · Directories + autocomplete
-   Inline row editing · JSON/CSV I/O
+   Verint Mapping Manager — single file
+   localStorage + IndexedDB · directories/autocomplete · inline edit
+   change history · validation · list view · filter/sort · responsive
+   NEW: multi-select AWD (Business Area/Worktype/Status/Org) -> row expansion
    ============================================================ */
-
-const LS_KEY = "verint_mapping_manager_v2";
-const IDB_NAME = "VerintMappingDB";
-const IDB_STORE = "state";
-
-const DIR_CATS = [
-  {key:"businessArea", label:"Business Area"},
-  {key:"worktype",     label:"Worktype"},
-  {key:"status",       label:"Status"},
-  {key:"organization", label:"Organization Name"},
-  {key:"manualQueue",  label:"Manual Verint Queue"},
-  {key:"source",       label:"Source Name"}
+const LS_KEY="verint_mapping_manager_v3";
+const IDB_NAME="VerintMappingDB", IDB_STORE="state";
+const DIR_CATS=[
+  {key:"businessArea",label:"Business Area"},
+  {key:"worktype",label:"Worktype"},
+  {key:"status",label:"Status"},
+  {key:"organization",label:"Organization Name"},
+  {key:"manualQueue",label:"Manual Verint Queue"},
+  {key:"source",label:"Source Name"}
 ];
-const DIR_KEYS = DIR_CATS.map(c=>c.key);
+const DIR_KEYS=DIR_CATS.map(c=>c.key);
 
-/* ---------- State ---------- */
-let state = { functions: [], directories: {} };
-let selection = { worktypeId: null };
-let searchTerm = "";
-let viewMode = "detail";         // "detail" | "list"
-let listFilters = { text:"", type:"", validated:"" };
-let listSort = { key:"function", dir:"asc" };
-let sidebarSort = { key:"custom", dir:"asc", type:"", validated:"" };
-let detailFilter = { text:"", validated:"", org:"" };
-let detailSort = { key:"", dir:"asc" };
-let editingMapId = null;         // inline table edit
-let inlineOrgs = [];             // (reserved) not used for inline; orgs edited as comma list
-const expanded = new Set();
+let state={functions:[],directories:{}};
+let selection={worktypeId:null};
+let searchTerm="";
+let viewMode="detail";
+let listFilters={text:"",type:"",validated:"",active:""};
+let listSort={key:"function",dir:"asc"};
+let sidebarSort={key:"custom",dir:"asc",type:"",validated:""};
+let detailFilter={text:"",validated:"",org:"",active:""};
+let detailSort={key:"",dir:"asc"};
+let editingMapId=null;
+let selectedIds=new Set();   // bulk selection (mapping ids in current worktype)
+const expanded=new Set();
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
 
-const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+/* ---------- persistence ---------- */
+function idbOpen(){return new Promise((res,rej)=>{const r=indexedDB.open(IDB_NAME,1);r.onupgradeneeded=()=>r.result.createObjectStore(IDB_STORE);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);});}
+async function idbSave(d){try{const db=await idbOpen();db.transaction(IDB_STORE,"readwrite").objectStore(IDB_STORE).put(d,"current");}catch(e){}}
+async function idbLoad(){try{const db=await idbOpen();return await new Promise(res=>{const g=db.transaction(IDB_STORE,"readonly").objectStore(IDB_STORE).get("current");g.onsuccess=()=>res(g.result||null);g.onerror=()=>res(null);});}catch(e){return null;}}
+function save(){try{localStorage.setItem(LS_KEY,JSON.stringify(state));}catch(e){}idbSave(state);}
+async function load(){let d=null;try{const raw=localStorage.getItem(LS_KEY);if(raw)d=JSON.parse(raw);}catch(e){}if(!d)d=await idbLoad();if(d&&d.functions)state=d;ensureDirectories();}
+function ensureDirectories(){if(!state.directories||typeof state.directories!=="object")state.directories={};DIR_KEYS.forEach(k=>{if(!Array.isArray(state.directories[k]))state.directories[k]=[];});migrateActive();}
+/* backward-compat: any existing mapping without an active flag defaults to Active, dated from its creation */
+function migrateActive(){allWorktypes().forEach(({wt})=>(wt.mappings||[]).forEach(m=>{if(m.active===undefined){m.active=true;const t=m.createdAt||nowISO();if(!m.activeSince)m.activeSince=t;if(!m.statusChangedAt)m.statusChangedAt=t;}}));}
 
-/* ---------- Persistence ---------- */
-function idbOpen(){
-  return new Promise((res, rej) => {
-    const r = indexedDB.open(IDB_NAME, 1);
-    r.onupgradeneeded = () => r.result.createObjectStore(IDB_STORE);
-    r.onsuccess = () => res(r.result);
-    r.onerror = () => rej(r.error);
-  });
-}
-async function idbSave(data){
-  try{ const db=await idbOpen(); const tx=db.transaction(IDB_STORE,"readwrite"); tx.objectStore(IDB_STORE).put(data,"current"); }catch(e){}
-}
-async function idbLoad(){
-  try{ const db=await idbOpen();
-    return await new Promise(res=>{ const tx=db.transaction(IDB_STORE,"readonly"); const g=tx.objectStore(IDB_STORE).get("current"); g.onsuccess=()=>res(g.result||null); g.onerror=()=>res(null); });
-  }catch(e){ return null; }
-}
-function save(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(state)); }catch(e){} idbSave(state); }
-async function load(){
-  let data=null;
-  try{ const raw=localStorage.getItem(LS_KEY); if(raw) data=JSON.parse(raw); }catch(e){}
-  if(!data){ data=await idbLoad(); }
-  if(data && data.functions){ state=data; }
-  ensureDirectories();
-}
-function ensureDirectories(){
-  if(!state.directories||typeof state.directories!=="object") state.directories={};
-  DIR_KEYS.forEach(k=>{ if(!Array.isArray(state.directories[k])) state.directories[k]=[]; });
-}
+/* ---------- traversal ---------- */
+function allWorktypes(){const o=[];state.functions.forEach(fn=>(fn.subFunctions||[]).forEach(sf=>(sf.worktypes||[]).forEach(wt=>o.push({fn,sf,wt}))));return o;}
+function findWorktype(id){for(const fn of state.functions)for(const sf of(fn.subFunctions||[]))for(const wt of(sf.worktypes||[]))if(wt.id===id)return{fn,sf,wt};return null;}
+function orgCount(wt){const s=new Set();(wt.mappings||[]).forEach(m=>(m.organizations||[]).forEach(o=>s.add(o.toLowerCase())));return s.size;}
 
-/* ---------- Traversal helpers ---------- */
-function allWorktypes(){
-  const out=[];
-  state.functions.forEach(fn=>(fn.subFunctions||[]).forEach(sf=>
-    (sf.worktypes||[]).forEach(wt=>out.push({fn,sf,wt}))));
-  return out;
-}
-function findWorktype(id){
-  for(const fn of state.functions)
-    for(const sf of (fn.subFunctions||[]))
-      for(const wt of (sf.worktypes||[]))
-        if(wt.id===id) return {fn,sf,wt};
-  return null;
-}
-function orgCount(wt){
-  const s=new Set();
-  (wt.mappings||[]).forEach(m=>(m.organizations||[]).forEach(o=>s.add(o.toLowerCase())));
-  return s.size;
-}
+/* ---------- sort helpers ---------- */
+function cmp(a,b){if(a==null)a="";if(b==null)b="";if(typeof a==="number"&&typeof b==="number")return a-b;const na=parseFloat(a),nb=parseFloat(b);if(!isNaN(na)&&!isNaN(nb)&&String(a).trim()!==""&&String(b).trim()!==""&&/^[\d.\-]+$/.test(String(a))&&/^[\d.\-]+$/.test(String(b)))return na-nb;return String(a).toLowerCase().localeCompare(String(b).toLowerCase());}
+function sortBy(arr,keyFn,dir){const s=[...arr].sort((x,y)=>cmp(keyFn(x),keyFn(y)));if(dir==="desc")s.reverse();return s;}
+function mapSortVal(m,wt,key){switch(key){case"businessArea":return m.businessArea||"";case"worktype":return m.worktype||"";case"status":return m.status||"";case"manualQueue":return m.manualQueue||"";case"key":return awdManualKey(wt.type,m);case"organizations":return(m.organizations||[]).join(", ");case"source":return m.source||"";case"remarks":return m.remarks||"";case"validated":return m.validated?1:0;case"validatedAt":return m.validatedAt||"";case"active":return (m.active!==false)?1:0;case"statusChangedAt":return m.statusChangedAt||"";case"version":return m.version||1;case"createdAt":return m.createdAt||"";case"modifiedAt":return m.modifiedAt||m.createdAt||"";default:return"";}}
 
-/* ---------- Generic comparison for sorting ---------- */
-function cmp(a,b){
-  if(a==null) a=""; if(b==null) b="";
-  // numeric compare when both look numeric
-  const na=parseFloat(a), nb=parseFloat(b);
-  if(typeof a==="number"&&typeof b==="number") return a-b;
-  if(!isNaN(na)&&!isNaN(nb)&&String(a).trim()!==""&&String(b).trim()!==""&&/^[\d.\-]+$/.test(String(a))&&/^[\d.\-]+$/.test(String(b))) return na-nb;
-  return String(a).toLowerCase().localeCompare(String(b).toLowerCase());
-}
-function sortBy(arr, keyFn, dir){
-  const s=[...arr].sort((x,y)=>cmp(keyFn(x),keyFn(y)));
-  if(dir==="desc") s.reverse();
-  return s;
-}
-/* value extractor for a mapping given a sort key */
-function mapSortVal(m, wt, key){
-  switch(key){
-    case "businessArea": return m.businessArea||"";
-    case "worktype":     return m.worktype||"";
-    case "status":       return m.status||"";
-    case "manualQueue":  return m.manualQueue||"";
-    case "key":          return awdManualKey(wt.type,m);
-    case "organizations":return (m.organizations||[]).join(", ");
-    case "source":       return m.source||"";
-    case "remarks":      return m.remarks||"";
-    case "validated":    return m.validated?1:0;
-    case "validatedAt":  return m.validatedAt||"";
-    case "version":      return m.version||1;
-    case "createdAt":    return m.createdAt||"";
-    case "modifiedAt":   return m.modifiedAt||m.createdAt||"";
-    default: return "";
-  }
-}
+/* ---------- suggestions ---------- */
+function suggestions(kind){const set=new Set(state.directories[kind]||[]);allWorktypes().forEach(({wt})=>(wt.mappings||[]).forEach(m=>{if(kind==="businessArea"&&m.businessArea)set.add(m.businessArea);if(kind==="worktype"&&m.worktype)set.add(m.worktype);if(kind==="status"&&m.status)set.add(m.status);if(kind==="manualQueue"&&m.manualQueue)set.add(m.manualQueue);if(kind==="source"&&m.source)set.add(m.source);if(kind==="organization")(m.organizations||[]).forEach(o=>set.add(o));}));return[...set].filter(Boolean).sort((a,b)=>a.localeCompare(b));}
+function pushUniq(arr,v){v=(v||"").trim();if(v&&!arr.some(x=>x.toLowerCase()===v.toLowerCase()))arr.push(v);}
+function parseBulkValues(raw){const out=[];(raw||"").split(/[\r\n,;\t]+/).forEach(v=>{v=v.trim();if(v&&!out.some(x=>x.toLowerCase()===v.toLowerCase()))out.push(v);});return out;}
+function learn(rec){const d=state.directories;pushUniq(d.businessArea,rec.businessArea);pushUniq(d.worktype,rec.worktype);pushUniq(d.status,rec.status);pushUniq(d.manualQueue,rec.manualQueue);pushUniq(d.source,rec.source);(rec.organizations||[]).forEach(o=>pushUniq(d.organization,o));}
+function renderDatalists(){document.getElementById("datalists").innerHTML=DIR_KEYS.map(k=>`<datalist id="dl_${k}">`+suggestions(k).map(v=>`<option value="${esc(v)}"></option>`).join("")+`</datalist>`).join("");}
 
-/* ---------- Suggestions (directory + values already in use) ---------- */
-function suggestions(kind){
-  const set=new Set((state.directories[kind]||[]));
-  allWorktypes().forEach(({wt})=>(wt.mappings||[]).forEach(m=>{
-    if(kind==="businessArea"&&m.businessArea) set.add(m.businessArea);
-    if(kind==="worktype"&&m.worktype)         set.add(m.worktype);
-    if(kind==="status"&&m.status)             set.add(m.status);
-    if(kind==="manualQueue"&&m.manualQueue)   set.add(m.manualQueue);
-    if(kind==="source"&&m.source)             set.add(m.source);
-    if(kind==="organization") (m.organizations||[]).forEach(o=>set.add(o));
-  }));
-  return [...set].filter(Boolean).sort((a,b)=>a.localeCompare(b));
-}
-function pushUniq(arr,v){ v=(v||"").trim(); if(v && !arr.some(x=>x.toLowerCase()===v.toLowerCase())) arr.push(v); }
-/* Split pasted/imported text on newlines, commas, tabs, semicolons; trim; de-dupe within the paste */
-function parseBulkValues(raw){
-  const out=[];
-  (raw||"").split(/[\r\n,;\t]+/).forEach(v=>{
-    v=v.trim();
-    if(v && !out.some(x=>x.toLowerCase()===v.toLowerCase())) out.push(v);
-  });
-  return out;
-}
-function learn(rec){
-  const d=state.directories;
-  pushUniq(d.businessArea, rec.businessArea);
-  pushUniq(d.worktype,     rec.worktype);
-  pushUniq(d.status,       rec.status);
-  pushUniq(d.manualQueue,  rec.manualQueue);
-  pushUniq(d.source,       rec.source);
-  (rec.organizations||[]).forEach(o=>pushUniq(d.organization,o));
-}
-function renderDatalists(){
-  document.getElementById("datalists").innerHTML =
-    DIR_KEYS.map(k=>`<datalist id="dl_${k}">`+suggestions(k).map(v=>`<option value="${esc(v)}"></option>`).join("")+`</datalist>`).join("");
-}
+/* ---------- change tracking ---------- */
+function nowISO(){return new Date().toISOString();}
+function fmtDate(iso){if(!iso)return"—";const d=new Date(iso);if(isNaN(d))return"—";const p=n=>String(n).padStart(2,"0");return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+" "+p(d.getHours())+":"+p(d.getMinutes());}
+function fmtDateShort(iso){if(!iso)return"—";const d=new Date(iso);if(isNaN(d))return"—";const p=n=>String(n).padStart(2,"0");return p(d.getMonth()+1)+"/"+p(d.getDate())+"/"+String(d.getFullYear()).slice(2)+" "+p(d.getHours())+":"+p(d.getMinutes());}
+function snapshotFields(m){return{manualQueue:m.manualQueue||"",businessArea:m.businessArea||"",worktype:m.worktype||"",status:m.status||"",organizations:[...(m.organizations||[])],source:m.source||"",remarks:m.remarks||""};}
+function sameFields(a,b){return a.manualQueue===b.manualQueue&&a.businessArea===b.businessArea&&a.worktype===b.worktype&&a.status===b.status&&a.source===b.source&&a.remarks===b.remarks&&(a.organizations||[]).join("|").toLowerCase()===(b.organizations||[]).join("|").toLowerCase();}
+function stampNew(rec){const t=nowISO();rec.createdAt=t;rec.modifiedAt=t;rec.version=1;rec.history=[];rec.active=true;rec.activeSince=t;rec.statusChangedAt=t;return rec;}
+function stampEdit(m,before){if(!m.createdAt)m.createdAt=nowISO();const after=snapshotFields(m);if(!sameFields(before,after)){m.history=m.history||[];m.history.push({version:m.version||1,savedAt:m.modifiedAt||m.createdAt,fields:before});m.version=(m.version||1)+1;m.modifiedAt=nowISO();return true;}if(!m.modifiedAt)m.modifiedAt=m.createdAt;return false;}
 
-/* ============================================================
-   Icons
-   ============================================================ */
-function svg(path,cls){ return `<svg class="icon ${cls||''}" viewBox="0 0 24 24">${path}</svg>`; }
+/* ---------- combined key ---------- */
+function awdManualKey(type,m){if(type==="manual")return(m.manualQueue||"").trim();return[m.businessArea,m.worktype,m.status].map(v=>(v||"").trim()).join("_");}
+
+/* ============================================================ icons */
+function svg(path,cls){return `<svg class="icon ${cls||''}" viewBox="0 0 24 24">${path}</svg>`;}
 const IC={
-  caret:'<path d="M9 6l6 6-6 6"/>',
-  folder:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
-  layers:'<path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="M3 13l9 5 9-5"/>',
-  doc:'<path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/>',
-  edit:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
-  del:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',
-  plus:'<path d="M12 5v14M5 12h14"/>',
-  check:'<path d="M20 6 9 17l-5-5"/>',
-  x:'<path d="M6 6l12 12M18 6L6 18"/>',
+  caret:'<path d="M9 6l6 6-6 6"/>',folder:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+  layers:'<path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="M3 13l9 5 9-5"/>',doc:'<path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/>',
+  edit:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>',del:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>',check:'<path d="M20 6 9 17l-5-5"/>',x:'<path d="M6 6l12 12M18 6L6 18"/>',
   db:'<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>',
-  list:'<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',
-  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  list:'<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
   restore:'<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 8v4l3 2"/>'
 };
+function esc(s){return(s==null?'':String(s)).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 
-/* ============================================================
-   RENDER: Sidebar tree
-   ============================================================ */
+/* ============================================================ TREE */
 function renderTree(){
-  const tree=document.getElementById("tree");
-  const stats=document.getElementById("sideStats");
-  const wts=allWorktypes();
-  const totalMaps=wts.reduce((a,x)=>a+(x.wt.mappings?.length||0),0);
-  stats.innerHTML=
-    `<span class="chip">${state.functions.length} Functions</span>`+
-    `<span class="chip">${wts.length} Worktypes</span>`+
-    `<span class="chip">${totalMaps} Mappings</span>`;
-
-  if(state.functions.length===0){
-    tree.innerHTML=`<div style="padding:24px 12px;color:var(--muted);text-align:center;line-height:1.6">
-      ${svg(IC.folder)}<div style="margin-top:8px">No functions yet.</div>
-      <div style="font-size:12px">Click the <b>+</b> button to add your first Function.</div></div>`;
-    return;
-  }
-
-  const q=searchTerm.trim().toLowerCase();
-  const F=sidebarSort;
-  const hasFilter = !!q || F.type || F.validated;
-
-  const wtValState=(wt)=>{
-    const ms=wt.mappings||[]; if(ms.length===0) return "none";
-    const v=ms.filter(m=>m.validated).length;
-    if(v===0) return "none"; if(v===ms.length) return "full"; return "partial";
-  };
-  const match=(wt)=>{
-    if(F.type && wt.type!==F.type) return false;
-    if(F.validated && wtValState(wt)!==F.validated) return false;
-    if(!q) return true;
-    if(wt.name.toLowerCase().includes(q)) return true;
-    return (wt.mappings||[]).some(m=>
-      [m.manualQueue,m.businessArea,m.worktype,m.status,m.source,m.remarks,(m.organizations||[]).join(" ")]
-      .filter(Boolean).some(v=>v.toLowerCase().includes(q)));
-  };
-  const sortWts=(list)=>{
-    if(F.key==="custom") return list;
-    const keyFn=(wt)=>{
-      if(F.key==="name") return wt.name||"";
-      if(F.key==="type") return wt.type||"";
-      if(F.key==="mappings") return (wt.mappings||[]).length;
-      if(F.key==="validated") return (wt.mappings||[]).filter(m=>m.validated).length;
-      return wt.name||"";
-    };
-    return sortBy(list, keyFn, F.dir);
-  };
-
+  const tree=document.getElementById("tree"),stats=document.getElementById("sideStats");
+  const wts=allWorktypes();const totalMaps=wts.reduce((a,x)=>a+(x.wt.mappings?.length||0),0);
+  stats.innerHTML=`<span class="chip">${state.functions.length} Functions</span><span class="chip">${wts.length} Worktypes</span><span class="chip">${totalMaps} Mappings</span>`;
+  if(state.functions.length===0){tree.innerHTML=`<div style="padding:24px 12px;color:var(--muted);text-align:center;line-height:1.6">${svg(IC.folder)}<div style="margin-top:8px">No functions yet.</div><div style="font-size:12px">Click the <b>+</b> button to add your first Function.</div></div>`;return;}
+  const q=searchTerm.trim().toLowerCase();const F=sidebarSort;const hasFilter=!!q||F.type||F.validated;
+  const wtValState=(wt)=>{const ms=wt.mappings||[];if(ms.length===0)return"none";const v=ms.filter(m=>m.validated).length;if(v===0)return"none";if(v===ms.length)return"full";return"partial";};
+  const match=(wt)=>{if(F.type&&wt.type!==F.type)return false;if(F.validated&&wtValState(wt)!==F.validated)return false;if(!q)return true;if(wt.name.toLowerCase().includes(q))return true;return(wt.mappings||[]).some(m=>[m.manualQueue,m.businessArea,m.worktype,m.status,m.source,m.remarks,(m.organizations||[]).join(" ")].filter(Boolean).some(v=>v.toLowerCase().includes(q)));};
+  const sortWts=(list)=>{if(F.key==="custom")return list;const keyFn=(wt)=>F.key==="name"?wt.name||"":F.key==="type"?wt.type||"":F.key==="mappings"?(wt.mappings||[]).length:F.key==="validated"?(wt.mappings||[]).filter(m=>m.validated).length:wt.name||"";return sortBy(list,keyFn,F.dir);};
   let html="";
   state.functions.forEach(fn=>{
-    const fnOpen=expanded.has(fn.id)||hasFilter;
-    const subs=fn.subFunctions||[];
+    const fnOpen=expanded.has(fn.id)||hasFilter;const subs=fn.subFunctions||[];
     const visSubs=subs.map(sf=>({sf,wtsV:sortWts((sf.worktypes||[]).filter(match))})).filter(x=>!hasFilter||x.wtsV.length);
-    if(hasFilter && visSubs.length===0) return;
-
-    html+=`<div class="node">
-      <div class="label" data-toggle="${fn.id}">
-        ${svg(IC.caret,'caret '+(fnOpen?'open':''))}${svg(IC.folder)}
-        <span class="name fn-name">${esc(fn.name)}</span>
-        <span class="cnt">${subs.length}</span>
-        <span class="rowactions">
-          <button class="minibtn" title="Add sub-function" data-act="addsf" data-fn="${fn.id}">${svg(IC.plus)}</button>
-          <button class="minibtn" title="Rename" data-act="editfn" data-fn="${fn.id}">${svg(IC.edit)}</button>
-          <button class="minibtn del" title="Delete" data-act="delfn" data-fn="${fn.id}">${svg(IC.del)}</button>
-        </span>
-      </div>`;
-    if(fnOpen){
-      html+=`<div class="children">`;
+    if(hasFilter&&visSubs.length===0)return;
+    html+=`<div class="node"><div class="label" data-toggle="${fn.id}">${svg(IC.caret,'caret '+(fnOpen?'open':''))}${svg(IC.folder)}<span class="name fn-name">${esc(fn.name)}</span><span class="cnt">${subs.length}</span><span class="rowactions"><button class="minibtn" title="Add sub-function" data-act="addsf" data-fn="${fn.id}">${svg(IC.plus)}</button><button class="minibtn" title="Rename" data-act="editfn" data-fn="${fn.id}">${svg(IC.edit)}</button><button class="minibtn del" title="Delete" data-act="delfn" data-fn="${fn.id}">${svg(IC.del)}</button></span></div>`;
+    if(fnOpen){html+=`<div class="children">`;
       (hasFilter?visSubs.map(x=>x.sf):subs).forEach(sf=>{
-        const sfOpen=expanded.has(sf.id)||hasFilter;
-        const wtsAll=sf.worktypes||[];
-        const wtsV=sortWts(hasFilter?wtsAll.filter(match):wtsAll);
-        html+=`<div class="node">
-          <div class="label" data-toggle="${sf.id}">
-            ${svg(IC.caret,'caret '+(sfOpen?'open':''))}${svg(IC.layers)}
-            <span class="name sf-name">${esc(sf.name)}</span>
-            <span class="cnt">${wtsAll.length}</span>
-            <span class="rowactions">
-              <button class="minibtn" title="Add worktype" data-act="addwt" data-sf="${sf.id}">${svg(IC.plus)}</button>
-              <button class="minibtn" title="Rename" data-act="editsf" data-sf="${sf.id}">${svg(IC.edit)}</button>
-              <button class="minibtn del" title="Delete" data-act="delsf" data-sf="${sf.id}">${svg(IC.del)}</button>
-            </span>
-          </div>`;
-        if(sfOpen){
-          html+=`<div class="children">`;
-          wtsV.forEach(wt=>{
-            const active=selection.worktypeId===wt.id?'active':'';
-            html+=`<div class="node">
-              <div class="label ${active}" data-select="${wt.id}">
-                <span class="caret hidden"></span>${svg(IC.doc)}
-                <span class="name">${esc(wt.name)}</span>
-                <span class="tag ${wt.type}">${wt.type}</span>
-                <span class="rowactions">
-                  <button class="minibtn" title="Edit" data-act="editwt" data-wt="${wt.id}">${svg(IC.edit)}</button>
-                  <button class="minibtn del" title="Delete" data-act="delwt" data-wt="${wt.id}">${svg(IC.del)}</button>
-                </span>
-              </div></div>`;
-          });
-          if(!hasFilter) html+=`<div class="addline" data-act="addwt" data-sf="${sf.id}">${svg(IC.plus)} Add worktype</div>`;
-          html+=`</div>`;
-        }
-        html+=`</div>`;
-      });
-      if(!hasFilter) html+=`<div class="addline" data-act="addsf" data-fn="${fn.id}">${svg(IC.plus)} Add sub-function</div>`;
-      html+=`</div>`;
-    }
+        const sfOpen=expanded.has(sf.id)||hasFilter;const wtsAll=sf.worktypes||[];const wtsV=sortWts(hasFilter?wtsAll.filter(match):wtsAll);
+        html+=`<div class="node"><div class="label" data-toggle="${sf.id}">${svg(IC.caret,'caret '+(sfOpen?'open':''))}${svg(IC.layers)}<span class="name sf-name">${esc(sf.name)}</span><span class="cnt">${wtsAll.length}</span><span class="rowactions"><button class="minibtn" title="Add worktype" data-act="addwt" data-sf="${sf.id}">${svg(IC.plus)}</button><button class="minibtn" title="Rename" data-act="editsf" data-sf="${sf.id}">${svg(IC.edit)}</button><button class="minibtn del" title="Delete" data-act="delsf" data-sf="${sf.id}">${svg(IC.del)}</button></span></div>`;
+        if(sfOpen){html+=`<div class="children">`;
+          wtsV.forEach(wt=>{const active=selection.worktypeId===wt.id?'active':'';html+=`<div class="node"><div class="label ${active}" data-select="${wt.id}"><span class="caret hidden"></span>${svg(IC.doc)}<span class="name">${esc(wt.name)}</span><span class="tag ${wt.type}">${wt.type}</span><span class="rowactions"><button class="minibtn" title="Edit" data-act="editwt" data-wt="${wt.id}">${svg(IC.edit)}</button><button class="minibtn del" title="Delete" data-act="delwt" data-wt="${wt.id}">${svg(IC.del)}</button></span></div></div>`;});
+          if(!hasFilter)html+=`<div class="addline" data-act="addwt" data-sf="${sf.id}">${svg(IC.plus)} Add worktype</div>`;
+          html+=`</div>`;}
+        html+=`</div>`;});
+      if(!hasFilter)html+=`<div class="addline" data-act="addsf" data-fn="${fn.id}">${svg(IC.plus)} Add sub-function</div>`;
+      html+=`</div>`;}
     html+=`</div>`;
   });
-  if(hasFilter && html==="") html=`<div style="padding:24px 12px;color:var(--muted);text-align:center;line-height:1.6">
-      ${svg(IC.list)}<div style="margin-top:8px">No worktypes match the current filters.</div>
-      <div style="font-size:12px">Try clearing the filters.</div></div>`;
+  if(hasFilter&&html==="")html=`<div style="padding:24px 12px;color:var(--muted);text-align:center;line-height:1.6">${svg(IC.list)}<div style="margin-top:8px">No worktypes match the current filters.</div></div>`;
   tree.innerHTML=html;
 }
 
-/* ============================================================
-   RENDER: Main detail panel  (with inline editing)
-   ============================================================ */
+/* ============================================================ MAIN DETAIL */
 function renderMain(){
   const main=document.getElementById("main");
-  if(viewMode==="list"){ renderListView(); return; }
+  if(viewMode==="list"){renderListView();return;}
   const ctx=selection.worktypeId?findWorktype(selection.worktypeId):null;
-
-  if(!ctx){
-    main.innerHTML=`<div class="empty">
-      ${svg(IC.db)}
-      <h3>Select a Dashboard Worktype</h3>
-      <p>Choose a worktype from the left to view and manage its mapping combinations, or create a new Function to get started.</p>
-      <button class="btn primary" onclick="openEntity('function')">${svg(IC.plus)} New Function</button>
-    </div>`;
-    return;
-  }
-
-  const {fn,sf,wt}=ctx;
-  const maps=wt.mappings||[];
-  const isManual=wt.type==="manual";
-
-  const head=`<div class="detail-head">
-    <div>
-      <div class="breadcrumb">${svg(IC.folder)} <b>${esc(fn.name)}</b> ${svg(IC.caret)} ${svg(IC.layers)} <b>${esc(sf.name)}</b></div>
-      <h1>${esc(wt.name)} <span class="tag ${wt.type}">${wt.type}</span></h1>
-    </div>
-    <div class="spacer"></div>
-    <button class="btn" onclick="openEntity('worktype','${wt.id}')">${svg(IC.edit)} Edit</button>
-    <button class="btn primary" onclick="openMapping('${wt.id}')">${svg(IC.plus)} Add mapping</button>
-  </div>`;
-
+  if(!ctx){main.innerHTML=`<div class="empty">${svg(IC.db)}<h3>Select a Dashboard Worktype</h3><p>Choose a worktype from the left to view and manage its mapping combinations, or create a new Function to get started.</p><button class="btn primary" onclick="openEntity('function')">${svg(IC.plus)} New Function</button></div>`;return;}
+  const {fn,sf,wt}=ctx;const maps=wt.mappings||[];const isManual=wt.type==="manual";
+  const head=`<div class="detail-head"><div><div class="breadcrumb">${svg(IC.folder)} <b>${esc(fn.name)}</b> ${svg(IC.caret)} ${svg(IC.layers)} <b>${esc(sf.name)}</b></div><h1>${esc(wt.name)} <span class="tag ${wt.type}">${wt.type}</span></h1></div><div class="spacer"></div><button class="btn" onclick="openEntity('worktype','${wt.id}')">${svg(IC.edit)} Edit</button><button class="btn primary" onclick="openMapping('${wt.id}')">${svg(IC.plus)} Add mapping</button></div>`;
   const valCount=maps.filter(m=>m.validated).length;
-  const cards=`<div class="cards">
-    <div class="card"><div class="k">Type</div><div class="v" style="text-transform:uppercase;color:${isManual?'var(--manual)':'var(--awd)'}">${wt.type}</div></div>
-    <div class="card"><div class="k">Mapping rows</div><div class="v">${maps.length}</div></div>
-    <div class="card"><div class="k">Organizations counted</div><div class="v">${orgCount(wt)}</div></div>
-    <div class="card"><div class="k">Validated</div><div class="v" style="color:${valCount===maps.length&&maps.length?'var(--manual)':'var(--ink)'}">${valCount}<span style="font-size:14px;color:var(--muted);font-weight:500">/${maps.length}</span></div></div>
-  </div>`;
+  const activeCount=maps.filter(m=>m.active!==false).length;
+  const cards=`<div class="cards"><div class="card"><div class="k">Type</div><div class="v" style="text-transform:uppercase;color:${isManual?'var(--manual)':'var(--awd)'}">${wt.type}</div></div><div class="card"><div class="k">Mapping rows</div><div class="v">${maps.length}</div></div><div class="card"><div class="k">Active</div><div class="v" style="color:${activeCount===maps.length&&maps.length?'var(--manual)':'var(--ink)'}">${activeCount}<span style="font-size:14px;color:var(--muted);font-weight:500">/${maps.length}</span></div></div><div class="card"><div class="k">Validated</div><div class="v" style="color:${valCount===maps.length&&maps.length?'var(--manual)':'var(--ink)'}">${valCount}<span style="font-size:14px;color:var(--muted);font-weight:500">/${maps.length}</span></div></div></div>`;
 
-  // ----- filter + sort the mapping rows -----
-  const df=detailFilter;
-  let vmaps=[...maps];
-  const dq=(df.text||"").trim().toLowerCase();
-  if(dq) vmaps=vmaps.filter(m=>[m.manualQueue,m.businessArea,m.worktype,m.status,m.source,m.remarks,(m.organizations||[]).join(" "),awdManualKey(wt.type,m)]
-      .filter(Boolean).some(v=>v.toLowerCase().includes(dq)));
-  if(df.validated==="yes") vmaps=vmaps.filter(m=>m.validated);
-  if(df.validated==="no")  vmaps=vmaps.filter(m=>!m.validated);
-  if(df.org) vmaps=vmaps.filter(m=>(m.organizations||[]).some(o=>o.toLowerCase()===df.org.toLowerCase()));
-  if(detailSort.key) vmaps=sortBy(vmaps, m=>mapSortVal(m,wt,detailSort.key), detailSort.dir);
-
-  // org options for this worktype
+  const df=detailFilter;let vmaps=[...maps];const dq=(df.text||"").trim().toLowerCase();
+  if(dq)vmaps=vmaps.filter(m=>[m.manualQueue,m.businessArea,m.worktype,m.status,m.source,m.remarks,(m.organizations||[]).join(" "),awdManualKey(wt.type,m)].filter(Boolean).some(v=>v.toLowerCase().includes(dq)));
+  if(df.validated==="yes")vmaps=vmaps.filter(m=>m.validated);
+  if(df.validated==="no")vmaps=vmaps.filter(m=>!m.validated);
+  if(df.active==="active")vmaps=vmaps.filter(m=>m.active!==false);
+  if(df.active==="inactive")vmaps=vmaps.filter(m=>m.active===false);
+  if(df.org)vmaps=vmaps.filter(m=>(m.organizations||[]).some(o=>o.toLowerCase()===df.org.toLowerCase()));
+  if(detailSort.key)vmaps=sortBy(vmaps,m=>mapSortVal(m,wt,detailSort.key),detailSort.dir);
   const orgOpts=[...new Set(maps.flatMap(m=>m.organizations||[]))].sort((a,b)=>a.localeCompare(b));
-  const anyFilter = dq||df.validated||df.org||detailSort.key;
-
-  const bar=`<div class="section-bar"><h2>Mapping combinations</h2><div class="spacer"></div>
-    <span class="chip">${isManual?'Manual · Queue mapping':'AWD · Business Area / Worktype / Status'}</span></div>
+  const anyFilter=dq||df.validated||df.org||df.active||detailSort.key;
+  const bar=`<div class="section-bar"><h2>Mapping combinations</h2><div class="spacer"></div><span class="chip">${isManual?'Manual · Queue mapping':'AWD · Business Area / Worktype / Status'}</span></div>
     <div class="list-filters">
-      <div class="search" style="max-width:260px">
-        <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg>
-        <input id="dfSearch" placeholder="Filter mappings…" value="${esc(df.text)}">
-      </div>
-      <select class="select lv-select" id="dfVal">
-        <option value="">All validation</option>
-        <option value="yes" ${df.validated==='yes'?'selected':''}>Validated</option>
-        <option value="no" ${df.validated==='no'?'selected':''}>Not validated</option>
-      </select>
-      <select class="select lv-select" id="dfOrg">
-        <option value="">All organizations</option>
-        ${orgOpts.map(o=>`<option value="${esc(o)}" ${df.org===o?'selected':''}>${esc(o)}</option>`).join("")}
-      </select>
+      <div class="search" style="max-width:260px"><svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg><input id="dfSearch" placeholder="Filter mappings…" value="${esc(df.text)}"></div>
+      <select class="select lv-select" id="dfActive"><option value="">All statuses</option><option value="active" ${df.active==='active'?'selected':''}>Active</option><option value="inactive" ${df.active==='inactive'?'selected':''}>Inactive</option></select>
+      <select class="select lv-select" id="dfVal"><option value="">All validation</option><option value="yes" ${df.validated==='yes'?'selected':''}>Validated</option><option value="no" ${df.validated==='no'?'selected':''}>Not validated</option></select>
+      <select class="select lv-select" id="dfOrg"><option value="">All organizations</option>${orgOpts.map(o=>`<option value="${esc(o)}" ${df.org===o?'selected':''}>${esc(o)}</option>`).join("")}</select>
       ${anyFilter?`<button class="btn small" id="dfClear">${svg(IC.x)} Clear</button>`:''}
       <span class="chip" style="margin-left:auto">${vmaps.length} of ${maps.length} shown</span>
     </div>`;
-
+  // prune selection to currently-visible rows
+  const visIds=new Set(vmaps.map(m=>m.id));
+  selectedIds.forEach(id=>{if(!maps.some(m=>m.id===id))selectedIds.delete(id);});
+  const allVisSelected=vmaps.length>0 && vmaps.every(m=>selectedIds.has(m.id));
+  const selCb=`<th style="width:38px"><label class="rowcb ${allVisSelected?'on':''}"><input type="checkbox" id="selAll" ${allVisSelected?'checked':''}><span class="cbbox">${allVisSelected?svg(IC.check):''}</span></label></th>`;
   let thead;
-  if(isManual) thead=`<tr>${sh('Manual Verint Queue','manualQueue')}${sh('Organization(s) counted','organizations')}${sh('Source','source')}${sh('Remarks','remarks')}${sh('Validated','validated')}${sh('Updated','modifiedAt')}<th style="width:104px"></th></tr>`;
-  else thead=`<tr>${sh('Business Area','businessArea')}${sh('Worktype','worktype')}${sh('Status','status')}${sh('Organization(s) counted','organizations')}${sh('Source','source')}${sh('Remarks','remarks')}${sh('Validated','validated')}${sh('Updated','modifiedAt')}<th style="width:104px"></th></tr>`;
-
-  const rows=vmaps.map(m=> (m.id===editingMapId ? rowEdit(wt,m,isManual) : rowView(wt,m,isManual)).trim()).join("");
-
-  const table=maps.length
-    ? (vmaps.length
-      ? `<div class="table-wrap"><table><thead>${thead}</thead><tbody>${rows}</tbody></table></div>`
-      : `<div class="table-wrap"><div class="table-empty">${svg(IC.db)}<div style="margin-top:8px">No mappings match the current filters.</div></div></div>`)
-    : `<div class="table-wrap"><div class="table-empty">
-        ${svg(IC.db)}<div style="margin-top:8px">No mappings yet for this worktype.</div>
-        <div style="margin-top:12px"><button class="btn primary small" onclick="openMapping('${wt.id}')">${svg(IC.plus)} Add first mapping</button></div>
-      </div></div>`;
-
-  main.innerHTML=head+cards+bar+table;
-
-  // wire detail filter/sort
-  const ds=document.getElementById("dfSearch");
-  if(ds){ ds.oninput=()=>{ detailFilter.text=ds.value; renderMain(); const el=document.getElementById("dfSearch"); el.focus(); el.setSelectionRange(el.value.length,el.value.length); }; }
-  const dv=document.getElementById("dfVal"); if(dv) dv.onchange=()=>{ detailFilter.validated=dv.value; renderMain(); };
-  const dorg=document.getElementById("dfOrg"); if(dorg) dorg.onchange=()=>{ detailFilter.org=dorg.value; renderMain(); };
-  const dc=document.getElementById("dfClear"); if(dc) dc.onclick=()=>{ detailFilter={text:"",validated:"",org:""}; detailSort={key:"",dir:"asc"}; renderMain(); };
-  document.querySelectorAll("#main th[data-sort]").forEach(th=>th.onclick=()=>{
-    const k=th.dataset.sort;
-    if(detailSort.key===k) detailSort.dir=detailSort.dir==="asc"?"desc":"asc";
-    else { detailSort.key=k; detailSort.dir="asc"; }
-    renderMain();
-  });
-
-  if(editingMapId) document.querySelector("tr.editing .inline-input")?.focus();
+  if(isManual)thead=`<tr>${selCb}${sh('Manual Verint Queue','manualQueue')}${sh('Organization(s) counted','organizations')}${sh('Source','source')}${sh('Remarks','remarks')}${sh('Active / Inactive','active')}${sh('Validated','validated')}${sh('Updated','modifiedAt')}<th style="width:104px"></th></tr>`;
+  else thead=`<tr>${selCb}${sh('Business Area','businessArea')}${sh('Worktype','worktype')}${sh('Status','status')}${sh('Organization(s) counted','organizations')}${sh('Source','source')}${sh('Remarks','remarks')}${sh('Active / Inactive','active')}${sh('Validated','validated')}${sh('Updated','modifiedAt')}<th style="width:104px"></th></tr>`;
+  const rows=vmaps.map(m=>(m.id===editingMapId?rowEdit(wt,m,isManual):rowView(wt,m,isManual)).trim()).join("");
+  const table=maps.length?(vmaps.length?`<div class="table-wrap"><table><thead>${thead}</thead><tbody>${rows}</tbody></table></div>`:`<div class="table-wrap"><div class="table-empty">${svg(IC.db)}<div style="margin-top:8px">No mappings match the current filters.</div></div></div>`):`<div class="table-wrap"><div class="table-empty">${svg(IC.db)}<div style="margin-top:8px">No mappings yet for this worktype.</div><div style="margin-top:12px"><button class="btn primary small" onclick="openMapping('${wt.id}')">${svg(IC.plus)} Add first mapping</button></div></div></div>`;
+  main.innerHTML=head+cards+bar+bulkBar(wt,vmaps)+table;
+  const ds=document.getElementById("dfSearch");if(ds){ds.oninput=()=>{detailFilter.text=ds.value;renderMain();const el=document.getElementById("dfSearch");el.focus();el.setSelectionRange(el.value.length,el.value.length);};}
+  const dv=document.getElementById("dfVal");if(dv)dv.onchange=()=>{detailFilter.validated=dv.value;renderMain();};
+  const dac=document.getElementById("dfActive");if(dac)dac.onchange=()=>{detailFilter.active=dac.value;renderMain();};
+  const dorg=document.getElementById("dfOrg");if(dorg)dorg.onchange=()=>{detailFilter.org=dorg.value;renderMain();};
+  const dc=document.getElementById("dfClear");if(dc)dc.onclick=()=>{detailFilter={text:"",validated:"",org:"",active:""};detailSort={key:"",dir:"asc"};renderMain();};
+  document.querySelectorAll("#main th[data-sort]").forEach(th=>th.onclick=()=>{const k=th.dataset.sort;if(detailSort.key===k)detailSort.dir=detailSort.dir==="asc"?"desc":"asc";else{detailSort.key=k;detailSort.dir="asc";}renderMain();});
+  // bulk-selection wiring
+  const selAll=document.getElementById("selAll");
+  if(selAll)selAll.onchange=()=>{if(selAll.checked)vmaps.forEach(m=>selectedIds.add(m.id));else vmaps.forEach(m=>selectedIds.delete(m.id));renderMain();};
+  document.querySelectorAll("[data-rowsel]").forEach(cb=>cb.onchange=()=>{const id=cb.dataset.rowsel;cb.checked?selectedIds.add(id):selectedIds.delete(id);renderMain();});
+  wireBulkBar(wt);
+  if(editingMapId)document.querySelector("tr.editing .inline-input")?.focus();
 }
-/* sortable header cell for detail table */
-function sh(label,key){
-  const active=detailSort.key===key;
-  const arrow=active?(detailSort.dir==="asc"?' ▲':' ▼'):'';
-  return `<th data-sort="${key}" class="th-sort ${active?'active':''}">${label}<span class="tha">${arrow}</span></th>`;
+/* ---------- bulk action bar ---------- */
+function bulkBar(wt,vmaps){
+  const n=selectedIds.size;
+  if(n===0)return "";
+  return `<div class="bulkbar">
+    <span class="bb-count">${svg(IC.check)} ${n} selected</span>
+    <span class="bb-sep"></span>
+    <button class="bb-act" data-bulk="active">${svg(IC.check)} Set Active</button>
+    <button class="bb-act" data-bulk="inactive">${svg(IC.x)} Set Inactive</button>
+    <button class="bb-act" data-bulk="validate">${svg(IC.check)} Validate</button>
+    <button class="bb-act" data-bulk="unvalidate">${svg(IC.x)} Unvalidate</button>
+    <button class="bb-act" data-bulk="export">${svg(IC.doc)} Export</button>
+    <button class="bb-act danger" data-bulk="delete">${svg(IC.del)} Delete</button>
+    <span class="bb-sep"></span>
+    <button class="bb-clear" data-bulk="clear">Clear selection</button>
+  </div>`;
 }
+function wireBulkBar(wt){
+  document.querySelectorAll("[data-bulk]").forEach(b=>b.onclick=()=>bulkAction(wt.id,b.dataset.bulk));
+}
+function bulkAction(wtId,action){
+  const ctx=findWorktype(wtId);if(!ctx)return;
+  const ids=[...selectedIds];const targets=(ctx.wt.mappings||[]).filter(m=>selectedIds.has(m.id));
+  const n=targets.length;if(n===0&&action!=="clear")return;
+  const t=nowISO();
+  if(action==="clear"){selectedIds.clear();renderMain();return;}
+  if(action==="active"){let c=0;targets.forEach(m=>{if(m.active===false){m.active=true;m.statusChangedAt=t;m.activeSince=t;c++;}});renderAll();toast(`${c} set Active`);return;}
+  if(action==="inactive"){let c=0;targets.forEach(m=>{if(m.active!==false){m.active=false;m.statusChangedAt=t;m.inactiveSince=t;c++;}});renderAll();toast(`${c} set Inactive`);return;}
+  if(action==="validate"){let c=0;targets.forEach(m=>{if(!m.validated){m.validated=true;m.validatedAt=t;c++;}});renderAll();toast(`${c} validated`);return;}
+  if(action==="unvalidate"){let c=0;targets.forEach(m=>{if(m.validated){m.validated=false;m.validatedAt=null;c++;}});renderAll();toast(`${c} unvalidated`);return;}
+  if(action==="export"){bulkExportCsv(ctx,targets);toast(`${n} row${n>1?'s':''} exported`);return;}
+  if(action==="delete"){if(!confirm(`Delete ${n} selected mapping${n>1?'s':''}? This cannot be undone.`))return;ctx.wt.mappings=ctx.wt.mappings.filter(m=>!selectedIds.has(m.id));selectedIds.clear();editingMapId=null;renderAll();toast(`${n} deleted`);return;}
+}
+function bulkExportCsv(ctx,targets){
+  const {fn,sf,wt}=ctx;
+  const head=["Function","Sub-Function","Dashboard Worktype","Type","AWD & Manual Verint Queue","Manual Verint Queue","Business Area","Worktype","Status","Organization","Source","Remarks","Active Status","Status Changed Date","Validated","Validation Date","Version","Created Date","Modified Date"];
+  const rows=[head];
+  targets.forEach(m=>{const key=awdManualKey(wt.type,m);const isActive=(m.active!==false);const stChg=m.statusChangedAt||m.activeSince||m.createdAt;const orgs=(m.organizations||[]);const list=orgs.length?orgs:[""];list.forEach(org=>rows.push([fn.name,sf.name,wt.name,wt.type,key,m.manualQueue||"",m.businessArea||"",m.worktype||"",m.status||"",org,m.source||"",m.remarks||"",isActive?"Active":"Inactive",fmtDate(stChg),m.validated?"Yes":"No",m.validated?fmtDate(m.validatedAt):"","v"+(m.version||1),fmtDate(m.createdAt),fmtDate(m.modifiedAt||m.createdAt)]));});
+  download("verint-selected-"+stamp()+".csv",rows.map(r=>r.map(csvCell).join(",")).join("\r\n"),"text/csv");
+}
+function sh(label,key){const active=detailSort.key===key;const arrow=active?(detailSort.dir==="asc"?' ▲':' ▼'):'';return `<th data-sort="${key}" class="th-sort ${active?'active':''}">${label}<span class="tha">${arrow}</span></th>`;}
 
 function rowView(wt,m,isManual){
   const histCount=(m.history||[]).length;
-  const histBtn = histCount
-    ? `<button class="minibtn" title="Version history (${histCount})" onclick="openHistory('${wt.id}','${m.id}')" style="position:relative">${svg(IC.clock)}<span class="ver-dot">${histCount}</span></button>`
-    : `<button class="minibtn" title="Version history" onclick="openHistory('${wt.id}','${m.id}')">${svg(IC.clock)}</button>`;
-  const acts=`<div class="cellactions">
-    ${histBtn}
-    <button class="minibtn" title="Edit inline" onclick="startInlineEdit('${m.id}')">${svg(IC.edit)}</button>
-    <button class="minibtn del" title="Delete" onclick="deleteMapping('${wt.id}','${m.id}')">${svg(IC.del)}</button></div>`;
-  const updated=`<div class="upd">
-      <span class="ver-badge">v${m.version||1}</span>
-      <span class="upd-date" title="Created: ${fmtDate(m.createdAt)}\nModified: ${fmtDate(m.modifiedAt)}">${fmtDateShort(m.modifiedAt||m.createdAt)}</span>
-    </div>`;
+  const histBtn=histCount?`<button class="minibtn" title="Version history (${histCount})" onclick="openHistory('${wt.id}','${m.id}')" style="position:relative">${svg(IC.clock)}<span class="ver-dot">${histCount}</span></button>`:`<button class="minibtn" title="Version history" onclick="openHistory('${wt.id}','${m.id}')">${svg(IC.clock)}</button>`;
+  const acts=`<div class="cellactions">${histBtn}<button class="minibtn" title="Edit inline" onclick="startInlineEdit('${m.id}')">${svg(IC.edit)}</button><button class="minibtn del" title="Delete" onclick="deleteMapping('${wt.id}','${m.id}')">${svg(IC.del)}</button></div>`;
+  const updated=`<div class="upd"><span class="ver-badge">v${m.version||1}</span><span class="upd-date" title="Created: ${fmtDate(m.createdAt)}\nModified: ${fmtDate(m.modifiedAt)}">${fmtDateShort(m.modifiedAt||m.createdAt)}</span></div>`;
   const validated=validatedCell(wt,m);
-  if(isManual){
-    return `<tr>
-      <td><b>${esc(m.manualQueue)||'<span class="muted">—</span>'}</b></td>
-      <td>${orgPills(m.organizations)}</td>
-      <td>${esc(m.source)||'<span class="muted">—</span>'}</td>
-      <td class="muted">${esc(m.remarks)||'—'}</td>
-      <td>${validated}</td>
-      <td>${updated}</td>
-      <td>${acts}</td></tr>`;
-  }
-  return `<tr>
-    <td><b>${esc(m.businessArea)||'<span class="muted">—</span>'}</b></td>
-    <td>${esc(m.worktype)||'<span class="muted">—</span>'}</td>
-    <td>${esc(m.status)||'<span class="muted">—</span>'}</td>
-    <td>${orgPills(m.organizations)}</td>
-    <td>${esc(m.source)||'<span class="muted">—</span>'}</td>
-    <td class="muted">${esc(m.remarks)||'—'}</td>
-    <td>${validated}</td>
-    <td>${updated}</td>
-    <td>${acts}</td></tr>`;
+  const activeC=activeCell(wt,m);
+  const sel=selectedIds.has(m.id);
+  const cb=`<td><label class="rowcb ${sel?'on':''}"><input type="checkbox" data-rowsel="${m.id}" ${sel?'checked':''}><span class="cbbox">${sel?svg(IC.check):''}</span></label></td>`;
+  const trcls=sel?' class="row-selected"':'';
+  if(isManual)return `<tr${trcls}>${cb}<td><b>${esc(m.manualQueue)||'<span class="muted">—</span>'}</b></td><td>${orgPills(m.organizations)}</td><td>${esc(m.source)||'<span class="muted">—</span>'}</td><td class="muted">${esc(m.remarks)||'—'}</td><td>${activeC}</td><td>${validated}</td><td>${updated}</td><td>${acts}</td></tr>`;
+  return `<tr${trcls}>${cb}<td><b>${esc(m.businessArea)||'<span class="muted">—</span>'}</b></td><td>${esc(m.worktype)||'<span class="muted">—</span>'}</td><td>${esc(m.status)||'<span class="muted">—</span>'}</td><td>${orgPills(m.organizations)}</td><td>${esc(m.source)||'<span class="muted">—</span>'}</td><td class="muted">${esc(m.remarks)||'—'}</td><td>${activeC}</td><td>${validated}</td><td>${updated}</td><td>${acts}</td></tr>`;
 }
-function validatedCell(wt,m){
-  const on=!!m.validated;
-  return `<label class="vchk ${on?'on':''}" title="${on?('Validated on '+fmtDate(m.validatedAt)):'Mark as validated'}">
-      <input type="checkbox" ${on?'checked':''} onchange="toggleValidated('${wt.id}','${m.id}',this.checked)">
-      <span class="box">${on?svg(IC.check):''}</span>
-      <span class="vtxt">${on?fmtDateShort(m.validatedAt):'<span class="muted">Not validated</span>'}</span>
-    </label>`;
+function validatedCell(wt,m){const on=!!m.validated;return `<label class="vchk ${on?'on':''}" title="${on?('Validated on '+fmtDate(m.validatedAt)):'Mark as validated'}"><input type="checkbox" ${on?'checked':''} onchange="toggleValidated('${wt.id}','${m.id}',this.checked)"><span class="box">${on?svg(IC.check):''}</span><span class="vtxt">${on?fmtDateShort(m.validatedAt):'<span class="muted">Not validated</span>'}</span></label>`;}
+function activeCell(wt,m){
+  const active=(m.active!==false);
+  const since=m.statusChangedAt||m.activeSince||m.createdAt;
+  const tip=active?('Active since '+fmtDate(since)):('Inactive since '+fmtDate(since));
+  return `<button class="statustog ${active?'on':'off'}" title="${tip} · click to toggle" onclick="toggleActive('${wt.id}','${m.id}')">
+      <span class="dot"></span><span class="st-lbl">${active?'Active':'Inactive'}</span><span class="st-date">${fmtDateShort(since)}</span></button>`;
 }
-
 function rowEdit(wt,m,isManual){
-  const acts=`<div class="cellactions">
-    <button class="minibtn ok" title="Save" onclick="saveInlineEdit('${wt.id}','${m.id}')">${svg(IC.check)}</button>
-    <button class="minibtn" title="Cancel" onclick="cancelInlineEdit()">${svg(IC.x)}</button></div>`;
+  const acts=`<div class="cellactions"><button class="minibtn ok" title="Save" onclick="saveInlineEdit('${wt.id}','${m.id}')">${svg(IC.check)}</button><button class="minibtn" title="Cancel" onclick="cancelInlineEdit()">${svg(IC.x)}</button></div>`;
   const orgVal=(m.organizations||[]).join(", ");
-  if(isManual){
-    return `<tr class="editing">
-      <td><input class="inline-input" id="ie_manualQueue" list="dl_manualQueue" value="${esc(m.manualQueue)}" placeholder="Queue name"></td>
-      <td><input class="inline-input" id="ie_orgs" list="dl_organization" value="${esc(orgVal)}" placeholder="Org1, Org2"></td>
-      <td><input class="inline-input" id="ie_source" list="dl_source" value="${esc(m.source)}" placeholder="Source"></td>
-      <td><input class="inline-input" id="ie_remarks" value="${esc(m.remarks)}" placeholder="Remarks"></td>
-      <td>${validatedCell(wt,m)}</td>
-      <td><span class="ver-badge">v${m.version||1}</span></td>
-      <td>${acts}</td></tr>`;
+  if(isManual)return `<tr class="editing"><td></td><td><input class="inline-input" id="ie_manualQueue" list="dl_manualQueue" value="${esc(m.manualQueue)}" placeholder="Queue name"></td><td><input class="inline-input" id="ie_orgs" list="dl_organization" value="${esc(orgVal)}" placeholder="Org1, Org2"></td><td><input class="inline-input" id="ie_source" list="dl_source" value="${esc(m.source)}" placeholder="Source"></td><td><input class="inline-input" id="ie_remarks" value="${esc(m.remarks)}" placeholder="Remarks"></td><td>${activeCell(wt,m)}</td><td>${validatedCell(wt,m)}</td><td><span class="ver-badge">v${m.version||1}</span></td><td>${acts}</td></tr>`;
+  return `<tr class="editing"><td></td><td><input class="inline-input" id="ie_businessArea" list="dl_businessArea" value="${esc(m.businessArea)}" placeholder="Business Area"></td><td><input class="inline-input" id="ie_worktype" list="dl_worktype" value="${esc(m.worktype)}" placeholder="Worktype"></td><td><input class="inline-input" id="ie_status" list="dl_status" value="${esc(m.status)}" placeholder="Status"></td><td><input class="inline-input" id="ie_orgs" list="dl_organization" value="${esc(orgVal)}" placeholder="Org1, Org2"></td><td><input class="inline-input" id="ie_source" list="dl_source" value="${esc(m.source)}" placeholder="Source"></td><td><input class="inline-input" id="ie_remarks" value="${esc(m.remarks)}" placeholder="Remarks"></td><td>${activeCell(wt,m)}</td><td>${validatedCell(wt,m)}</td><td><span class="ver-badge">v${m.version||1}</span></td><td>${acts}</td></tr>`;
+}
+function orgPills(orgs){if(!orgs||!orgs.length)return'<span class="muted">—</span>';return orgs.map(o=>`<span class="org-pill">${esc(o)}</span>`).join(" ");}
+
+function renderAll(){ensureDirectories();renderDatalists();renderTree();renderMain();updateViewButtons();save();}
+function updateViewButtons(){const b=document.getElementById("btnListView");if(b)b.classList.toggle("primary",viewMode==="list");}
+
+/* ---------- inline edit ---------- */
+function startInlineEdit(mId){editingMapId=mId;renderMain();}
+function cancelInlineEdit(){editingMapId=null;renderMain();}
+function parseOrgs(str){const out=[];(str||"").split(",").forEach(v=>{v=v.trim();if(v&&!out.some(o=>o.toLowerCase()===v.toLowerCase()))out.push(v);});return out;}
+function val(id){return(document.getElementById(id)?.value||"").trim();}
+function saveInlineEdit(wtId,mId){
+  const ctx=findWorktype(wtId);if(!ctx)return;const isManual=ctx.wt.type==="manual";
+  const m=ctx.wt.mappings.find(x=>x.id===mId);if(!m)return;const before=snapshotFields(m);
+  const orgs=parseOrgs(document.getElementById("ie_orgs").value);if(orgs.length===0){toast("Add at least one Organization","warn");return;}
+  if(isManual){const q=val("ie_manualQueue");if(!q){toast("Manual Verint Queue is required","warn");return;}m.manualQueue=q;}
+  else{const ba=val("ie_businessArea"),w=val("ie_worktype"),s=val("ie_status");if(!ba||!w||!s){toast("Business Area, Worktype and Status are required","warn");return;}m.businessArea=ba;m.worktype=w;m.status=s;}
+  m.organizations=orgs;m.source=val("ie_source");m.remarks=val("ie_remarks");
+  const changed=stampEdit(m,before);learn(m);editingMapId=null;renderAll();toast(changed?"Row updated (v"+m.version+")":"No changes");
+}
+
+/* ============================================================ MAPPING MODAL (multi-select + row expansion) */
+let mapCtx=null;
+function openMapping(wtId,mId){
+  const ctx=findWorktype(wtId);if(!ctx)return;const isManual=ctx.wt.type==="manual";
+  const m=mId?(ctx.wt.mappings||[]).find(x=>x.id===mId):null;
+  mapCtx={wtId,mId,tokens:{businessArea:[],worktype:[],status:[],organizations:[]}};
+  if(m){
+    mapCtx.tokens.organizations=[...(m.organizations||[])];
+    if(!isManual){mapCtx.tokens.businessArea=m.businessArea?[m.businessArea]:[];mapCtx.tokens.worktype=m.worktype?[m.worktype]:[];mapCtx.tokens.status=m.status?[m.status]:[];}
   }
-  return `<tr class="editing">
-    <td><input class="inline-input" id="ie_businessArea" list="dl_businessArea" value="${esc(m.businessArea)}" placeholder="Business Area"></td>
-    <td><input class="inline-input" id="ie_worktype" list="dl_worktype" value="${esc(m.worktype)}" placeholder="Worktype"></td>
-    <td><input class="inline-input" id="ie_status" list="dl_status" value="${esc(m.status)}" placeholder="Status"></td>
-    <td><input class="inline-input" id="ie_orgs" list="dl_organization" value="${esc(orgVal)}" placeholder="Org1, Org2"></td>
-    <td><input class="inline-input" id="ie_source" list="dl_source" value="${esc(m.source)}" placeholder="Source"></td>
-    <td><input class="inline-input" id="ie_remarks" value="${esc(m.remarks)}" placeholder="Remarks"></td>
-    <td>${validatedCell(wt,m)}</td>
-    <td><span class="ver-badge">v${m.version||1}</span></td>
-    <td>${acts}</td></tr>`;
+  document.getElementById("mapTitle").textContent=(mId?"Edit":"Add")+" Mapping · "+ctx.wt.type.toUpperCase();
+  let fields;
+  if(isManual){
+    fields=`<div class="field"><label>Manual Verint Queue <span class="req">*</span><span class="hint">start typing for suggestions</span></label><input class="input" id="fQueue" list="dl_manualQueue" value="${esc(m?.manualQueue||'')}" placeholder="e.g. QUEUE_NB_MANUAL_01" oninput="updateComboNote()"></div>`;
+  } else {
+    fields=`${tokenField("Business Area","businessArea","dl_businessArea","e.g. AGLIFECS")}
+      ${tokenField("Worktype","worktype","dl_worktype","e.g. BILLINGMNGT, BILLERR, PAYMENTSS")}
+      ${tokenField("Status","status","dl_status","e.g. Completed")}`;
+  }
+  const orgField=tokenField("Organization Name","organizations","dl_organization","e.g. Inforce, Inforce Phase 2",true);
+  const meta=`<div class="grid2"><div class="field"><label>Source Name</label><input class="input" id="fSource" list="dl_source" value="${esc(m?.source||'')}" placeholder="e.g. Verint, AWD Export, SQF"></div><div class="field"><label>Remarks</label><input class="input" id="fRemarks" value="${esc(m?.remarks||'')}" placeholder="Optional notes"></div></div>`;
+  document.getElementById("mapBody").innerHTML=fields+orgField+meta;
+  showOverlay("map");
+  ["businessArea","worktype","status","organizations"].forEach(f=>{if(document.getElementById("tokBox_"+f)){renderTokens(f);setupTokenInput(f);}});
+  updateComboNote();
+  setTimeout(()=>document.getElementById(isManual?"fQueue":"tokInput_businessArea")?.focus(),30);
 }
-
-function orgPills(orgs){
-  if(!orgs||!orgs.length) return '<span class="muted">—</span>';
-  return orgs.map(o=>`<span class="org-pill">${esc(o)}</span>`).join(" ");
+function tokenField(label,field,dl,ph,isOrg){
+  return `<div class="field"><label>${label} <span class="req">*</span><span class="hint">add one or more — Enter or comma${isOrg?'; each org becomes its own row':''}</span></label>
+    <div class="tokbox" id="tokBox_${field}"><input id="tokInput_${field}" list="${dl}" placeholder="${esc(ph)}"></div></div>`;
 }
-function esc(s){ return (s==null?'':String(s)).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-
-/* ============================================================
-   RENDER: List View — all mappings across every worktype
-   ============================================================ */
-function flattenMappings(){
-  const out=[];
-  state.functions.forEach(fn=>(fn.subFunctions||[]).forEach(sf=>(sf.worktypes||[]).forEach(wt=>{
-    (wt.mappings||[]).forEach(m=>out.push({fn,sf,wt,m}));
-  })));
-  return out;
+function setupTokenInput(field){
+  const input=document.getElementById("tokInput_"+field);
+  input.onkeydown=(e)=>{if(e.key==="Enter"||e.key===","){e.preventDefault();addToken(field,input.value);input.value="";}else if(e.key==="Backspace"&&!input.value&&mapCtx.tokens[field].length){mapCtx.tokens[field].pop();renderTokens(field);updateComboNote();}};
+  input.onchange=()=>{if(input.value.trim()){addToken(field,input.value);input.value="";}};
+  input.onblur=()=>{if(input.value.trim()){addToken(field,input.value);input.value="";}};
 }
-function renderListView(){
-  const main=document.getElementById("main");
-  let rows=flattenMappings();
-  const total=rows.length;
-
-  // filters
-  const f=listFilters;
-  const q=(f.text||"").trim().toLowerCase();
-  if(q) rows=rows.filter(r=>{
-    const {fn,sf,wt,m}=r;
-    return [fn.name,sf.name,wt.name,m.manualQueue,m.businessArea,m.worktype,m.status,m.source,m.remarks,(m.organizations||[]).join(" "),awdManualKey(wt.type,m)]
-      .filter(Boolean).some(v=>v.toLowerCase().includes(q));
-  });
-  if(f.type) rows=rows.filter(r=>r.wt.type===f.type);
-  if(f.validated==="yes") rows=rows.filter(r=>r.m.validated);
-  if(f.validated==="no") rows=rows.filter(r=>!r.m.validated);
-
-  // sort
-  const lvKeyFn=(r)=>{
-    switch(listSort.key){
-      case "function": return r.fn.name||"";
-      case "subFunction": return r.sf.name||"";
-      case "worktypeName": return r.wt.name||"";
-      case "type": return r.wt.type||"";
-      case "key": return awdManualKey(r.wt.type,r.m);
-      case "organizations": return (r.m.organizations||[]).join(", ");
-      case "source": return r.m.source||"";
-      case "validated": return r.m.validated?1:0;
-      case "version": return r.m.version||1;
-      default: return r.fn.name||"";
-    }
-  };
-  rows=sortBy(rows, lvKeyFn, listSort.dir);
-
-  const head=`<div class="detail-head">
-    <div>
-      <div class="breadcrumb">${svg(IC.list)} <b>All Mappings</b> · consolidated list view</div>
-      <h1>List View</h1>
-    </div>
-    <div class="spacer"></div>
-    <button class="btn" id="btnExportCsv2">${svg(IC.doc)} Export CSV</button>
-  </div>`;
-
-  const valTotal=flattenMappings().filter(r=>r.m.validated).length;
-  const cards=`<div class="cards">
-    <div class="card"><div class="k">Total mappings</div><div class="v">${total}</div></div>
-    <div class="card"><div class="k">AWD</div><div class="v" style="color:var(--awd)">${flattenMappings().filter(r=>r.wt.type==='awd').length}</div></div>
-    <div class="card"><div class="k">Manual</div><div class="v" style="color:var(--manual)">${flattenMappings().filter(r=>r.wt.type==='manual').length}</div></div>
-    <div class="card"><div class="k">Validated</div><div class="v" style="color:${valTotal===total&&total?'var(--manual)':'var(--ink)'}">${valTotal}<span style="font-size:14px;color:var(--muted);font-weight:500">/${total}</span></div></div>
-  </div>`;
-
-  const filters=`<div class="list-filters">
-    <div class="search" style="max-width:320px">
-      ${svg(IC.list,'').replace(IC.list,'<circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/>')}
-      <input id="lvSearch" placeholder="Search all mappings…" value="${esc(f.text)}">
-    </div>
-    <select class="select lv-select" id="lvType">
-      <option value="">All types</option>
-      <option value="awd" ${f.type==='awd'?'selected':''}>AWD only</option>
-      <option value="manual" ${f.type==='manual'?'selected':''}>Manual only</option>
-    </select>
-    <select class="select lv-select" id="lvVal">
-      <option value="">All validation</option>
-      <option value="yes" ${f.validated==='yes'?'selected':''}>Validated</option>
-      <option value="no" ${f.validated==='no'?'selected':''}>Not validated</option>
-    </select>
-    ${(f.text||f.type||f.validated||listSort.key!=='function'||listSort.dir!=='asc')?`<button class="btn small" id="lvClear">${svg(IC.x)} Clear</button>`:''}
-    <span class="chip" style="margin-left:auto">${rows.length} of ${total} shown</span>
-  </div>`;
-
-  const lvh=(label,key)=>{
-    const active=listSort.key===key;
-    const arrow=active?(listSort.dir==="asc"?' ▲':' ▼'):'';
-    return `<th data-lvsort="${key}" class="th-sort ${active?'active':''}">${label}<span class="tha">${arrow}</span></th>`;
-  };
-  const thead=`<tr>
-    ${lvh('Function','function')}${lvh('Sub-Function','subFunction')}${lvh('Dashboard Worktype','worktypeName')}${lvh('Type','type')}
-    ${lvh('AWD &amp; Manual Verint Queue','key')}${lvh('Organization(s)','organizations')}${lvh('Source','source')}
-    ${lvh('Validated','validated')}${lvh('Version','version')}<th style="width:80px"></th></tr>`;
-
-  const body=rows.map(r=>{
-    const {fn,sf,wt,m}=r;
-    const key=awdManualKey(wt.type,m);
-    const valCell=m.validated
-      ? `<span class="lv-val on">${svg(IC.check)} ${fmtDateShort(m.validatedAt)}</span>`
-      : `<span class="lv-val muted">—</span>`;
-    return `<tr>
-      <td>${esc(fn.name)}</td>
-      <td>${esc(sf.name)}</td>
-      <td><b>${esc(wt.name)}</b></td>
-      <td><span class="tag ${wt.type}">${wt.type}</span></td>
-      <td><code class="keycode">${esc(key)||'<span class="muted">—</span>'}</code></td>
-      <td>${orgPills(m.organizations)}</td>
-      <td>${esc(m.source)||'<span class="muted">—</span>'}</td>
-      <td>${valCell}</td>
-      <td><span class="ver-badge">v${m.version||1}</span></td>
-      <td><div class="cellactions">
-        <button class="minibtn" title="Open in detail" onclick="openFromList('${wt.id}')">${svg(IC.doc)}</button>
-        <button class="minibtn" title="History" onclick="openHistory('${wt.id}','${m.id}')">${svg(IC.clock)}</button>
-      </div></td></tr>`;
-  }).join("");
-
-  const table = rows.length
-    ? `<div class="table-wrap"><table><thead>${thead}</thead><tbody>${body}</tbody></table></div>`
-    : `<div class="table-wrap"><div class="table-empty">${svg(IC.db)}<div style="margin-top:8px">${total?'No mappings match the current filters.':'No mappings yet. Add worktypes and mappings to see them here.'}</div></div></div>`;
-
-  main.innerHTML=head+cards+filters+`<div class="section-bar"><h2>All mapping combinations</h2></div>`+table;
-
-  // wiring
-  const s=document.getElementById("lvSearch");
-  s.oninput=()=>{ listFilters.text=s.value; renderListView(); s.focus(); s.setSelectionRange(s.value.length,s.value.length); };
-  document.getElementById("lvType").onchange=(e)=>{ listFilters.type=e.target.value; renderListView(); };
-  document.getElementById("lvVal").onchange=(e)=>{ listFilters.validated=e.target.value; renderListView(); };
-  document.getElementById("btnExportCsv2").onclick=()=>document.getElementById("btnExportCsv").click();
-  const lvc=document.getElementById("lvClear");
-  if(lvc) lvc.onclick=()=>{ listFilters={text:"",type:"",validated:""}; listSort={key:"function",dir:"asc"}; renderListView(); };
-  document.querySelectorAll("#main th[data-lvsort]").forEach(th=>th.onclick=()=>{
-    const k=th.dataset.lvsort;
-    if(listSort.key===k) listSort.dir=listSort.dir==="asc"?"desc":"asc";
-    else { listSort.key=k; listSort.dir="asc"; }
-    renderListView();
-  });
+function addToken(field,v){v=v.trim();if(!v)return;if(!mapCtx.tokens[field].some(o=>o.toLowerCase()===v.toLowerCase()))mapCtx.tokens[field].push(v);renderTokens(field);updateComboNote();}
+function renderTokens(field){
+  const box=document.getElementById("tokBox_"+field),input=document.getElementById("tokInput_"+field);
+  box.querySelectorAll(".token").forEach(t=>t.remove());
+  mapCtx.tokens[field].forEach((o,i)=>{const t=document.createElement("span");t.className="token"+(field==="organizations"?" org":"");t.innerHTML=`${esc(o)} <button title="Remove">${svg(IC.x)}</button>`;t.querySelector("button").onclick=()=>{mapCtx.tokens[field].splice(i,1);renderTokens(field);updateComboNote();};box.insertBefore(t,input);});
 }
-function openFromList(wtId){ viewMode="detail"; selection.worktypeId=wtId; editingMapId=null; renderAll(); }
+function pendingCount(){
+  const ctx=findWorktype(mapCtx.wtId);const isManual=ctx.wt.type==="manual";const t=mapCtx.tokens;
+  const orgs=t.organizations.length||0;
+  if(isManual)return orgs; // one row per org
+  const ba=t.businessArea.length||0,wt=t.worktype.length||0,st=t.status.length||0;
+  return ba*wt*st*orgs;
+}
+function updateComboNote(){
+  const n=pendingCount();const note=document.getElementById("comboNote");if(!note)return;
+  note.innerHTML=n>0?`This will create <b>${n}</b> mapping row${n>1?'s':''}`:`<span style="color:var(--muted)">Add values to generate rows</span>`;
+}
+document.getElementById("mapSave").onclick=()=>{
+  const ctx=findWorktype(mapCtx.wtId);if(!ctx)return;const isManual=ctx.wt.type==="manual";const t=mapCtx.tokens;
+  // pull any partial input
+  ["businessArea","worktype","status","organizations"].forEach(f=>{const inp=document.getElementById("tokInput_"+f);if(inp&&inp.value.trim()){addToken(f,inp.value);inp.value="";}});
+  const source=val("fSource"),remarks=val("fRemarks");
+  let combos=[];
+  if(isManual){
+    const q=val("fQueue");if(!q){toast("Manual Verint Queue is required","warn");return;}
+    if(t.organizations.length===0){toast("Add at least one Organization","warn");return;}
+    t.organizations.forEach(org=>combos.push({manualQueue:q,organizations:[org]}));
+  } else {
+    if(t.businessArea.length===0||t.worktype.length===0||t.status.length===0){toast("Add Business Area, Worktype and Status","warn");return;}
+    if(t.organizations.length===0){toast("Add at least one Organization","warn");return;}
+    t.businessArea.forEach(ba=>t.worktype.forEach(w=>t.status.forEach(s=>t.organizations.forEach(org=>combos.push({businessArea:ba,worktype:w,status:s,organizations:[org]})))));
+  }
+  combos.forEach(c=>{c.source=source;c.remarks=remarks;});
+  if(!ctx.wt.mappings)ctx.wt.mappings=[];
 
-/* ============================================================
-   About / App information
-   ============================================================ */
-const APP_INFO={
-  name:"Verint Mapping Manager",
-  version:"3.0",
-  released:"September 2026",
-  purpose:"Accurately map and count processed items from Verint by linking each Dashboard Worktype (AWD or Manual) to its supporting Business Area, Worktype, Status, Manual Queue and Organization combinations.",
-  dev:{ name:"Mark F. Rusco", email:"mark.rusco@accenture.com", role:"Bus & Technology Delivery Senior Analyst" }
+  // duplicate detection within this worktype
+  const keyOf=(c)=>(isManual?`M|${c.manualQueue}`:`A|${c.businessArea}|${c.worktype}|${c.status}`)+`|${(c.organizations||[]).join(",")}`.toLowerCase();
+  const existingKeys=new Set(ctx.wt.mappings.filter(x=>x.id!==mapCtx.mId).map(x=>keyOf(x)));
+  let added=0,updated=0,skipped=0;
+
+  if(mapCtx.mId){
+    // editing: first combo updates the record in place, extras appended
+    const idx=ctx.wt.mappings.findIndex(x=>x.id===mapCtx.mId);
+    const rec=ctx.wt.mappings[idx];const before=snapshotFields(rec);
+    const first=combos[0];
+    Object.assign(rec,{manualQueue:first.manualQueue||"",businessArea:first.businessArea||"",worktype:first.worktype||"",status:first.status||"",organizations:first.organizations,source,remarks});
+    stampEdit(rec,before);learn(rec);updated++;
+    existingKeys.add(keyOf(rec));
+    for(let i=1;i<combos.length;i++){const c=combos[i];if(existingKeys.has(keyOf(c))){skipped++;continue;}const nrec=stampNew({id:uid(),...c});ctx.wt.mappings.push(nrec);learn(nrec);existingKeys.add(keyOf(c));added++;}
+  } else {
+    combos.forEach(c=>{if(existingKeys.has(keyOf(c))){skipped++;return;}const nrec=stampNew({id:uid(),...c});ctx.wt.mappings.push(nrec);learn(nrec);existingKeys.add(keyOf(c));added++;});
+  }
+  closeOverlay("map");renderAll();
+  const parts=[];if(added)parts.push(`${added} added`);if(updated)parts.push(`${updated} updated`);if(skipped)parts.push(`${skipped} duplicate${skipped>1?'s':''} skipped`);
+  toast(parts.join(", ")||"No changes");
 };
+function deleteMapping(wtId,mId){const ctx=findWorktype(wtId);if(!ctx)return;if(!confirm("Delete this mapping row?"))return;ctx.wt.mappings=ctx.wt.mappings.filter(x=>x.id!==mId);if(editingMapId===mId)editingMapId=null;renderAll();toast("Mapping deleted");}
+function toggleValidated(wtId,mId,checked){const ctx=findWorktype(wtId);if(!ctx)return;const m=(ctx.wt.mappings||[]).find(x=>x.id===mId);if(!m)return;if(checked){m.validated=true;m.validatedAt=nowISO();}else{m.validated=false;m.validatedAt=null;}renderAll();toast(checked?("Validated on "+fmtDate(m.validatedAt)):"Validation cleared");}
+function toggleActive(wtId,mId){const ctx=findWorktype(wtId);if(!ctx)return;const m=(ctx.wt.mappings||[]).find(x=>x.id===mId);if(!m)return;const nowActive=(m.active===false);const t=nowISO();m.active=nowActive;m.statusChangedAt=t;if(nowActive)m.activeSince=t;else m.inactiveSince=t;renderAll();toast(nowActive?("Set Active on "+fmtDate(t)):("Set Inactive on "+fmtDate(t)));}
+
+/* ============================================================ VERSION HISTORY */
+let histCtx=null;
+function openHistory(wtId,mId){
+  const ctx=findWorktype(wtId);if(!ctx)return;const m=(ctx.wt.mappings||[]).find(x=>x.id===mId);if(!m)return;histCtx={wtId,mId};
+  const isManual=ctx.wt.type==="manual";const labelOf=isManual?(m.manualQueue||"(queue)"):[m.businessArea,m.worktype,m.status].filter(Boolean).join(" · ")||"(mapping)";
+  document.getElementById("histTitle").textContent="Version History · "+labelOf;
+  const meta=`<div class="hist-meta"><div class="m"><span class="l">Created</span><span class="v">${fmtDate(m.createdAt)}</span></div><div class="m"><span class="l">Last modified</span><span class="v">${fmtDate(m.modifiedAt||m.createdAt)}</span></div><div class="m"><span class="l">Current version</span><span class="v">v${m.version||1}</span></div><div class="m"><span class="l">Revisions</span><span class="v">${(m.history||[]).length}</span></div></div>`;
+  const items=[];items.push(tlItem(m.version||1,m.modifiedAt||m.createdAt,snapshotFields(m),isManual,true,null));
+  const hist=[...(m.history||[])].sort((a,b)=>(b.version||0)-(a.version||0));let prev=snapshotFields(m);
+  hist.forEach(h=>{items.push(tlItem(h.version,h.savedAt,h.fields,isManual,false,prev));prev=h.fields;});
+  const body=(m.history&&m.history.length)?meta+`<div class="timeline">${items.join("")}</div>`:meta+`<div class="hist-empty">No previous revisions yet — this mapping is still on its first version.<br>Any future edits will be recorded here.</div>`;
+  document.getElementById("histBody").innerHTML=body;showOverlay("hist");
+  document.querySelectorAll("[data-restore]").forEach(b=>b.onclick=()=>restoreVersion(+b.dataset.restore));
+}
+function tlItem(version,when,f,isManual,isCurrent,diffAgainst){
+  const fields=isManual?[["Manual Verint Queue","manualQueue"],["Organizations","organizations"],["Source","source"],["Remarks","remarks"]]:[["Business Area","businessArea"],["Worktype","worktype"],["Status","status"],["Organizations","organizations"],["Source","source"],["Remarks","remarks"]];
+  const cells=fields.map(([lab,key])=>{let cur=key==="organizations"?(f.organizations||[]).join(", "):(f[key]||"");let changed=false;if(diffAgainst){let other=key==="organizations"?(diffAgainst.organizations||[]).join(", "):(diffAgainst[key]||"");changed=(cur.toLowerCase()!==other.toLowerCase());}return `<div class="f ${changed?'chg':''}"><span class="fl">${lab}</span><span class="fv" title="${esc(cur)}">${esc(cur)||'<span class="muted">—</span>'}</span></div>`;}).join("");
+  const restoreBtn=isCurrent?"":`<button class="btn small" data-restore="${version}" title="Restore this version">${svg(IC.restore)} Restore</button>`;
+  return `<div class="tl-item ${isCurrent?'':'old'}"><span class="dot"></span><div class="tl-head"><span class="vb">v${version}</span><span class="when">${fmtDate(when)}</span>${isCurrent?'<span class="cur">Current</span>':''}<span class="spacer"></span>${restoreBtn}</div><div class="tl-fields">${cells}</div></div>`;
+}
+function restoreVersion(version){
+  if(!histCtx)return;const ctx=findWorktype(histCtx.wtId);if(!ctx)return;const m=(ctx.wt.mappings||[]).find(x=>x.id===histCtx.mId);if(!m)return;
+  const h=(m.history||[]).find(x=>x.version===version);if(!h)return;
+  if(!confirm(`Restore version v${version}? The current values will be saved as a new version.`))return;
+  const before=snapshotFields(m);const f=h.fields;
+  m.manualQueue=f.manualQueue||"";m.businessArea=f.businessArea||"";m.worktype=f.worktype||"";m.status=f.status||"";m.organizations=[...(f.organizations||[])];m.source=f.source||"";m.remarks=f.remarks||"";
+  stampEdit(m,before);learn(m);closeOverlay("hist");renderAll();toast("Restored to v"+version+" (now v"+m.version+")");
+}
+
+/* ============================================================ ENTITY MODAL */
+let entityCtx=null;
+function openEntity(kind,id,parentId){
+  entityCtx={kind,id,parentId};const body=document.getElementById("entityBody"),title=document.getElementById("entityTitle");let name="",type="awd";
+  if(kind==="function"){if(id){const fn=state.functions.find(f=>f.id===id);name=fn?.name||"";}title.textContent=id?"Rename Function":"Add Function";body.innerHTML=fieldText("Function name","entName",name,"e.g. Operations, New Business, Claims");}
+  if(kind==="subfunction"){if(id){for(const f of state.functions){const sf=(f.subFunctions||[]).find(s=>s.id===id);if(sf){name=sf.name;break;}}}title.textContent=id?"Rename Sub-function":"Add Sub-function";body.innerHTML=fieldText("Sub-function name","entName",name,"e.g. Policy Services, Underwriting");}
+  if(kind==="worktype"){if(id){const c=findWorktype(id);name=c?.wt.name||"";type=c?.wt.type||"awd";}title.textContent=id?"Edit Dashboard Worktype":"Add Dashboard Worktype";body.innerHTML=fieldText("Dashboard Worktype name","entName",name,"e.g. NB Policy Issue, Address Change")+`<div class="field"><label>Type <span class="req">*</span></label><div class="toggle" id="typeToggle"><div class="opt ${type==='awd'?'sel':''}" data-type="awd"><span class="dot"></span><div><div class="t">AWD</div><div class="d">Captures Business Area, Worktype, Status &amp; Organization</div></div></div><div class="opt ${type==='manual'?'sel':''}" data-type="manual"><span class="dot"></span><div><div class="t">Manual</div><div class="d">Captures Manual Verint Queue &amp; Organization only</div></div></div></div></div>`;setTimeout(()=>document.querySelectorAll("#typeToggle .opt").forEach(o=>o.onclick=()=>{document.querySelectorAll("#typeToggle .opt").forEach(x=>x.classList.remove("sel"));o.classList.add("sel");}));}
+  showOverlay("entity");setTimeout(()=>document.getElementById("entName")?.focus(),30);
+}
+function fieldText(label,id,v,ph){return `<div class="field"><label>${label} <span class="req">*</span></label><input class="input" id="${id}" value="${esc(v)}" placeholder="${esc(ph)}"></div>`;}
+document.getElementById("entitySave").onclick=()=>{
+  const {kind,id,parentId}=entityCtx;const name=document.getElementById("entName").value.trim();if(!name){toast("Please enter a name","warn");return;}
+  if(kind==="function"){if(id)state.functions.find(f=>f.id===id).name=name;else{const nf={id:uid(),name,subFunctions:[]};state.functions.push(nf);expanded.add(nf.id);}}
+  if(kind==="subfunction"){if(id){for(const f of state.functions){const sf=(f.subFunctions||[]).find(s=>s.id===id);if(sf){sf.name=name;break;}}}else{const fn=state.functions.find(f=>f.id===parentId);const ns={id:uid(),name,worktypes:[]};fn.subFunctions.push(ns);expanded.add(fn.id);expanded.add(ns.id);}}
+  if(kind==="worktype"){const type=document.querySelector("#typeToggle .opt.sel")?.dataset.type||"awd";if(id){const c=findWorktype(id);c.wt.name=name;c.wt.type=type;}else{let sf=null;for(const f of state.functions){const s=(f.subFunctions||[]).find(x=>x.id===parentId);if(s){sf=s;break;}}const nw={id:uid(),name,type,mappings:[]};sf.worktypes.push(nw);expanded.add(sf.id);selection.worktypeId=nw.id;viewMode="detail";}}
+  closeOverlay("entity");renderAll();toast("Saved");
+};
+
+/* ============================================================ DIRECTORIES */
+let dirActiveCat="businessArea",dirEditIdx=null;
+function openDirectories(){dirEditIdx=null;showOverlay("dir");renderDir();}
+function renderDir(){
+  const body=document.getElementById("dirBody");
+  const cats=DIR_CATS.map(c=>`<button class="dir-cat ${c.key===dirActiveCat?'sel':''}" data-cat="${c.key}">${svg(IC.list)}<span>${c.label}</span><span class="c">${(state.directories[c.key]||[]).length}</span></button>`).join("");
+  const label=DIR_CATS.find(c=>c.key===dirActiveCat).label;const entries=state.directories[dirActiveCat]||[];
+  const list=entries.length?entries.map((v,i)=>dirItem(v,i)).join(""):`<div class="dir-empty">No entries yet.<br>Add your first ${esc(label)} above.</div>`;
+  body.innerHTML=`<div class="dir-layout"><div class="dir-cats">${cats}</div><div class="dir-entries"><div class="dir-add"><input class="input" id="dirNewInput" placeholder="Add new ${esc(label)}…"><button class="btn primary" id="dirAddBtn">${svg(IC.plus)} Add</button></div><div id="dirBulkWrap"><button class="btn small" id="dirBulkToggle" style="margin-bottom:8px">${svg(IC.list)} Bulk paste / import</button><div id="dirBulkPanel" style="display:none;margin-bottom:12px"><textarea id="dirBulkText" placeholder="Paste multiple ${esc(label)} values — one per line, or comma / tab / semicolon separated…"></textarea><div style="display:flex;gap:8px;margin-top:8px;align-items:center;flex-wrap:wrap"><button class="btn primary small" id="dirBulkAdd">${svg(IC.check)} Add all</button><button class="btn small" id="dirBulkFile">${svg(IC.folder)} Import from file (.csv/.txt)</button><input type="file" id="dirBulkFileInput" accept=".csv,.txt" style="display:none"><span class="hint" style="margin-left:auto">Duplicates are skipped</span></div></div></div><div class="dir-list">${list}</div></div></div>`;
+  document.querySelectorAll(".dir-cat").forEach(b=>b.onclick=()=>{dirActiveCat=b.dataset.cat;dirEditIdx=null;renderDir();});
+  const addBtn=document.getElementById("dirAddBtn"),newInp=document.getElementById("dirNewInput");
+  const doAdd=()=>{const v=newInp.value.trim();if(!v){toast("Enter a value","warn");return;}if((state.directories[dirActiveCat]||[]).some(x=>x.toLowerCase()===v.toLowerCase())){toast("Already exists","warn");return;}state.directories[dirActiveCat].push(v);newInp.value="";save();renderDatalists();renderDir();toast("Added");};
+  addBtn.onclick=doAdd;newInp.onkeydown=(e)=>{if(e.key==="Enter"){e.preventDefault();doAdd();}};setTimeout(()=>newInp.focus(),20);
+  const bulkToggle=document.getElementById("dirBulkToggle"),bulkPanel=document.getElementById("dirBulkPanel");
+  bulkToggle.onclick=()=>{bulkPanel.style.display=bulkPanel.style.display==="none"?"block":"none";if(bulkPanel.style.display==="block")document.getElementById("dirBulkText").focus();};
+  const commitBulk=(raw)=>{const items=parseBulkValues(raw);if(items.length===0){toast("No values found","warn");return;}const existing=state.directories[dirActiveCat]||[];let added=0,skipped=0;items.forEach(v=>{if(existing.some(x=>x.toLowerCase()===v.toLowerCase())){skipped++;return;}existing.push(v);added++;});save();renderDatalists();renderDir();toast(`Added ${added}${skipped?`, skipped ${skipped} duplicate${skipped>1?'s':''}`:''}`);};
+  document.getElementById("dirBulkAdd").onclick=()=>commitBulk(document.getElementById("dirBulkText").value);
+  document.getElementById("dirBulkFile").onclick=()=>document.getElementById("dirBulkFileInput").click();
+  document.getElementById("dirBulkFileInput").onchange=(e)=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{commitBulk(r.result);e.target.value="";};r.readAsText(f);};
+  document.querySelectorAll("[data-diract]").forEach(b=>b.onclick=()=>{const a=b.dataset.diract,i=+b.dataset.i;if(a==="edit"){dirEditIdx=i;renderDir();document.getElementById("dirEditInput")?.focus();}if(a==="cancel"){dirEditIdx=null;renderDir();}if(a==="save"){const nv=document.getElementById("dirEditInput").value.trim();if(!nv){toast("Value cannot be empty","warn");return;}state.directories[dirActiveCat][i]=nv;dirEditIdx=null;save();renderDatalists();renderDir();toast("Updated");}if(a==="del"){if(!confirm(`Remove "${state.directories[dirActiveCat][i]}" from ${label}?`))return;state.directories[dirActiveCat].splice(i,1);dirEditIdx=null;save();renderDatalists();renderDir();toast("Removed");}});
+  const ei=document.getElementById("dirEditInput");if(ei)ei.onkeydown=(e)=>{if(e.key==="Enter"){e.preventDefault();document.querySelector('[data-diract="save"]')?.click();}else if(e.key==="Escape"){dirEditIdx=null;renderDir();}};
+}
+function dirItem(v,i){if(i===dirEditIdx)return `<div class="dir-item"><input id="dirEditInput" value="${esc(v)}"><button class="minibtn ok" data-diract="save" data-i="${i}" title="Save">${svg(IC.check)}</button><button class="minibtn" data-diract="cancel" data-i="${i}" title="Cancel">${svg(IC.x)}</button></div>`;return `<div class="dir-item"><span class="t">${esc(v)}</span><button class="minibtn" data-diract="edit" data-i="${i}" title="Edit">${svg(IC.edit)}</button><button class="minibtn del" data-diract="del" data-i="${i}" title="Remove">${svg(IC.del)}</button></div>`;}
+
+/* ============================================================ LIST VIEW */
+function flattenMappings(){const out=[];state.functions.forEach(fn=>(fn.subFunctions||[]).forEach(sf=>(sf.worktypes||[]).forEach(wt=>(wt.mappings||[]).forEach(m=>out.push({fn,sf,wt,m})))));return out;}
+function renderListView(){
+  const main=document.getElementById("main");let rows=flattenMappings();const total=rows.length;const f=listFilters;const q=(f.text||"").trim().toLowerCase();
+  if(q)rows=rows.filter(r=>{const{fn,sf,wt,m}=r;return[fn.name,sf.name,wt.name,m.manualQueue,m.businessArea,m.worktype,m.status,m.source,m.remarks,(m.organizations||[]).join(" "),awdManualKey(wt.type,m)].filter(Boolean).some(v=>v.toLowerCase().includes(q));});
+  if(f.type)rows=rows.filter(r=>r.wt.type===f.type);
+  if(f.validated==="yes")rows=rows.filter(r=>r.m.validated);
+  if(f.validated==="no")rows=rows.filter(r=>!r.m.validated);
+  if(f.active==="active")rows=rows.filter(r=>r.m.active!==false);
+  if(f.active==="inactive")rows=rows.filter(r=>r.m.active===false);
+  const lvKeyFn=(r)=>{switch(listSort.key){case"function":return r.fn.name||"";case"subFunction":return r.sf.name||"";case"worktypeName":return r.wt.name||"";case"type":return r.wt.type||"";case"key":return awdManualKey(r.wt.type,r.m);case"organizations":return(r.m.organizations||[]).join(", ");case"source":return r.m.source||"";case"active":return(r.m.active!==false)?1:0;case"validated":return r.m.validated?1:0;case"version":return r.m.version||1;default:return r.fn.name||"";}};
+  rows=sortBy(rows,lvKeyFn,listSort.dir);
+  const head=`<div class="detail-head"><div><div class="breadcrumb">${svg(IC.list)} <b>All Mappings</b> · consolidated list view</div><h1>List View</h1></div><div class="spacer"></div><button class="btn" id="btnExportCsv2">${svg(IC.doc)} Export CSV</button></div>`;
+  const valTotal=flattenMappings().filter(r=>r.m.validated).length;
+  const cards=`<div class="cards"><div class="card"><div class="k">Total mappings</div><div class="v">${total}</div></div><div class="card"><div class="k">AWD</div><div class="v" style="color:var(--awd)">${flattenMappings().filter(r=>r.wt.type==='awd').length}</div></div><div class="card"><div class="k">Manual</div><div class="v" style="color:var(--manual)">${flattenMappings().filter(r=>r.wt.type==='manual').length}</div></div><div class="card"><div class="k">Validated</div><div class="v" style="color:${valTotal===total&&total?'var(--manual)':'var(--ink)'}">${valTotal}<span style="font-size:14px;color:var(--muted);font-weight:500">/${total}</span></div></div></div>`;
+  const filters=`<div class="list-filters"><div class="search" style="max-width:320px"><svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg><input id="lvSearch" placeholder="Search all mappings…" value="${esc(f.text)}"></div><select class="select lv-select" id="lvType"><option value="">All types</option><option value="awd" ${f.type==='awd'?'selected':''}>AWD only</option><option value="manual" ${f.type==='manual'?'selected':''}>Manual only</option></select><select class="select lv-select" id="lvActive"><option value="">All statuses</option><option value="active" ${f.active==='active'?'selected':''}>Active</option><option value="inactive" ${f.active==='inactive'?'selected':''}>Inactive</option></select><select class="select lv-select" id="lvVal"><option value="">All validation</option><option value="yes" ${f.validated==='yes'?'selected':''}>Validated</option><option value="no" ${f.validated==='no'?'selected':''}>Not validated</option></select>${(f.text||f.type||f.validated||f.active||listSort.key!=='function'||listSort.dir!=='asc')?`<button class="btn small" id="lvClear">${svg(IC.x)} Clear</button>`:''}<span class="chip" style="margin-left:auto">${rows.length} of ${total} shown</span></div>`;
+  const lvh=(label,key)=>{const active=listSort.key===key;const arrow=active?(listSort.dir==="asc"?' ▲':' ▼'):'';return `<th data-lvsort="${key}" class="th-sort ${active?'active':''}">${label}<span class="tha">${arrow}</span></th>`;};
+  const thead=`<tr>${lvh('Function','function')}${lvh('Sub-Function','subFunction')}${lvh('Dashboard Worktype','worktypeName')}${lvh('Type','type')}${lvh('AWD &amp; Manual Verint Queue','key')}${lvh('Organization(s)','organizations')}${lvh('Source','source')}${lvh('Active / Inactive','active')}${lvh('Validated','validated')}${lvh('Version','version')}<th style="width:80px"></th></tr>`;
+  const body=rows.map(r=>{const{fn,sf,wt,m}=r;const key=awdManualKey(wt.type,m);const valCell=m.validated?`<span class="lv-val on">${svg(IC.check)} ${fmtDateShort(m.validatedAt)}</span>`:`<span class="lv-val muted">—</span>`;const isActive=(m.active!==false);const stChg=m.statusChangedAt||m.activeSince||m.createdAt;const actCell=`<span class="lv-status ${isActive?'on':'off'}"><span class="dot"></span>${isActive?'Active':'Inactive'} <span class="lv-status-date">${fmtDateShort(stChg)}</span></span>`;return `<tr><td>${esc(fn.name)}</td><td>${esc(sf.name)}</td><td><b>${esc(wt.name)}</b></td><td><span class="tag ${wt.type}">${wt.type}</span></td><td><code class="keycode">${esc(key)||'<span class="muted">—</span>'}</code></td><td>${orgPills(m.organizations)}</td><td>${esc(m.source)||'<span class="muted">—</span>'}</td><td>${actCell}</td><td>${valCell}</td><td><span class="ver-badge">v${m.version||1}</span></td><td><div class="cellactions"><button class="minibtn" title="Open in detail" onclick="openFromList('${wt.id}')">${svg(IC.doc)}</button><button class="minibtn" title="History" onclick="openHistory('${wt.id}','${m.id}')">${svg(IC.clock)}</button></div></td></tr>`;}).join("");
+  const table=rows.length?`<div class="table-wrap"><table><thead>${thead}</thead><tbody>${body}</tbody></table></div>`:`<div class="table-wrap"><div class="table-empty">${svg(IC.db)}<div style="margin-top:8px">${total?'No mappings match the current filters.':'No mappings yet. Add worktypes and mappings to see them here.'}</div></div></div>`;
+  main.innerHTML=head+cards+filters+`<div class="section-bar"><h2>All mapping combinations</h2></div>`+table;
+  const s=document.getElementById("lvSearch");s.oninput=()=>{listFilters.text=s.value;renderListView();s.focus();s.setSelectionRange(s.value.length,s.value.length);};
+  document.getElementById("lvType").onchange=(e)=>{listFilters.type=e.target.value;renderListView();};
+  document.getElementById("lvVal").onchange=(e)=>{listFilters.validated=e.target.value;renderListView();};
+  const lva=document.getElementById("lvActive");if(lva)lva.onchange=(e)=>{listFilters.active=e.target.value;renderListView();};
+  document.getElementById("btnExportCsv2").onclick=()=>document.getElementById("btnExportCsv").click();
+  const lvc=document.getElementById("lvClear");if(lvc)lvc.onclick=()=>{listFilters={text:"",type:"",validated:"",active:""};listSort={key:"function",dir:"asc"};renderListView();};
+  document.querySelectorAll("#main th[data-lvsort]").forEach(th=>th.onclick=()=>{const k=th.dataset.lvsort;if(listSort.key===k)listSort.dir=listSort.dir==="asc"?"desc":"asc";else{listSort.key=k;listSort.dir="asc";}renderListView();});
+}
+function openFromList(wtId){viewMode="detail";selection.worktypeId=wtId;editingMapId=null;selectedIds.clear();renderAll();}
+
+/* ============================================================ ABOUT */
+const APP_INFO={name:"Verint Mapping Manager",version:"3.1",released:"September 2026",purpose:"Accurately map and count processed items from Verint by linking each Dashboard Worktype (AWD or Manual) to its supporting Business Area, Worktype, Status, Manual Queue and Organization combinations. Multi-select generates every combination automatically.",dev:{name:"Mark F. Rusco",email:"mark.rusco@accenture.com",role:"Bus & Technology Delivery Senior Analyst"}};
 function openAbout(){
-  const wts=allWorktypes();
-  const maps=flattenMappings();
-  const dirCount=DIR_KEYS.reduce((a,k)=>a+((state.directories[k]||[]).length),0);
-  const validated=maps.filter(r=>r.m.validated).length;
-
+  const wts=allWorktypes();const maps=flattenMappings();const dirCount=DIR_KEYS.reduce((a,k)=>a+((state.directories[k]||[]).length),0);const validated=maps.filter(r=>r.m.validated).length;
   const feature=(t,d)=>`<div class="ab-feat"><div class="ab-fi">${svg(IC.check)}</div><div><b>${t}</b><span>${d}</span></div></div>`;
-
-  document.getElementById("aboutBody").innerHTML=`
-    <div class="ab-hero">
-      <div class="ab-logo"><svg class="icon" viewBox="0 0 24 24" style="width:26px;height:26px;stroke:#fff"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div>
-      <div>
-        <div class="ab-name">${APP_INFO.name}</div>
-        <div class="ab-ver">Version ${APP_INFO.version} · ${APP_INFO.released}</div>
-      </div>
-    </div>
-    <p class="ab-purpose">${APP_INFO.purpose}</p>
-
-    <div class="ab-sec-title">At a glance</div>
-    <div class="ab-stats">
-      <div class="ab-stat"><span class="n">${state.functions.length}</span><span class="l">Functions</span></div>
-      <div class="ab-stat"><span class="n">${wts.length}</span><span class="l">Worktypes</span></div>
-      <div class="ab-stat"><span class="n">${maps.length}</span><span class="l">Mappings</span></div>
-      <div class="ab-stat"><span class="n">${validated}</span><span class="l">Validated</span></div>
-      <div class="ab-stat"><span class="n">${dirCount}</span><span class="l">Directory items</span></div>
-    </div>
-
-    <div class="ab-sec-title">Key features</div>
-    <div class="ab-feats">
-      ${feature("Function hierarchy","Function → Sub-function → Dashboard Worktype tree with search.")}
-      ${feature("AWD & Manual types","AWD captures Business Area / Worktype / Status; Manual captures Verint Queue.")}
-      ${feature("Multi-organization mapping","Multiple supporting organizations counted per worktype.")}
-      ${feature("Directories & autocomplete","Master lists for each field with type-ahead suggestions.")}
-      ${feature("Bulk paste / file import","Add many directory values at once from paste or .csv/.txt.")}
-      ${feature("Inline editing","Edit any mapping row directly in the table.")}
-      ${feature("Validation tracking","Validated checkbox with an auto-stamped validation date.")}
-      ${feature("Change history","Created / modified dates plus full version history with restore.")}
-      ${feature("List view","Consolidated, filterable view of every mapping in one place.")}
-      ${feature("Export & import","JSON backup/restore and analysis-ready CSV with combined key.")}
-    </div>
-
-    <div class="ab-sec-title">Data & storage</div>
-    <div class="ab-kv">
-      <div><span>Persistence</span><b>Browser localStorage + IndexedDB (offline, on-device)</b></div>
-      <div><span>Storage key</span><b>${LS_KEY}</b></div>
-      <div><span>Database</span><b>${IDB_NAME} / ${IDB_STORE}</b></div>
-      <div><span>CSV key column</span><b>AWD &amp; Manual Verint Queue (BA_WT_STATUS or Queue)</b></div>
-      <div><span>Privacy</span><b>All data stays in your browser — nothing is sent to any server</b></div>
-    </div>
-
-    <div class="ab-sec-title">Developer</div>
-    <div class="ab-dev">
-      <div class="dev-avatar">MR</div>
-      <div class="ab-dev-meta">
-        <div class="ab-dev-name">${APP_INFO.dev.name}</div>
-        <div class="ab-dev-role">${APP_INFO.dev.role}</div>
-        <a class="dev-mail" href="mailto:${APP_INFO.dev.email}">${APP_INFO.dev.email}</a>
-      </div>
-    </div>
-
-    <div class="ab-tech">Single-file web application · HTML · CSS · Vanilla JavaScript · No external dependencies</div>
-  `;
+  document.getElementById("aboutBody").innerHTML=`<div class="ab-hero"><div class="ab-logo"><svg class="icon" viewBox="0 0 24 24" style="width:26px;height:26px;stroke:#fff"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div><div><div class="ab-name">${APP_INFO.name}</div><div class="ab-ver">Version ${APP_INFO.version} · ${APP_INFO.released}</div></div></div><p class="ab-purpose">${APP_INFO.purpose}</p><div class="ab-sec-title">At a glance</div><div class="ab-stats"><div class="ab-stat"><span class="n">${state.functions.length}</span><span class="l">Functions</span></div><div class="ab-stat"><span class="n">${wts.length}</span><span class="l">Worktypes</span></div><div class="ab-stat"><span class="n">${maps.length}</span><span class="l">Mappings</span></div><div class="ab-stat"><span class="n">${validated}</span><span class="l">Validated</span></div><div class="ab-stat"><span class="n">${dirCount}</span><span class="l">Directory items</span></div></div><div class="ab-sec-title">Key features</div><div class="ab-feats">${feature("Function hierarchy","Function → Sub-function → Dashboard Worktype tree with search.")}${feature("AWD & Manual types","AWD captures Business Area / Worktype / Status; Manual captures Verint Queue.")}${feature("Multi-select row expansion","Pick multiple Business Areas, Worktypes, Statuses & Orgs — every combination becomes a row.")}${feature("Directories & autocomplete","Master lists for each field with type-ahead suggestions.")}${feature("Bulk paste / file import","Add many directory values at once from paste or .csv/.txt.")}${feature("Inline editing","Edit any mapping row directly in the table.")}${feature("Validation tracking","Validated checkbox with an auto-stamped validation date.")}${feature("Change history","Created / modified dates plus full version history with restore.")}${feature("List view + filter/sort","Consolidated, filterable, sortable view of every mapping.")}${feature("Export & import","JSON backup/restore and analysis-ready CSV with combined key.")}</div><div class="ab-sec-title">Data & storage</div><div class="ab-kv"><div><span>Persistence</span><b>Browser localStorage + IndexedDB (offline, on-device)</b></div><div><span>Storage key</span><b>${LS_KEY}</b></div><div><span>Database</span><b>${IDB_NAME} / ${IDB_STORE}</b></div><div><span>CSV key column</span><b>AWD &amp; Manual Verint Queue (BA_WT_STATUS or Queue)</b></div><div><span>Privacy</span><b>All data stays in your browser — nothing is sent to any server</b></div></div><div class="ab-sec-title">Developer</div><div class="ab-dev"><div class="dev-avatar">MR</div><div class="ab-dev-meta"><div class="ab-dev-name">${APP_INFO.dev.name}</div><div class="ab-dev-role">${APP_INFO.dev.role}</div><a class="dev-mail" href="mailto:${APP_INFO.dev.email}">${APP_INFO.dev.email}</a></div></div><div class="ab-tech">Single-file web application · HTML · CSS · Vanilla JavaScript · No external dependencies</div>`;
   showOverlay("about");
 }
 
-function renderAll(){ ensureDirectories(); renderDatalists(); renderTree(); renderMain(); updateViewButtons(); save(); }
-function updateViewButtons(){
-  const b=document.getElementById("btnListView");
-  if(!b) return;
-  b.classList.toggle("primary", viewMode==="list");
-}
-
-/* ---------- Inline edit actions ---------- */
-function startInlineEdit(mId){ editingMapId=mId; renderMain(); }
-function cancelInlineEdit(){ editingMapId=null; renderMain(); }
-function saveInlineEdit(wtId,mId){
-  const ctx=findWorktype(wtId); if(!ctx) return;
-  const isManual=ctx.wt.type==="manual";
-  const m=ctx.wt.mappings.find(x=>x.id===mId); if(!m) return;
-  const before=snapshotFields(m);
-
-  const orgs=parseOrgs(document.getElementById("ie_orgs").value);
-  if(orgs.length===0){ toast("Add at least one Organization","warn"); return; }
-
-  if(isManual){
-    const q=val("ie_manualQueue"); if(!q){ toast("Manual Verint Queue is required","warn"); return; }
-    m.manualQueue=q;
-  } else {
-    const ba=val("ie_businessArea"), w=val("ie_worktype"), s=val("ie_status");
-    if(!ba||!w||!s){ toast("Business Area, Worktype and Status are required","warn"); return; }
-    m.businessArea=ba; m.worktype=w; m.status=s;
-  }
-  m.organizations=orgs;
-  m.source=val("ie_source");
-  m.remarks=val("ie_remarks");
-  const changed=stampEdit(m, before);
-  learn(m);
-  editingMapId=null;
-  renderAll();
-  toast(changed?"Row updated (v"+m.version+")":"No changes");
-}
-function parseOrgs(str){
-  const out=[];
-  (str||"").split(",").forEach(v=>{ v=v.trim(); if(v && !out.some(o=>o.toLowerCase()===v.toLowerCase())) out.push(v); });
-  return out;
-}
-function val(id){ return (document.getElementById(id)?.value||"").trim(); }
-
-/* ============================================================
-   Change tracking: created / modified dates + version history
-   ============================================================ */
-function nowISO(){ return new Date().toISOString(); }
-function fmtDate(iso){
-  if(!iso) return "—";
-  const d=new Date(iso); if(isNaN(d)) return "—";
-  const p=n=>String(n).padStart(2,"0");
-  return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+" "+p(d.getHours())+":"+p(d.getMinutes());
-}
-function fmtDateShort(iso){
-  if(!iso) return "—";
-  const d=new Date(iso); if(isNaN(d)) return "—";
-  const p=n=>String(n).padStart(2,"0");
-  return p(d.getMonth()+1)+"/"+p(d.getDate())+"/"+String(d.getFullYear()).slice(2)+" "+p(d.getHours())+":"+p(d.getMinutes());
-}
-/* snapshot of the editable fields only */
-function snapshotFields(m){
-  return {
-    manualQueue:m.manualQueue||"", businessArea:m.businessArea||"", worktype:m.worktype||"",
-    status:m.status||"", organizations:[...(m.organizations||[])], source:m.source||"", remarks:m.remarks||""
-  };
-}
-function sameFields(a,b){
-  return a.manualQueue===b.manualQueue && a.businessArea===b.businessArea && a.worktype===b.worktype
-    && a.status===b.status && a.source===b.source && a.remarks===b.remarks
-    && (a.organizations||[]).join("|").toLowerCase()===(b.organizations||[]).join("|").toLowerCase();
-}
-/* build a history entry capturing an OLD version before it is overwritten */
-function historyEntry(m){
-  return { version:m.version||1, savedAt:m.modifiedAt||m.createdAt||nowISO(), fields:snapshotFields(m) };
-}
-/* stamp a brand new record */
-function stampNew(rec){
-  const t=nowISO();
-  rec.createdAt=t; rec.modifiedAt=t; rec.version=1; rec.history=[];
-  return rec;
-}
-/* apply an edit to an existing in-place record `m`, given its pre-edit snapshot `before` */
-function stampEdit(m, before){
-  if(!m.createdAt) m.createdAt=nowISO();
-  const after=snapshotFields(m);
-  if(!sameFields(before, after)){
-    m.history=m.history||[];
-    m.history.push({ version:m.version||1, savedAt:m.modifiedAt||m.createdAt, fields:before });
-    m.version=(m.version||1)+1;
-    m.modifiedAt=nowISO();
-    return true;
-  }
-  if(!m.modifiedAt) m.modifiedAt=m.createdAt;
-  return false;
-}
-
-/* ============================================================
-   Entity modal (Function / Sub-function / Worktype)
-   ============================================================ */
-let entityCtx=null;
-function openEntity(kind,id,parentId){
-  entityCtx={kind,id,parentId};
-  const body=document.getElementById("entityBody");
-  const title=document.getElementById("entityTitle");
-  let name="",type="awd";
-
-  if(kind==="function"){
-    if(id){ const fn=state.functions.find(f=>f.id===id); name=fn?.name||""; }
-    title.textContent=id?"Rename Function":"Add Function";
-    body.innerHTML=fieldText("Function name","entName",name,"e.g. Operations, New Business, Claims");
-  }
-  if(kind==="subfunction"){
-    if(id){ for(const f of state.functions){const sf=(f.subFunctions||[]).find(s=>s.id===id); if(sf){name=sf.name;break;}} }
-    title.textContent=id?"Rename Sub-function":"Add Sub-function";
-    body.innerHTML=fieldText("Sub-function name","entName",name,"e.g. Policy Services, Underwriting");
-  }
-  if(kind==="worktype"){
-    if(id){ const c=findWorktype(id); name=c?.wt.name||""; type=c?.wt.type||"awd"; }
-    title.textContent=id?"Edit Dashboard Worktype":"Add Dashboard Worktype";
-    body.innerHTML=
-      fieldText("Dashboard Worktype name","entName",name,"e.g. NB Policy Issue, Address Change")+
-      `<div class="field"><label>Type <span class="req">*</span></label>
-        <div class="toggle" id="typeToggle">
-          <div class="opt ${type==='awd'?'sel':''}" data-type="awd">
-            <span class="dot"></span><div><div class="t">AWD</div><div class="d">Captures Business Area, Worktype, Status &amp; Organization</div></div>
-          </div>
-          <div class="opt ${type==='manual'?'sel':''}" data-type="manual">
-            <span class="dot"></span><div><div class="t">Manual</div><div class="d">Captures Manual Verint Queue &amp; Organization only</div></div>
-          </div>
-        </div></div>`;
-    setTimeout(()=>document.querySelectorAll("#typeToggle .opt").forEach(o=>o.onclick=()=>{
-      document.querySelectorAll("#typeToggle .opt").forEach(x=>x.classList.remove("sel")); o.classList.add("sel");
-    }));
-  }
-  showOverlay("entity");
-  setTimeout(()=>document.getElementById("entName")?.focus(),30);
-}
-function fieldText(label,id,val,ph){
-  return `<div class="field"><label>${label} <span class="req">*</span></label>
-    <input class="input" id="${id}" value="${esc(val)}" placeholder="${esc(ph)}" /></div>`;
-}
-document.getElementById("entitySave").onclick=()=>{
-  const {kind,id,parentId}=entityCtx;
-  const name=document.getElementById("entName").value.trim();
-  if(!name){ toast("Please enter a name","warn"); return; }
-  if(kind==="function"){
-    if(id){ state.functions.find(f=>f.id===id).name=name; }
-    else{ const nf={id:uid(),name,subFunctions:[]}; state.functions.push(nf); expanded.add(nf.id); }
-  }
-  if(kind==="subfunction"){
-    if(id){ for(const f of state.functions){const sf=(f.subFunctions||[]).find(s=>s.id===id); if(sf){sf.name=name;break;}} }
-    else{ const fn=state.functions.find(f=>f.id===parentId); const ns={id:uid(),name,worktypes:[]}; fn.subFunctions.push(ns); expanded.add(fn.id); expanded.add(ns.id); }
-  }
-  if(kind==="worktype"){
-    const type=document.querySelector("#typeToggle .opt.sel")?.dataset.type||"awd";
-    if(id){ const c=findWorktype(id); c.wt.name=name; c.wt.type=type; }
-    else{ let sf=null; for(const f of state.functions){const s=(f.subFunctions||[]).find(x=>x.id===parentId); if(s){sf=s;break;}}
-      const nw={id:uid(),name,type,mappings:[]}; sf.worktypes.push(nw); expanded.add(sf.id); selection.worktypeId=nw.id; }
-  }
-  closeOverlay("entity"); renderAll(); toast("Saved");
-};
-
-/* ============================================================
-   Mapping modal (with datalist autocomplete)
-   ============================================================ */
-let mapCtx=null;
-function openMapping(wtId,mId){
-  const ctx=findWorktype(wtId); if(!ctx) return;
-  mapCtx={wtId,mId,orgs:[]};
-  const isManual=ctx.wt.type==="manual";
-  const m=mId?(ctx.wt.mappings||[]).find(x=>x.id===mId):null;
-  mapCtx.orgs=m?[...(m.organizations||[])]:[];
-
-  document.getElementById("mapTitle").textContent=(mId?"Edit":"Add")+" Mapping · "+ctx.wt.type.toUpperCase();
-
-  let fields;
-  if(isManual){
-    fields=`<div class="field"><label>Manual Verint Queue <span class="req">*</span>
-        <span class="hint">start typing for suggestions</span></label>
-      <input class="input" id="fQueue" list="dl_manualQueue" value="${esc(m?.manualQueue||'')}" placeholder="e.g. QUEUE_NB_MANUAL_01" /></div>`;
-  } else {
-    fields=`<div class="grid2">
-        <div class="field"><label>Business Area <span class="req">*</span></label>
-          <input class="input" id="fBA" list="dl_businessArea" value="${esc(m?.businessArea||'')}" placeholder="e.g. New Business" /></div>
-        <div class="field"><label>Worktype <span class="req">*</span></label>
-          <input class="input" id="fWT" list="dl_worktype" value="${esc(m?.worktype||'')}" placeholder="e.g. NB_ISSUE" /></div>
-      </div>
-      <div class="field"><label>Status <span class="req">*</span></label>
-        <input class="input" id="fStatus" list="dl_status" value="${esc(m?.status||'')}" placeholder="e.g. Completed, Processed" /></div>`;
-  }
-
-  const orgField=`<div class="field">
-      <label>Organization Name(s) <span class="req">*</span>
-        <span class="hint">add one or more supporting orgs — Enter or comma; suggestions available</span></label>
-      <div class="orgbox" id="orgBox">
-        <input id="orgInput" list="dl_organization" placeholder="Type an organization and press Enter…" />
-      </div></div>`;
-
-  const meta=`<div class="grid2">
-      <div class="field"><label>Source Name</label>
-        <input class="input" id="fSource" list="dl_source" value="${esc(m?.source||'')}" placeholder="e.g. Verint, AWD Export, SQF" /></div>
-      <div class="field"><label>Remarks</label>
-        <input class="input" id="fRemarks" value="${esc(m?.remarks||'')}" placeholder="Optional notes" /></div>
-    </div>`;
-
-  document.getElementById("mapBody").innerHTML=fields+orgField+meta;
-  showOverlay("map"); renderOrgTokens(); setupOrgInput();
-  setTimeout(()=>document.getElementById(isManual?"fQueue":"fBA")?.focus(),30);
-}
-function setupOrgInput(){
-  const input=document.getElementById("orgInput");
-  input.onkeydown=(e)=>{
-    if(e.key==="Enter"||e.key===","){ e.preventDefault(); addOrgToken(input.value); input.value=""; }
-    else if(e.key==="Backspace"&&!input.value&&mapCtx.orgs.length){ mapCtx.orgs.pop(); renderOrgTokens(); }
-  };
-  input.onchange=()=>{ if(input.value.trim()){ addOrgToken(input.value); input.value=""; } };
-  input.onblur=()=>{ if(input.value.trim()){ addOrgToken(input.value); input.value=""; } };
-}
-function addOrgToken(v){ v=v.trim(); if(!v) return;
-  if(!mapCtx.orgs.some(o=>o.toLowerCase()===v.toLowerCase())) mapCtx.orgs.push(v); renderOrgTokens(); }
-function renderOrgTokens(){
-  const box=document.getElementById("orgBox");
-  const input=document.getElementById("orgInput");
-  box.querySelectorAll(".token").forEach(t=>t.remove());
-  mapCtx.orgs.forEach((o,i)=>{
-    const t=document.createElement("span"); t.className="token";
-    t.innerHTML=`${esc(o)} <button title="Remove">${svg(IC.x)}</button>`;
-    t.querySelector("button").onclick=()=>{ mapCtx.orgs.splice(i,1); renderOrgTokens(); };
-    box.insertBefore(t,input);
-  });
-}
-document.getElementById("mapSave").onclick=()=>{
-  const ctx=findWorktype(mapCtx.wtId); if(!ctx) return;
-  const isManual=ctx.wt.type==="manual";
-  const inp=document.getElementById("orgInput");
-  if(inp.value.trim()){ addOrgToken(inp.value); inp.value=""; }
-  if(mapCtx.orgs.length===0){ toast("Add at least one Organization","warn"); return; }
-
-  let rec={id:mapCtx.mId||uid(),organizations:[...mapCtx.orgs],source:val("fSource"),remarks:val("fRemarks")};
-  if(isManual){ const q=val("fQueue"); if(!q){ toast("Manual Verint Queue is required","warn"); return; } rec.manualQueue=q; }
-  else{ const ba=val("fBA"),w=val("fWT"),s=val("fStatus"); if(!ba||!w||!s){ toast("Business Area, Worktype and Status are required","warn"); return; } rec.businessArea=ba; rec.worktype=w; rec.status=s; }
-
-  if(!ctx.wt.mappings) ctx.wt.mappings=[];
-  if(mapCtx.mId){
-    const i=ctx.wt.mappings.findIndex(x=>x.id===mapCtx.mId);
-    const old=ctx.wt.mappings[i]||{};
-    const before=snapshotFields(old);
-    // carry over change-tracking meta
-    rec.createdAt=old.createdAt||nowISO();
-    rec.modifiedAt=old.modifiedAt||old.createdAt;
-    rec.version=old.version||1;
-    rec.history=old.history||[];
-    if(!sameFields(before, snapshotFields(rec))){
-      rec.history.push({ version:rec.version, savedAt:old.modifiedAt||old.createdAt||nowISO(), fields:before });
-      rec.version=rec.version+1;
-      rec.modifiedAt=nowISO();
-    }
-    ctx.wt.mappings[i]=rec;
-  } else {
-    stampNew(rec);
-    ctx.wt.mappings.push(rec);
-  }
-  learn(rec);
-  closeOverlay("map"); renderAll(); toast(mapCtx.mId?"Mapping updated":"Mapping saved");
-};
-
-function deleteMapping(wtId,mId){
-  const ctx=findWorktype(wtId); if(!ctx) return;
-  if(!confirm("Delete this mapping row?")) return;
-  ctx.wt.mappings=ctx.wt.mappings.filter(x=>x.id!==mId);
-  if(editingMapId===mId) editingMapId=null;
-  renderAll(); toast("Mapping deleted");
-}
-
-/* Toggle validation flag — auto-stamps the validation date/time */
-function toggleValidated(wtId,mId,checked){
-  const ctx=findWorktype(wtId); if(!ctx) return;
-  const m=(ctx.wt.mappings||[]).find(x=>x.id===mId); if(!m) return;
-  if(checked){ m.validated=true; m.validatedAt=nowISO(); }
-  else { m.validated=false; m.validatedAt=null; }
-  renderAll();
-  toast(checked?("Validated on "+fmtDate(m.validatedAt)):"Validation cleared");
-}
-
-/* ============================================================
-   Version history modal
-   ============================================================ */
-let histCtx=null;
-function openHistory(wtId,mId){
-  const ctx=findWorktype(wtId); if(!ctx) return;
-  const m=(ctx.wt.mappings||[]).find(x=>x.id===mId); if(!m) return;
-  histCtx={wtId,mId};
-  const isManual=ctx.wt.type==="manual";
-  const labelOf = isManual
-    ? (m.manualQueue||"(queue)")
-    : [m.businessArea,m.worktype,m.status].filter(Boolean).join(" · ")||"(mapping)";
-  document.getElementById("histTitle").textContent="Version History · "+labelOf;
-
-  const meta=`<div class="hist-meta">
-    <div class="m"><span class="l">Created</span><span class="v">${fmtDate(m.createdAt)}</span></div>
-    <div class="m"><span class="l">Last modified</span><span class="v">${fmtDate(m.modifiedAt||m.createdAt)}</span></div>
-    <div class="m"><span class="l">Current version</span><span class="v">v${m.version||1}</span></div>
-    <div class="m"><span class="l">Revisions</span><span class="v">${(m.history||[]).length}</span></div>
-  </div>`;
-
-  // Build timeline: current version first, then previous versions (newest first)
-  const items=[];
-  items.push(tlItem(m.version||1, m.modifiedAt||m.createdAt, snapshotFields(m), isManual, true, null, m));
-  const hist=[...(m.history||[])].sort((a,b)=>(b.version||0)-(a.version||0));
-  let prevForDiff=snapshotFields(m);
-  hist.forEach(h=>{
-    items.push(tlItem(h.version, h.savedAt, h.fields, isManual, false, prevForDiff, m));
-    prevForDiff=h.fields;
-  });
-
-  const body = (m.history&&m.history.length)
-    ? meta+`<div class="timeline">${items.join("")}</div>`
-    : meta+`<div class="hist-empty">No previous revisions yet — this mapping is still on its first version.<br>Any future edits will be recorded here.</div>`;
-
-  document.getElementById("histBody").innerHTML=body;
-  showOverlay("hist");
-
-  document.querySelectorAll("[data-restore]").forEach(b=>b.onclick=()=>restoreVersion(+b.dataset.restore));
-}
-function tlItem(version, when, f, isManual, isCurrent, diffAgainst, m){
-  const fields = isManual
-    ? [["Manual Verint Queue","manualQueue"],["Organizations","organizations"],["Source","source"],["Remarks","remarks"]]
-    : [["Business Area","businessArea"],["Worktype","worktype"],["Status","status"],["Organizations","organizations"],["Source","source"],["Remarks","remarks"]];
-  const cells=fields.map(([lab,key])=>{
-    let cur = key==="organizations" ? (f.organizations||[]).join(", ") : (f[key]||"");
-    let changed=false;
-    if(diffAgainst){
-      let other = key==="organizations" ? (diffAgainst.organizations||[]).join(", ") : (diffAgainst[key]||"");
-      changed = (cur.toLowerCase()!==other.toLowerCase());
-    }
-    return `<div class="f ${changed?'chg':''}"><span class="fl">${lab}</span><span class="fv" title="${esc(cur)}">${esc(cur)||'<span class="muted">—</span>'}</span></div>`;
-  }).join("");
-  const restoreBtn = isCurrent ? "" :
-    `<button class="btn small" data-restore="${version}" title="Restore this version">${svg(IC.restore)} Restore</button>`;
-  return `<div class="tl-item ${isCurrent?'':'old'}">
-    <span class="dot"></span>
-    <div class="tl-head">
-      <span class="vb">v${version}</span>
-      <span class="when">${fmtDate(when)}</span>
-      ${isCurrent?'<span class="cur">Current</span>':''}
-      <span class="spacer"></span>
-      ${restoreBtn}
-    </div>
-    <div class="tl-fields">${cells}</div>
-  </div>`;
-}
-function restoreVersion(version){
-  if(!histCtx) return;
-  const ctx=findWorktype(histCtx.wtId); if(!ctx) return;
-  const m=(ctx.wt.mappings||[]).find(x=>x.id===histCtx.mId); if(!m) return;
-  const h=(m.history||[]).find(x=>x.version===version); if(!h) return;
-  if(!confirm(`Restore version v${version}? The current values will be saved as a new version.`)) return;
-  const before=snapshotFields(m);
-  const f=h.fields;
-  m.manualQueue=f.manualQueue||""; m.businessArea=f.businessArea||""; m.worktype=f.worktype||"";
-  m.status=f.status||""; m.organizations=[...(f.organizations||[])]; m.source=f.source||""; m.remarks=f.remarks||"";
-  stampEdit(m, before);
-  learn(m);
-  closeOverlay("hist"); renderAll(); toast("Restored to v"+version+" (now v"+m.version+")");
-}
-
-/* ============================================================
-   Delete entities
-   ============================================================ */
-function deleteFunction(id){
-  const fn=state.functions.find(f=>f.id===id);
-  if(!confirm(`Delete function "${fn.name}" and all its sub-functions & worktypes?`)) return;
-  state.functions=state.functions.filter(f=>f.id!==id); renderAll(); toast("Function deleted");
-}
-function deleteSub(id){
-  for(const f of state.functions){ const sf=(f.subFunctions||[]).find(s=>s.id===id);
-    if(sf){ if(!confirm(`Delete sub-function "${sf.name}" and its worktypes?`)) return;
-      f.subFunctions=f.subFunctions.filter(s=>s.id!==id); break; } }
-  renderAll(); toast("Sub-function deleted");
-}
-function deleteWorktype(id){
-  const c=findWorktype(id);
-  if(!confirm(`Delete worktype "${c.wt.name}" and its mappings?`)) return;
-  c.sf.worktypes=c.sf.worktypes.filter(w=>w.id!==id);
-  if(selection.worktypeId===id) selection.worktypeId=null;
-  renderAll(); toast("Worktype deleted");
-}
-
-/* ============================================================
-   DIRECTORIES modal
-   ============================================================ */
-let dirActiveCat="businessArea";
-let dirEditIdx=null;
-function openDirectories(){ dirEditIdx=null; showOverlay("dir"); renderDir(); }
-function renderDir(){
-  const body=document.getElementById("dirBody");
-  const cats=DIR_CATS.map(c=>`<button class="dir-cat ${c.key===dirActiveCat?'sel':''}" data-cat="${c.key}">
-      ${svg(IC.list)}<span>${c.label}</span><span class="c">${(state.directories[c.key]||[]).length}</span></button>`).join("");
-  const label=DIR_CATS.find(c=>c.key===dirActiveCat).label;
-  const entries=state.directories[dirActiveCat]||[];
-  const list=entries.length
-    ? entries.map((v,i)=>dirItem(v,i)).join("")
-    : `<div class="dir-empty">No entries yet.<br>Add your first ${esc(label)} above.</div>`;
-  body.innerHTML=`<div class="dir-layout">
-    <div class="dir-cats">${cats}</div>
-    <div class="dir-entries">
-      <div class="dir-add">
-        <input class="input" id="dirNewInput" placeholder="Add new ${esc(label)}…" />
-        <button class="btn primary" id="dirAddBtn">${svg(IC.plus)} Add</button>
-      </div>
-      <div id="dirBulkWrap">
-        <button class="btn small" id="dirBulkToggle" style="margin-bottom:8px">${svg(IC.list)} Bulk paste / import</button>
-        <div id="dirBulkPanel" style="display:none;margin-bottom:12px">
-          <textarea id="dirBulkText" placeholder="Paste multiple ${esc(label)} values — one per line, or comma / tab / semicolon separated…"></textarea>
-          <div style="display:flex;gap:8px;margin-top:8px;align-items:center;flex-wrap:wrap">
-            <button class="btn primary small" id="dirBulkAdd">${svg(IC.check)} Add all</button>
-            <button class="btn small" id="dirBulkFile">${svg(IC.folder)} Import from file (.csv/.txt)</button>
-            <input type="file" id="dirBulkFileInput" accept=".csv,.txt" style="display:none" />
-            <span class="hint" id="dirBulkHint" style="margin-left:auto">Duplicates are skipped automatically</span>
-          </div>
-        </div>
-      </div>
-      <div class="dir-list">${list}</div>
-    </div></div>`;
-
-  // wiring
-  document.querySelectorAll(".dir-cat").forEach(b=>b.onclick=()=>{ dirActiveCat=b.dataset.cat; dirEditIdx=null; renderDir(); });
-  const addBtn=document.getElementById("dirAddBtn");
-  const newInp=document.getElementById("dirNewInput");
-  const doAdd=()=>{ const v=newInp.value.trim(); if(!v){ toast("Enter a value","warn"); return; }
-    if((state.directories[dirActiveCat]||[]).some(x=>x.toLowerCase()===v.toLowerCase())){ toast("Already exists","warn"); return; }
-    state.directories[dirActiveCat].push(v); newInp.value=""; save(); renderDatalists(); renderDir(); toast("Added"); };
-  addBtn.onclick=doAdd;
-  newInp.onkeydown=(e)=>{ if(e.key==="Enter"){ e.preventDefault(); doAdd(); } };
-  setTimeout(()=>newInp.focus(),20);
-
-  // ---- Bulk paste / import ----
-  const bulkToggle=document.getElementById("dirBulkToggle");
-  const bulkPanel=document.getElementById("dirBulkPanel");
-  bulkToggle.onclick=()=>{ bulkPanel.style.display = bulkPanel.style.display==="none"?"block":"none"; if(bulkPanel.style.display==="block") document.getElementById("dirBulkText").focus(); };
-  const commitBulk=(raw)=>{
-    const items=parseBulkValues(raw);
-    if(items.length===0){ toast("No values found","warn"); return; }
-    const existing=state.directories[dirActiveCat]||[];
-    let added=0, skipped=0;
-    items.forEach(v=>{
-      if(existing.some(x=>x.toLowerCase()===v.toLowerCase())) { skipped++; return; }
-      existing.push(v); added++;
-    });
-    save(); renderDatalists(); renderDir();
-    toast(`Added ${added}${skipped?`, skipped ${skipped} duplicate${skipped>1?'s':''}`:''}`);
-  };
-  document.getElementById("dirBulkAdd").onclick=()=>commitBulk(document.getElementById("dirBulkText").value);
-  document.getElementById("dirBulkFile").onclick=()=>document.getElementById("dirBulkFileInput").click();
-  document.getElementById("dirBulkFileInput").onchange=(e)=>{
-    const f=e.target.files[0]; if(!f) return;
-    const r=new FileReader();
-    r.onload=()=>{ commitBulk(r.result); e.target.value=""; };
-    r.readAsText(f);
-  };
-
-  document.querySelectorAll("[data-diract]").forEach(b=>b.onclick=()=>{
-    const a=b.dataset.diract, i=+b.dataset.i;
-    if(a==="edit"){ dirEditIdx=i; renderDir(); document.getElementById("dirEditInput")?.focus(); }
-    if(a==="cancel"){ dirEditIdx=null; renderDir(); }
-    if(a==="save"){
-      const nv=document.getElementById("dirEditInput").value.trim();
-      if(!nv){ toast("Value cannot be empty","warn"); return; }
-      state.directories[dirActiveCat][i]=nv; dirEditIdx=null; save(); renderDatalists(); renderDir(); toast("Updated");
-    }
-    if(a==="del"){
-      if(!confirm(`Remove "${state.directories[dirActiveCat][i]}" from ${label}?`)) return;
-      state.directories[dirActiveCat].splice(i,1); dirEditIdx=null; save(); renderDatalists(); renderDir(); toast("Removed");
-    }
-  });
-  const ei=document.getElementById("dirEditInput");
-  if(ei) ei.onkeydown=(e)=>{ if(e.key==="Enter"){ e.preventDefault(); document.querySelector('[data-diract="save"]')?.click(); }
-    else if(e.key==="Escape"){ dirEditIdx=null; renderDir(); } };
-}
-function dirItem(v,i){
-  if(i===dirEditIdx){
-    return `<div class="dir-item">
-      <input id="dirEditInput" value="${esc(v)}" />
-      <button class="minibtn ok" data-diract="save" data-i="${i}" title="Save">${svg(IC.check)}</button>
-      <button class="minibtn" data-diract="cancel" data-i="${i}" title="Cancel">${svg(IC.x)}</button>
-    </div>`;
-  }
-  return `<div class="dir-item">
-    <span class="t">${esc(v)}</span>
-    <button class="minibtn" data-diract="edit" data-i="${i}" title="Edit">${svg(IC.edit)}</button>
-    <button class="minibtn del" data-diract="del" data-i="${i}" title="Remove">${svg(IC.del)}</button>
-  </div>`;
-}
-document.getElementById("btnDirectories").onclick=openDirectories;
-document.getElementById("btnAbout").onclick=openAbout;
-
-/* ---- Responsive sidebar drawer ---- */
-function isDrawerMode(){ return window.matchMedia("(max-width:900px)").matches; }
-function openDrawer(){ document.getElementById("sidebar").classList.add("open"); document.getElementById("drawerBackdrop").classList.add("show"); }
-function closeDrawer(){ document.getElementById("sidebar").classList.remove("open"); document.getElementById("drawerBackdrop").classList.remove("show"); }
-function toggleDrawer(){ document.getElementById("sidebar").classList.contains("open")?closeDrawer():openDrawer(); }
-document.getElementById("menuToggle").onclick=toggleDrawer;
-document.getElementById("drawerBackdrop").onclick=closeDrawer;
-window.addEventListener("resize",()=>{ if(!isDrawerMode()) closeDrawer(); });
-document.getElementById("btnListView").onclick=()=>{
-  viewMode = viewMode==="list" ? "detail" : "list";
-  editingMapId=null; renderAll(); if(isDrawerMode()) closeDrawer();
-};
-
-/* ============================================================
-   Tree interactions
-   ============================================================ */
+/* ============================================================ TREE EVENTS */
 document.getElementById("tree").addEventListener("click",(e)=>{
   const actBtn=e.target.closest("[data-act]");
-  if(actBtn){
-    e.stopPropagation();
-    const a=actBtn.dataset.act;
-    if(a==="addsf") openEntity("subfunction",null,actBtn.dataset.fn);
-    if(a==="editfn") openEntity("function",actBtn.dataset.fn);
-    if(a==="delfn") deleteFunction(actBtn.dataset.fn);
-    if(a==="addwt") openEntity("worktype",null,actBtn.dataset.sf);
-    if(a==="editsf") openEntity("subfunction",actBtn.dataset.sf);
-    if(a==="delsf") deleteSub(actBtn.dataset.sf);
-    if(a==="editwt") openEntity("worktype",actBtn.dataset.wt);
-    if(a==="delwt") deleteWorktype(actBtn.dataset.wt);
-    return;
-  }
+  if(actBtn){e.stopPropagation();const a=actBtn.dataset.act;
+    if(a==="addsf")openEntity("subfunction",null,actBtn.dataset.fn);
+    if(a==="editfn")openEntity("function",actBtn.dataset.fn);
+    if(a==="delfn")deleteFunction(actBtn.dataset.fn);
+    if(a==="addwt")openEntity("worktype",null,actBtn.dataset.sf);
+    if(a==="editsf")openEntity("subfunction",actBtn.dataset.sf);
+    if(a==="delsf")deleteSub(actBtn.dataset.sf);
+    if(a==="editwt")openEntity("worktype",actBtn.dataset.wt);
+    if(a==="delwt")deleteWorktype(actBtn.dataset.wt);return;}
   const sel=e.target.closest("[data-select]");
-  if(sel){ viewMode="detail"; selection.worktypeId=sel.dataset.select; editingMapId=null; renderAll(); if(isDrawerMode()) closeDrawer(); return; }
+  if(sel){viewMode="detail";selection.worktypeId=sel.dataset.select;editingMapId=null;selectedIds.clear();renderAll();if(isDrawerMode())closeDrawer();return;}
   const tog=e.target.closest("[data-toggle]");
-  if(tog){ const id=tog.dataset.toggle; expanded.has(id)?expanded.delete(id):expanded.add(id); renderTree(); }
+  if(tog){const id=tog.dataset.toggle;expanded.has(id)?expanded.delete(id):expanded.add(id);renderTree();}
 });
+function deleteFunction(id){const fn=state.functions.find(f=>f.id===id);if(!confirm(`Delete function "${fn.name}" and all its sub-functions & worktypes?`))return;state.functions=state.functions.filter(f=>f.id!==id);renderAll();toast("Function deleted");}
+function deleteSub(id){for(const f of state.functions){const sf=(f.subFunctions||[]).find(s=>s.id===id);if(sf){if(!confirm(`Delete sub-function "${sf.name}" and its worktypes?`))return;f.subFunctions=f.subFunctions.filter(s=>s.id!==id);break;}}renderAll();toast("Sub-function deleted");}
+function deleteWorktype(id){const c=findWorktype(id);if(!confirm(`Delete worktype "${c.wt.name}" and its mappings?`))return;c.sf.worktypes=c.sf.worktypes.filter(w=>w.id!==id);if(selection.worktypeId===id)selection.worktypeId=null;renderAll();toast("Worktype deleted");}
 
-/* ============================================================
-   Toolbar: search / add / import / export
-   ============================================================ */
-document.getElementById("searchInput").oninput=(e)=>{ searchTerm=e.target.value; renderTree(); };
+/* ============================================================ TOOLBAR */
+document.getElementById("searchInput").oninput=(e)=>{searchTerm=e.target.value;renderTree();};
 document.getElementById("btnAddFunction").onclick=()=>openEntity("function");
+document.getElementById("btnDirectories").onclick=openDirectories;
+document.getElementById("btnAbout").onclick=openAbout;
+document.getElementById("btnListView").onclick=()=>{viewMode=viewMode==="list"?"detail":"list";editingMapId=null;renderAll();if(isDrawerMode())closeDrawer();};
 
-/* ---- Sidebar filter & sort ---- */
-function updateSideDirBtn(){
-  const b=document.getElementById("scDir");
-  const disabled = sidebarSort.key==="custom";
-  b.style.opacity = disabled?".4":"1";
-  b.style.pointerEvents = disabled?"none":"auto";
-  b.innerHTML = sidebarSort.dir==="asc"
-    ? '<svg class="icon" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg>'
-    : '<svg class="icon" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg>';
-}
-function updateSideFilterBadge(){
-  const btn=document.getElementById("btnSideFilter");
-  const active = sidebarSort.key!=="custom" || sidebarSort.type || sidebarSort.validated;
-  btn.style.color = active?"var(--brand)":"var(--muted)";
-  btn.style.borderColor = active?"var(--brand)":"var(--line)";
-}
-document.getElementById("btnSideFilter").onclick=()=>{
-  const c=document.getElementById("sideControls");
-  c.style.display = c.style.display==="none" ? "block" : "none";
-};
-document.getElementById("scSort").onchange=(e)=>{ sidebarSort.key=e.target.value; updateSideDirBtn(); updateSideFilterBadge(); renderTree(); };
-document.getElementById("scDir").onclick=()=>{ sidebarSort.dir=sidebarSort.dir==="asc"?"desc":"asc"; updateSideDirBtn(); renderTree(); };
-document.getElementById("scType").onchange=(e)=>{ sidebarSort.type=e.target.value; updateSideFilterBadge(); renderTree(); };
-document.getElementById("scVal").onchange=(e)=>{ sidebarSort.validated=e.target.value; updateSideFilterBadge(); renderTree(); };
-document.getElementById("scClear").onclick=()=>{
-  sidebarSort={key:"custom",dir:"asc",type:"",validated:""};
-  document.getElementById("scSort").value="custom";
-  document.getElementById("scType").value="";
-  document.getElementById("scVal").value="";
-  updateSideDirBtn(); updateSideFilterBadge(); renderTree();
-};
-updateSideDirBtn(); updateSideFilterBadge();
+/* sidebar filter/sort */
+function updateSideDirBtn(){const b=document.getElementById("scDir");const disabled=sidebarSort.key==="custom";b.style.opacity=disabled?".4":"1";b.style.pointerEvents=disabled?"none":"auto";b.innerHTML=sidebarSort.dir==="asc"?'<svg class="icon" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg>':'<svg class="icon" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg>';}
+function updateSideFilterBadge(){const btn=document.getElementById("btnSideFilter");const active=sidebarSort.key!=="custom"||sidebarSort.type||sidebarSort.validated;btn.style.color=active?"var(--brand)":"var(--muted)";btn.style.borderColor=active?"var(--brand)":"var(--line)";}
+document.getElementById("btnSideFilter").onclick=()=>{const c=document.getElementById("sideControls");c.style.display=c.style.display==="none"?"block":"none";};
+document.getElementById("scSort").onchange=(e)=>{sidebarSort.key=e.target.value;updateSideDirBtn();updateSideFilterBadge();renderTree();};
+document.getElementById("scDir").onclick=()=>{sidebarSort.dir=sidebarSort.dir==="asc"?"desc":"asc";updateSideDirBtn();renderTree();};
+document.getElementById("scType").onchange=(e)=>{sidebarSort.type=e.target.value;updateSideFilterBadge();renderTree();};
+document.getElementById("scVal").onchange=(e)=>{sidebarSort.validated=e.target.value;updateSideFilterBadge();renderTree();};
+document.getElementById("scClear").onclick=()=>{sidebarSort={key:"custom",dir:"asc",type:"",validated:""};document.getElementById("scSort").value="custom";document.getElementById("scType").value="";document.getElementById("scVal").value="";updateSideDirBtn();updateSideFilterBadge();renderTree();};
+updateSideDirBtn();updateSideFilterBadge();
 
-document.getElementById("btnExportJson").onclick=()=>{
-  download("verint-mapping-"+stamp()+".json", JSON.stringify(state,null,2), "application/json"); toast("JSON exported");
-};
-document.getElementById("btnExportCsv").onclick=()=>{
-  download("verint-mapping-"+stamp()+".csv", buildCsv(), "text/csv"); toast("CSV exported");
-};
+/* responsive drawer */
+function isDrawerMode(){return window.matchMedia("(max-width:900px)").matches;}
+function openDrawer(){document.getElementById("sidebar").classList.add("open");document.getElementById("drawerBackdrop").classList.add("show");}
+function closeDrawer(){document.getElementById("sidebar").classList.remove("open");document.getElementById("drawerBackdrop").classList.remove("show");}
+function toggleDrawer(){document.getElementById("sidebar").classList.contains("open")?closeDrawer():openDrawer();}
+document.getElementById("menuToggle").onclick=toggleDrawer;
+document.getElementById("drawerBackdrop").onclick=closeDrawer;
+window.addEventListener("resize",()=>{if(!isDrawerMode())closeDrawer();});
+
+/* export / import */
+document.getElementById("btnExportJson").onclick=()=>{download("verint-mapping-"+stamp()+".json",JSON.stringify(state,null,2),"application/json");toast("JSON exported");};
+document.getElementById("btnExportCsv").onclick=()=>{download("verint-mapping-"+stamp()+".csv",buildCsv(),"text/csv");toast("CSV exported");};
 document.getElementById("btnImport").onclick=()=>document.getElementById("fileInput").click();
-document.getElementById("fileInput").onchange=(e)=>{
-  const f=e.target.files[0]; if(!f) return;
-  const r=new FileReader();
-  r.onload=()=>{
-    try{
-      const data=JSON.parse(r.result);
-      if(!data.functions) throw 0;
-      if(!confirm("Import will replace current data. Continue?")){ e.target.value=""; return; }
-      state=data; ensureDirectories(); selection.worktypeId=null; editingMapId=null; renderAll(); toast("Data imported");
-    }catch{ toast("Invalid JSON file","warn"); }
-    e.target.value="";
-  };
-  r.readAsText(f);
-};
-
-/* Build the combined key:
-   AWD  -> BUSINESSAREA_WORKTYPE_STATUS
-   Manual -> Manual Verint Queue value */
-function awdManualKey(type,m){
-  if(type==="manual") return (m.manualQueue||"").trim();
-  return [m.businessArea,m.worktype,m.status].map(v=>(v||"").trim()).join("_");
-}
+document.getElementById("fileInput").onchange=(e)=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const data=JSON.parse(r.result);if(!data.functions)throw 0;if(!confirm("Import will replace current data. Continue?")){e.target.value="";return;}state=data;ensureDirectories();selection.worktypeId=null;editingMapId=null;viewMode="detail";renderAll();toast("Data imported");}catch{toast("Invalid JSON file","warn");}e.target.value="";};r.readAsText(f);};
 function buildCsv(){
-  const head=["Function","Sub-Function","Dashboard Worktype","Type","AWD & Manual Verint Queue","Manual Verint Queue","Business Area","Worktype","Status","Organization","Source","Remarks","Validated","Validation Date","Version","Created Date","Modified Date"];
+  const head=["Function","Sub-Function","Dashboard Worktype","Type","AWD & Manual Verint Queue","Manual Verint Queue","Business Area","Worktype","Status","Organization","Source","Remarks","Active Status","Status Changed Date","Validated","Validation Date","Version","Created Date","Modified Date"];
   const rows=[head];
-  state.functions.forEach(fn=>(fn.subFunctions||[]).forEach(sf=>(sf.worktypes||[]).forEach(wt=>{
-    const maps=wt.mappings||[];
-    if(maps.length===0){ rows.push([fn.name,sf.name,wt.name,wt.type,"","","","","","","","","","","","",""]); return; }
-    maps.forEach(m=>{
-      const key=awdManualKey(wt.type,m);
-      const orgs=(m.organizations||[]); const list=orgs.length?orgs:[""];
-      list.forEach(org=>rows.push([fn.name,sf.name,wt.name,wt.type, key,
-        m.manualQueue||"", m.businessArea||"", m.worktype||"", m.status||"", org, m.source||"", m.remarks||"",
-        m.validated?"Yes":"No", m.validated?fmtDate(m.validatedAt):"",
-        "v"+(m.version||1), fmtDate(m.createdAt), fmtDate(m.modifiedAt||m.createdAt)]));
-    });
-  })));
+  state.functions.forEach(fn=>(fn.subFunctions||[]).forEach(sf=>(sf.worktypes||[]).forEach(wt=>{const maps=wt.mappings||[];if(maps.length===0){rows.push([fn.name,sf.name,wt.name,wt.type,"","","","","","","","","","","","","","",""]);return;}maps.forEach(m=>{const key=awdManualKey(wt.type,m);const isActive=(m.active!==false);const stChg=m.statusChangedAt||m.activeSince||m.createdAt;const orgs=(m.organizations||[]);const list=orgs.length?orgs:[""];list.forEach(org=>rows.push([fn.name,sf.name,wt.name,wt.type,key,m.manualQueue||"",m.businessArea||"",m.worktype||"",m.status||"",org,m.source||"",m.remarks||"",isActive?"Active":"Inactive",fmtDate(stChg),m.validated?"Yes":"No",m.validated?fmtDate(m.validatedAt):"","v"+(m.version||1),fmtDate(m.createdAt),fmtDate(m.modifiedAt||m.createdAt)]));});})));
   return rows.map(r=>r.map(csvCell).join(",")).join("\r\n");
 }
-function csvCell(v){ v=(v==null?"":String(v)); return /[",\n\r]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v; }
-function download(name,content,type){
-  const blob=new Blob([content],{type}); const url=URL.createObjectURL(blob);
-  const a=document.createElement("a"); a.href=url; a.download=name; a.click(); setTimeout(()=>URL.revokeObjectURL(url),1000);
-}
-function stamp(){ const d=new Date(),p=n=>String(n).padStart(2,"0");
-  return d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+"-"+p(d.getHours())+p(d.getMinutes()); }
+function csvCell(v){v=(v==null?"":String(v));return /[",\n\r]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;}
+function download(name,content,type){const blob=new Blob([content],{type});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+function stamp(){const d=new Date(),p=n=>String(n).padStart(2,"0");return d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+"-"+p(d.getHours())+p(d.getMinutes());}
 
-/* ============================================================
-   Overlay + toast
-   ============================================================ */
-function showOverlay(k){ document.getElementById(k+"Overlay").classList.add("show"); }
-function closeOverlay(k){ document.getElementById(k+"Overlay").classList.remove("show"); }
+/* overlay + toast */
+function showOverlay(k){document.getElementById(k+"Overlay").classList.add("show");}
+function closeOverlay(k){document.getElementById(k+"Overlay").classList.remove("show");}
 document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>closeOverlay(b.dataset.close));
-document.querySelectorAll(".overlay").forEach(o=>o.onclick=(e)=>{ if(e.target===o) o.classList.remove("show"); });
-document.addEventListener("keydown",e=>{ if(e.key==="Escape"){ document.querySelectorAll(".overlay.show").forEach(o=>o.classList.remove("show")); closeDrawer(); } });
-
+document.querySelectorAll(".overlay").forEach(o=>o.onclick=(e)=>{if(e.target===o)o.classList.remove("show");});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){document.querySelectorAll(".overlay.show").forEach(o=>o.classList.remove("show"));closeDrawer();}});
 let toastT;
-function toast(msg,type){
-  const t=document.getElementById("toast");
-  t.innerHTML=(type==="warn"
-    ? '<svg class="icon" viewBox="0 0 24 24" style="color:#fbbf24"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>'
-    : '<svg class="icon" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>')+esc(msg);
-  t.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("show"),2200);
-}
+function toast(msg,type){const t=document.getElementById("toast");t.innerHTML=(type==="warn"?'<svg class="icon" viewBox="0 0 24 24" style="color:#fbbf24"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>':'<svg class="icon" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>')+esc(msg);t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("show"),2400);}
 
-/* ============================================================
-   Init
-   ============================================================ */
-function init(){ renderAll(); }
+/* init */
+function init(){renderAll();}
 load().then(init);
 </script>
 </body>
