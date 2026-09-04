@@ -168,7 +168,37 @@
   .btn.primary:hover{background:#2560d8}
   .btn.warn{background:var(--warn);border-color:var(--warn);color:#fff}
   .btn.warn:hover{filter:brightness(.94)}
+  .btn.danger-btn{background:var(--danger);border-color:var(--danger);color:#fff}
+  .btn.danger-btn:hover{filter:brightness(.94)}
+  .btn.danger-btn:disabled{opacity:.45;cursor:not-allowed;filter:none}
   .btn.small{height:30px;padding:0 10px;font-size:12px}
+  /* clear data */
+  .clr-lead{font-size:13px;line-height:1.5;color:var(--ink);background:#fef6f5;border:1px solid #f6d9d5;border-radius:10px;padding:11px 14px;margin-bottom:16px;display:flex;gap:10px;align-items:flex-start}
+  .clr-lead .icon{width:20px;height:20px;color:var(--danger);flex:0 0 auto;margin-top:1px}
+  .clr-sec{margin-bottom:18px}
+  .clr-sec-title{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-weight:700;margin:0 0 8px;display:flex;align-items:center;gap:8px}
+  .clr-sec-title .selall{margin-left:auto;font-size:11px;font-weight:600;color:var(--brand);cursor:pointer;text-transform:none;letter-spacing:0}
+  .clr-sec-title .selall:hover{text-decoration:underline}
+  .clr-opt{display:flex;align-items:center;gap:10px;padding:9px 11px;border:1px solid var(--line);border-radius:9px;margin-bottom:7px;cursor:pointer;transition:.12s}
+  .clr-opt:hover{border-color:#cfd6e4;background:#fafbfc}
+  .clr-opt.sel{border-color:var(--danger);background:#fef6f5}
+  .clr-cb{width:18px;height:18px;border:1.6px solid #c3c8d0;border-radius:5px;display:flex;align-items:center;justify-content:center;color:#fff;flex:0 0 auto;transition:.12s}
+  .clr-cb .icon{width:13px;height:13px;stroke-width:2.8}
+  .clr-opt.sel .clr-cb{background:var(--danger);border-color:var(--danger)}
+  .clr-body{flex:1;min-width:0}
+  .clr-name{font-size:13px;font-weight:600}
+  .clr-desc{font-size:11.5px;color:var(--muted);margin-top:1px}
+  .clr-count{font-size:11px;font-weight:700;color:var(--muted);background:#eef0f3;border-radius:10px;padding:2px 9px;flex:0 0 auto}
+  .clr-sub{margin:8px 0 0 30px;display:flex;flex-direction:column;gap:6px}
+  .clr-subopt{display:flex;align-items:center;gap:9px;padding:6px 10px;border:1px solid var(--line);border-radius:8px;cursor:pointer}
+  .clr-subopt:hover{border-color:#cfd6e4}
+  .clr-subopt.sel{border-color:var(--danger);background:#fef6f5}
+  .clr-subopt .clr-cb{width:16px;height:16px}
+  .clr-subopt .n{flex:1;font-size:12.5px}
+  .clr-confirm{border:1px solid var(--line);border-radius:9px;padding:11px 12px;background:#fafbfc;margin-top:4px}
+  .clr-confirm label{font-size:12px;font-weight:600;color:var(--ink);display:block;margin-bottom:7px}
+  .clr-confirm input{width:100%;height:36px;border:1px solid var(--line);border-radius:8px;padding:0 11px;font-size:13px;font-family:inherit;outline:none}
+  .clr-confirm input:focus{border-color:var(--danger);box-shadow:0 0 0 3px rgba(224,72,59,.12)}
 
   .overlay{position:fixed;inset:0;background:rgba(17,24,39,.45);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
   .overlay.show{display:flex}
@@ -362,6 +392,7 @@
   <button class="tbtn" id="btnImport"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3v12M8 11l4 4 4-4M4 19h16"/></svg>Import</button>
   <button class="tbtn" id="btnExportCsv"><svg class="icon" viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/><path d="M9 13h6M9 16h6"/></svg>Export CSV</button>
   <button class="tbtn primary" id="btnExportJson"><svg class="icon" viewBox="0 0 24 24"><path d="M12 21v-12M8 13l4 4 4-4M4 5h16"/></svg>Export JSON</button>
+  <button class="tbtn" id="btnClearData" title="Clear data"><svg class="icon" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg></button>
   <button class="tbtn" id="btnAbout" title="App information"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg></button>
   <input type="file" id="fileInput" accept=".json" style="display:none" />
 </div>
@@ -401,6 +432,8 @@
 <div class="overlay" id="histOverlay"><div class="modal wide"><div class="modal-head"><h3 id="histTitle">Version History</h3><button class="x" data-close="hist"><svg class="icon" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="modal-body" id="histBody"></div><div class="modal-foot"><button class="btn primary" data-close="hist">Close</button></div></div></div>
 
 <div class="overlay" id="aboutOverlay"><div class="modal wide"><div class="modal-head"><h3>App Information</h3><button class="x" data-close="about"><svg class="icon" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="modal-body" id="aboutBody"></div><div class="modal-foot"><button class="btn primary" data-close="about">Close</button></div></div></div>
+
+<div class="overlay" id="clearOverlay"><div class="modal wide"><div class="modal-head"><h3>Clear Data</h3><button class="x" data-close="clear"><svg class="icon" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="modal-body" id="clearBody"></div><div class="modal-foot"><span class="combo-note" id="clearNote"></span><button class="btn small" id="clearBackup"><svg class="icon" viewBox="0 0 24 24"><path d="M12 21v-12M8 13l4 4 4-4M4 5h16"/></svg> Backup first</button><button class="btn" data-close="clear">Cancel</button><button class="btn danger-btn" id="clearProceed"><svg class="icon" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg> Clear selected</button></div></div></div>
 
 <div class="toast" id="toast"></div>
 <div id="datalists"></div>
@@ -452,7 +485,7 @@ function parseBulkValues(raw){const out=[];(raw||"").split(/[\r\n,;\t]+/).forEac
    Heuristic: first segment = Business Area, last = Status, everything in between = Worktype
    (so worktypes containing "_" are preserved). Returns null if fewer than 3 segments. */
 function parseQueueKeys(raw){const out=[];(raw||"").split(/[\r\n,;\t]+/).forEach(v=>{v=v.trim();if(v)out.push(v);});return out;}
-function splitQueueKey(key){const parts=(key||"").split("_").map(p=>p.trim()).filter(p=>p!=="");if(parts.length<3)return null;return{businessArea:parts[0],worktype:parts.slice(1,-1).join("_"),status:parts[parts.length-1]};}
+function splitQueueKey(key){key=(key||"").trim();if(/\s/.test(key))return null;/* contains spaces → Manual Verint Queue */const parts=key.split("_").map(p=>p.trim()).filter(p=>p!=="");if(parts.length<3)return null;return{businessArea:parts[0],worktype:parts.slice(1,-1).join("_"),status:parts[parts.length-1]};}
 function learn(rec){const d=state.directories;pushUniq(d.businessArea,rec.businessArea);pushUniq(d.worktype,rec.worktype);pushUniq(d.status,rec.status);pushUniq(d.manualQueue,rec.manualQueue);pushUniq(d.source,rec.source);(rec.organizations||[]).forEach(o=>pushUniq(d.organization,o));}
 function renderDatalists(){document.getElementById("datalists").innerHTML=DIR_KEYS.map(k=>`<datalist id="dl_${k}">`+suggestions(k).map(v=>`<option value="${esc(v)}"></option>`).join("")+`</datalist>`).join("");}
 
@@ -833,6 +866,89 @@ document.getElementById("searchInput").oninput=(e)=>{searchTerm=e.target.value;r
 document.getElementById("btnAddFunction").onclick=()=>openEntity("function");
 document.getElementById("btnDirectories").onclick=openDirectories;
 document.getElementById("btnAbout").onclick=openAbout;
+
+/* ============================================================ CLEAR DATA (selective) */
+let clearSel=new Set();      // selected top-level scopes
+let clearDirSel=new Set();   // selected directory categories (when directories scope open)
+function openClearData(){
+  clearSel=new Set();clearDirSel=new Set();
+  renderClearData();showOverlay("clear");
+}
+function clearStats(){
+  const maps=flattenMappings();
+  return {
+    functions:state.functions.length,
+    subs:state.functions.reduce((a,f)=>a+(f.subFunctions||[]).length,0),
+    worktypes:allWorktypes().length,
+    mappings:maps.length,
+    directories:DIR_KEYS.reduce((a,k)=>a+((state.directories[k]||[]).length),0),
+    dirBy:Object.fromEntries(DIR_KEYS.map(k=>[k,(state.directories[k]||[]).length]))
+  };
+}
+function renderClearData(){
+  const st=clearStats();
+  const opt=(id,name,desc,count)=>{const sel=clearSel.has(id);return `<div class="clr-opt ${sel?'sel':''}" data-clr="${id}"><span class="clr-cb">${sel?svg(IC.check):''}</span><div class="clr-body"><div class="clr-name">${name}</div><div class="clr-desc">${desc}</div></div><span class="clr-count">${count}</span></div>`;};
+  let dirSub="";
+  if(clearSel.has("directories")){
+    dirSub=`<div class="clr-sub">`+DIR_CATS.map(c=>{const sel=clearDirSel.has(c.key);return `<div class="clr-subopt ${sel?'sel':''}" data-clrdir="${c.key}"><span class="clr-cb">${sel?svg(IC.check):''}</span><span class="n">${c.label}</span><span class="clr-count">${st.dirBy[c.key]}</span></div>`;}).join("")+`</div>`;
+  }
+  const anySel=clearSel.size>0;
+  const body=`<div class="clr-lead">${svg(IC.warn)}<div><b>This permanently deletes the selected data</b> from this browser (localStorage + IndexedDB). This cannot be undone — export a backup first if unsure.</div></div>
+    <div class="clr-sec"><div class="clr-sec-title">Choose what to clear <span class="selall" id="clrSelAll">Select all</span></div>
+      ${opt("mappings","All Mappings","Remove every mapping row; keeps the function/worktype structure &amp; directories.",st.mappings)}
+      ${opt("worktypes","Worktypes &amp; Mappings","Remove all Dashboard Worktypes and their mappings; keeps functions &amp; sub-functions.",st.worktypes)}
+      ${opt("structure","Entire Structure","Remove all Functions, Sub-functions, Worktypes &amp; Mappings; keeps directories.",st.functions+" fn")}
+      ${opt("directories","Directories","Remove master directory values (choose which below).",st.directories)}
+      ${dirSub}
+      ${opt("everything","Everything (Full Reset)","Wipe all data and reset the app to a clean state.","ALL")}
+    </div>
+    <div class="clr-confirm"><label>Type <b>CLEAR</b> to confirm deletion</label><input id="clrConfirmInput" placeholder="CLEAR" autocomplete="off"></div>`;
+  document.getElementById("clearBody").innerHTML=body;
+  updateClearNote();
+  // wiring
+  document.querySelectorAll("[data-clr]").forEach(el=>el.onclick=()=>{
+    const id=el.dataset.clr;
+    if(id==="everything"){ if(clearSel.has("everything")){clearSel.delete("everything");} else {clearSel=new Set(["everything"]);clearDirSel=new Set();} }
+    else { clearSel.delete("everything"); clearSel.has(id)?clearSel.delete(id):clearSel.add(id);
+      if(id==="directories"&&clearSel.has("directories")&&clearDirSel.size===0){DIR_KEYS.forEach(k=>clearDirSel.add(k));}
+    }
+    renderClearData();
+  });
+  document.querySelectorAll("[data-clrdir]").forEach(el=>el.onclick=()=>{const k=el.dataset.clrdir;clearDirSel.has(k)?clearDirSel.delete(k):clearDirSel.add(k);renderClearData();});
+  document.getElementById("clrSelAll").onclick=()=>{clearSel=new Set(["everything"]);clearDirSel=new Set();renderClearData();};
+  const ci=document.getElementById("clrConfirmInput");if(ci)ci.oninput=updateClearNote;
+}
+function updateClearNote(){
+  const note=document.getElementById("clearNote");const btn=document.getElementById("clearProceed");
+  const confirmVal=(document.getElementById("clrConfirmInput")?.value||"").trim().toUpperCase();
+  let ready=clearSel.size>0 && confirmVal==="CLEAR";
+  if(clearSel.has("directories")&&!clearSel.has("everything")&&clearDirSel.size===0 && clearSel.size===1) ready=false;
+  if(note)note.innerHTML=clearSel.size===0?`<span style="color:var(--muted)">Select what to clear</span>`:(confirmVal==="CLEAR"?`<span style="color:var(--danger)">Ready to clear ${clearSel.has("everything")?'<b>everything</b>':`<b>${clearSel.size}</b> selection${clearSel.size>1?'s':''}`}</span>`:`<span style="color:var(--muted)">Type CLEAR to enable</span>`);
+  if(btn){btn.disabled=!ready;}
+}
+function performClear(){
+  const acted=[];
+  if(clearSel.has("everything")){
+    state={functions:[],directories:{}};ensureDirectories();
+    selection.worktypeId=null;editingMapId=null;selectedIds.clear();viewMode="detail";searchTerm="";
+    closeOverlay("clear");renderAll();toast("All data cleared — app reset");return;
+  }
+  if(clearSel.has("structure")){state.functions=[];selection.worktypeId=null;editingMapId=null;selectedIds.clear();acted.push("structure");}
+  else if(clearSel.has("worktypes")){state.functions.forEach(f=>(f.subFunctions||[]).forEach(sf=>sf.worktypes=[]));selection.worktypeId=null;editingMapId=null;selectedIds.clear();acted.push("worktypes");}
+  else if(clearSel.has("mappings")){allWorktypes().forEach(({wt})=>wt.mappings=[]);editingMapId=null;selectedIds.clear();acted.push("mappings");}
+  if(clearSel.has("directories")){const keys=clearDirSel.size?[...clearDirSel]:DIR_KEYS;keys.forEach(k=>state.directories[k]=[]);acted.push("directories");}
+  closeOverlay("clear");renderAll();
+  toast(acted.length?("Cleared: "+acted.join(", ")):"Nothing cleared");
+}
+document.getElementById("btnClearData").onclick=openClearData;
+document.getElementById("clearProceed").onclick=()=>{
+  const confirmVal=(document.getElementById("clrConfirmInput")?.value||"").trim().toUpperCase();
+  if(clearSel.size===0||confirmVal!=="CLEAR")return;
+  const label=clearSel.has("everything")?"EVERYTHING (full reset)":`${clearSel.size} selected scope${clearSel.size>1?'s':''}`;
+  if(!confirm(`Permanently clear ${label}? This cannot be undone.`))return;
+  performClear();
+};
+document.getElementById("clearBackup").onclick=()=>{download("verint-mapping-backup-"+stamp()+".json",JSON.stringify(state,null,2),"application/json");toast("Backup downloaded");};
 document.getElementById("btnListView").onclick=()=>{viewMode=viewMode==="list"?"detail":"list";editingMapId=null;renderAll();if(isDrawerMode())closeDrawer();};
 function updateSideDirBtn(){const b=document.getElementById("scDir");const disabled=sidebarSort.key==="custom";b.style.opacity=disabled?".4":"1";b.style.pointerEvents=disabled?"none":"auto";b.innerHTML=sidebarSort.dir==="asc"?'<svg class="icon" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg>':'<svg class="icon" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg>';}
 function updateSideFilterBadge(){const btn=document.getElementById("btnSideFilter");const active=sidebarSort.key!=="custom"||sidebarSort.type||sidebarSort.validated;btn.style.color=active?"var(--brand)":"var(--muted)";btn.style.borderColor=active?"var(--brand)":"var(--line)";}
