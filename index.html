@@ -162,6 +162,106 @@
   tr.st-empty-row td{background:#fffaf9}
   .st-warn{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:var(--danger)}
   .st-warn .icon{width:13px;height:13px}
+  /* ===== Remarks Manager ===== */
+  .rk-note{width:100%;min-height:60px;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:12.5px;font-family:inherit;line-height:1.45;outline:none;resize:vertical;background:#fff}
+  .rk-note:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(47,111,237,.12)}
+  .rk-note.dirty{border-color:var(--warn);background:#fffdf7}
+  .rk-txt{font-size:12.5px;line-height:1.45;color:var(--ink);white-space:pre-wrap;word-break:break-word;max-width:420px}
+  .rk-txt.empty{color:#b3b9c4;font-style:italic}
+  .rk-meta{font-size:10.5px;color:var(--muted);margin-top:3px;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+  .rk-meta .icon{width:11px;height:11px}
+  .rk-who{font-weight:700;color:var(--ink)}
+  .rk-stat{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--panel);border-radius:20px;padding:3px 10px;cursor:pointer;white-space:nowrap;font-family:inherit;font-size:12px;font-weight:700;color:var(--muted)}
+  .rk-stat:hover{border-color:#c3c8d0}
+  .rk-stat .d3{width:8px;height:8px;border-radius:50%;background:#c3c8d0;flex:0 0 auto}
+  .rk-dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto;display:inline-block}
+  .rk-count{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:var(--brand);background:var(--brand-soft);border-radius:5px;padding:1px 6px}
+  .rk-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:#fafbfc;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-bottom:14px}
+  .rk-bar .who{display:flex;align-items:center;gap:7px;font-size:12.5px}
+  .rk-bar .who input{height:30px;border:1px solid var(--line);border-radius:7px;padding:0 9px;font-size:12.5px;font-family:inherit;outline:none;width:180px}
+  .rk-bar .who input:focus{border-color:var(--brand);box-shadow:0 0 0 2px rgba(47,111,237,.12)}
+  .rk-save{margin-left:auto}
+  .wt-rk{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;border-radius:5px;padding:1px 5px;flex:0 0 auto}
+  .wt-rk .icon{width:11px;height:11px}
+  .detail-head h1 .wt-rk{font-size:12px;padding:2px 8px}
+  .rk-hist{max-height:52vh;overflow:auto}
+  .rk-hitem{border:1px solid var(--line);border-radius:9px;padding:10px 12px;margin-bottom:8px;background:#fafbfc}
+  .rk-hitem .hh{display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap}
+  .rk-hitem .hh .when{font-size:11px;color:var(--muted)}
+  .rk-hitem .tx{font-size:12.5px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+  /* ===== Remark editor (Tiptap) ===== */
+  .rk-cell{font-size:12.5px;line-height:1.5;max-width:460px;max-height:76px;overflow:hidden;cursor:pointer;border:1px solid transparent;border-radius:8px;padding:5px 8px;transition:.12s;position:relative}
+  .rk-cell:hover{border-color:var(--brand);background:#f7faff}
+  .rk-cell.empty{color:#b3b9c4;font-style:italic}
+  .rk-ph{color:#b3b9c4;font-style:italic}
+  .rk-cell p{margin:0 0 4px}.rk-cell p:last-child{margin-bottom:0}
+  .rk-cell ul,.rk-cell ol{margin:2px 0;padding-left:18px}
+  .rk-cell h2,.rk-cell h3{font-size:13px;margin:2px 0;font-weight:700}
+  .rk-cell blockquote{margin:2px 0;padding-left:8px;border-left:2px solid var(--line);color:var(--muted)}
+  .rk-cell code{font-family:"Consolas",ui-monospace,monospace;background:#f1f3f6;border-radius:4px;padding:0 4px;font-size:11.5px}
+  .rk-cell a{color:var(--brand)}
+  .rk-ed-wrap{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+  .rk-ed-wrap:focus-within{border-color:var(--brand);box-shadow:0 0 0 3px rgba(47,111,237,.12)}
+  .rk-tb{display:flex;align-items:center;gap:2px;flex-wrap:wrap;background:#fafbfc;border-bottom:1px solid var(--line);padding:6px 8px}
+  .rk-tb button{width:30px;height:28px;border:0;background:transparent;color:var(--muted);border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;font-family:inherit}
+  .rk-tb button:hover{background:#e6e8ec;color:var(--ink)}
+  .rk-tb button.on{background:var(--brand-soft);color:var(--brand)}
+  .rk-tb button .icon{width:14px;height:14px}
+  .rk-tb .sep{width:1px;height:18px;background:var(--line);margin:0 4px}
+  .rk-tb .tb-note{margin-left:auto;font-size:10.5px;color:var(--muted);font-weight:600;display:inline-flex;align-items:center;gap:5px}
+  .rk-tb .tb-note .d{width:7px;height:7px;border-radius:50%;background:var(--manual)}
+  .rk-tb .tb-note.fb .d{background:var(--warn)}
+  .rk-ed{min-height:190px;max-height:44vh;overflow:auto;padding:12px 14px;font-size:13.5px;line-height:1.6;outline:none}
+  .rk-ed .ProseMirror{outline:none;min-height:170px}
+  .rk-ed p{margin:0 0 8px}.rk-ed p:last-child{margin-bottom:0}
+  .rk-ed h2{font-size:16px;margin:10px 0 6px;font-weight:700}
+  .rk-ed h3{font-size:14px;margin:10px 0 6px;font-weight:700}
+  .rk-ed ul,.rk-ed ol{margin:6px 0;padding-left:22px}
+  .rk-ed li{margin:2px 0}
+  .rk-ed blockquote{margin:6px 0;padding-left:11px;border-left:3px solid var(--line);color:var(--muted)}
+  .rk-ed code{font-family:"Consolas",ui-monospace,monospace;background:#f1f3f6;border-radius:4px;padding:1px 5px;font-size:12.5px}
+  .rk-ed a{color:var(--brand);text-decoration:underline}
+  .rk-ed p.is-editor-empty:first-child::before{content:attr(data-placeholder);float:left;color:#b3b9c4;pointer-events:none;height:0;font-style:italic}
+  .rk-mtabs{display:inline-flex;gap:2px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:3px;margin-bottom:13px}
+  .rk-mtab{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 13px;border:0;background:transparent;color:var(--muted);border-radius:6px;font-size:12.5px;font-weight:600;font-family:inherit}
+  .rk-mtab .icon{width:14px;height:14px}
+  .rk-mtab:hover{color:var(--ink)}
+  .rk-mtab.on{background:var(--panel);color:var(--brand);box-shadow:var(--shadow)}
+  .rk-mtab .n{font-size:10px;font-weight:700;background:#eef0f3;border-radius:8px;padding:0 5px}
+  .rk-mtab.on .n{background:var(--brand-soft)}
+  .rk-mhead{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:12px}
+  .rk-mhead .wnm{font-size:14px;font-weight:700}
+  .rk-mhead .pth{font-size:11.5px;color:var(--muted)}
+  .rk-mrow{display:flex;align-items:flex-end;gap:10px;flex-wrap:wrap;margin-top:13px}
+  .rk-mrow .f{display:flex;flex-direction:column;gap:5px;min-width:0}
+  .rk-mrow .f>label{font-size:11px;font-weight:600;color:var(--ink)}
+  .rk-mrow .f input{height:34px;border:1px solid var(--line);border-radius:8px;padding:0 10px;font-size:13px;font-family:inherit;outline:none;width:190px}
+  .rk-mrow .f input:focus{border-color:var(--brand);box-shadow:0 0 0 2px rgba(47,111,237,.12)}
+  .rk-hitem .tx p{margin:0 0 5px}.rk-hitem .tx p:last-child{margin-bottom:0}
+  .rk-hitem .tx ul,.rk-hitem .tx ol{margin:3px 0;padding-left:20px}
+  .rk-hitem .tx code{font-family:"Consolas",ui-monospace,monospace;background:#eef0f3;border-radius:4px;padding:0 4px}
+  .rk-hitem .tx a{color:var(--brand)}
+  .rk-hitem .hh .restore{margin-left:auto}
+  /* ===== Cascading advanced filter (Function → Sub-function → Worktype) ===== */
+  .adv-filter{background:#fafbfc;border:1px solid var(--line);border-radius:10px;padding:11px 13px;margin-bottom:14px}
+  .adv-head{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-weight:700;margin-bottom:9px;display:flex;align-items:center;gap:8px}
+  .adv-head .icon{width:13px;height:13px;color:var(--brand)}
+  .adv-head .adv-reset{margin-left:auto;font-size:11px;font-weight:600;color:var(--brand);cursor:pointer;text-transform:none;letter-spacing:0}
+  .adv-head .adv-reset:hover{text-decoration:underline}
+  .adv-row{display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap}
+  .adv-fld{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1 1 200px}
+  .adv-fld>label{font-size:11px;font-weight:600;color:var(--ink);display:flex;align-items:center;gap:5px}
+  .adv-fld>label .icon{width:12px;height:12px;color:var(--muted)}
+  .adv-fld .select{height:34px;width:100%;font-size:12.5px;padding:0 9px}
+  .adv-fld .select:disabled{background:#f4f5f7;color:#b3b9c4;cursor:not-allowed}
+  .adv-arrow{color:#c3c8d0;padding-bottom:9px;flex:0 0 auto}
+  .adv-arrow .icon{width:14px;height:14px}
+  .adv-crumb{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:9px;font-size:11.5px;color:var(--muted)}
+  .adv-pill{display:inline-flex;align-items:center;gap:6px;background:var(--brand-soft);color:var(--brand);border-radius:20px;padding:3px 6px 3px 10px;font-size:11.5px;font-weight:600}
+  .adv-pill button{border:0;background:transparent;color:inherit;cursor:pointer;display:flex;padding:0;line-height:0}
+  .adv-pill button:hover{color:var(--danger)}
+  .adv-pill .icon{width:12px;height:12px}
+  @media (max-width:900px){.adv-row{flex-direction:column;align-items:stretch}.adv-arrow{display:none}.adv-fld{flex:1 1 auto}}
   .wt-pair{display:inline-flex;align-items:center;color:var(--muted);flex:0 0 auto}
   .wt-pair .icon{width:12px;height:12px;stroke-width:2}
   .detail-head h1 .wt-pair .icon{width:15px;height:15px}
@@ -645,6 +745,7 @@
     <button class="seg" id="navWorkspace" data-view="detail" title="Workspace" aria-label="Workspace"><svg class="icon" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Workspace</button>
     <button class="seg" id="btnListView" data-view="list" title="List View" aria-label="List View"><svg class="icon" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>List View</button>
     <button class="seg" id="btnStructure" data-view="structure" title="Structure — manage worktypes &amp; counts" aria-label="Structure"><svg class="icon" viewBox="0 0 24 24"><path d="M3 5h18M3 12h18M3 19h18"/><path d="M8 5v14"/></svg>Structure</button>
+    <button class="seg" id="btnRemarks" data-view="remarks" title="Remarks — notes per Dashboard Worktype" aria-label="Remarks"><svg class="icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Remarks</button>
     <button class="seg" id="btnDirectories" data-view="directories" title="Directories" aria-label="Directories"><svg class="icon" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M8 12h8M8 15h5"/></svg>Directories</button>
   </nav>
   <div class="spacer"></div>
@@ -710,8 +811,27 @@
 <div class="overlay" id="exportOverlay"><div class="modal wide"><div class="modal-head"><h3>Export CSV <span class="hint" style="font-weight:400;color:var(--muted)" id="exportSubTitle"></span></h3><button class="x" data-close="export"><svg class="icon" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="modal-body" id="exportBody"></div><div class="modal-foot"><span class="combo-note" id="exportNote"></span><button class="btn" data-close="export">Cancel</button><button class="btn primary" id="exportRun"><svg class="icon" viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/><path d="M9 13h6M9 16h6"/></svg> Export CSV</button></div></div></div>
 <div class="overlay" id="wmOverlay"><div class="modal wide"><div class="modal-head"><h3>Watermelon Project <span class="hint" style="font-weight:400;color:var(--muted)">— tag Dashboard Worktypes to include</span></h3><button class="x" data-close="wm"><svg class="icon" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="modal-body" id="wmBody"></div><div class="modal-foot"><span class="combo-note" id="wmNote"></span><button class="btn" data-close="wm">Cancel</button><button class="btn primary" id="wmApply">Save tags</button></div></div></div>
 <div class="overlay" id="tatOverlay"><div class="modal wide"><div class="modal-head"><h3>TAT Manager <span class="hint" style="font-weight:400;color:var(--muted)">— turnaround time per Dashboard Worktype</span></h3><button class="x" data-close="tat"><svg class="icon" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="modal-body" id="tatBody"></div><div class="modal-foot"><span class="combo-note" id="tatNote"></span><button class="btn" data-close="tat">Cancel</button><button class="btn primary" id="tatApply">Save TAT</button></div></div></div>
+<div class="overlay" id="rkOverlay"><div class="modal wide"><div class="modal-head"><h3 id="rkTitle">Remark History</h3><button class="x" data-close="rk"><svg class="icon" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="modal-body" id="rkBody"></div><div class="modal-foot"><button class="btn primary" data-close="rk">Close</button></div></div></div>
+<div class="overlay" id="rkEditOverlay"><div class="modal wide"><div class="modal-head"><h3 id="rkEditTitle">Edit Remark</h3><button class="x" data-close="rkEdit"><svg class="icon" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="modal-body" id="rkEditBody"></div><div class="modal-foot"><span class="combo-note" id="rkEditNote"></span><button class="btn" data-close="rkEdit">Cancel</button><button class="btn primary" id="rkEditSave" title="Ctrl/⌘+Enter">Save remark</button></div></div></div>
 <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 <div id="datalists"></div>
+<script type="module">
+/* Tiptap rich-text editor, loaded from CDN. If unavailable (offline), the app
+   falls back to a built-in contenteditable editor with the same toolbar. */
+const V="2.6.6", CDN="https://esm.sh/";
+try{
+  const [core,sk,ul,lk,ph]=await Promise.all([
+    import(CDN+"@tiptap/core@"+V),
+    import(CDN+"@tiptap/starter-kit@"+V),
+    import(CDN+"@tiptap/extension-underline@"+V),
+    import(CDN+"@tiptap/extension-link@"+V),
+    import(CDN+"@tiptap/extension-placeholder@"+V)
+  ]);
+  window.__TIPTAP={Editor:core.Editor,StarterKit:sk.default||sk.StarterKit,Underline:ul.default||ul.Underline,Link:lk.default||lk.Link,Placeholder:ph.default||ph.Placeholder};
+}catch(err){ window.__TIPTAP=null; }
+window.__TIPTAP_READY=true;
+window.dispatchEvent(new Event("tiptap-ready"));
+</script>
 <script>
 const LS_KEY="verint_mapping_manager_v3";
 const IDB_NAME="VerintMappingDB", IDB_STORE="state";
@@ -758,8 +878,9 @@ let dirSelected=new Set();
 let dirEditKey=null;
 let dirPageActivePanel=null;
 let structFilter={text:"",gap:""};let structSort={key:"function",dir:"asc"};
+let rkFilter={text:"",status:"",fn:"",sf:"",wt:""};let rkSort={key:"function",dir:"asc"};let rkDraft={};let rkAuthor="";
 /* ===== Pagination state & helpers ===== */
-let pager={detail:{page:1,size:25,sig:""},list:{page:1,size:25,sig:""},dir:{page:1,size:25,sig:""},import:{page:1,size:50,sig:""},struct:{page:1,size:25,sig:""}};
+let pager={detail:{page:1,size:25,sig:""},list:{page:1,size:25,sig:""},dir:{page:1,size:25,sig:""},import:{page:1,size:50,sig:""},struct:{page:1,size:25,sig:""},rk:{page:1,size:25,sig:""}};
 let importText="";let importFilter="all";let structOpts={forceDupes:false};
 let lvFilteredRows=[];
 const EXPORT_COLS=[
@@ -770,6 +891,8 @@ const EXPORT_COLS=[
  {k:"tat",label:"TAT",val:(r)=>tatText(r.wt)},
  {k:"ageing",label:"Ageing Basis",val:(r)=>ageingLabel(r.wt.ageingBasis)},
  {k:"watermelon",label:"Watermelon Project",val:(r)=>r.wt.watermelon?"Yes":"No"},
+ {k:"wtRemark",label:"Worktype Remark",val:(r)=>r.wt.remark||""},
+ {k:"wtRemarkStatus",label:"Remark Status",val:(r)=>rkLabel(r.wt.remarkStatus)},
  {k:"key",label:"AWD & Manual Verint Queue",val:(r)=>awdManualKey(r.wt.type,r.m)},
  {k:"manualQueue",label:"Manual Verint Queue",val:(r)=>r.m.manualQueue||""},
  {k:"businessArea",label:"Business Area",val:(r)=>r.m.businessArea||""},
@@ -801,7 +924,7 @@ async function idbLoad(){try{const db=await idbOpen();return await new Promise(r
 function save(){try{localStorage.setItem(LS_KEY,JSON.stringify(state));}catch(e){}idbSave(state);}
 async function load(){let d=null;try{const raw=localStorage.getItem(LS_KEY);if(raw)d=JSON.parse(raw);}catch(e){}if(!d)d=await idbLoad();if(d&&d.functions)state=d;ensureDirectories();}
 function ensureDirectories(){if(!state.directories||typeof state.directories!=="object")state.directories={};DIR_KEYS.forEach(k=>{if(!Array.isArray(state.directories[k]))state.directories[k]=[];});migrateActive();}
-function migrateActive(){state.functions.forEach(fn=>(fn.subFunctions||[]).forEach(sf=>{if(!Array.isArray(sf.defaultOrgs)){sf.defaultOrgs=sf.defaultOrg?[sf.defaultOrg]:[];}delete sf.defaultOrg;}));allWorktypes().forEach(({wt})=>{if(wt.watermelon===undefined)wt.watermelon=false;if(wt.tat===undefined)wt.tat="";wt.tatUnit="days";if(wt.ageingBasis===undefined)wt.ageingBasis="";});allWorktypes().forEach(({wt})=>(wt.mappings||[]).forEach(m=>{if(m.active===undefined){m.active=true;const t=m.createdAt||nowISO();if(!m.activeSince)m.activeSince=t;if(!m.statusChangedAt)m.statusChangedAt=t;}if(m.sharedQueue===undefined)m.sharedQueue=false;if(m.statusCategory===undefined)m.statusCategory=guessStatusCat(m.status)||"";}));}
+function migrateActive(){state.functions.forEach(fn=>(fn.subFunctions||[]).forEach(sf=>{if(!Array.isArray(sf.defaultOrgs)){sf.defaultOrgs=sf.defaultOrg?[sf.defaultOrg]:[];}delete sf.defaultOrg;}));allWorktypes().forEach(({wt})=>{if(wt.watermelon===undefined)wt.watermelon=false;if(wt.tat===undefined)wt.tat="";wt.tatUnit="days";if(wt.ageingBasis===undefined)wt.ageingBasis="";if(wt.remark===undefined)wt.remark="";if(wt.remarkStatus===undefined)wt.remarkStatus="";if(!Array.isArray(wt.remarkLog))wt.remarkLog=[];});allWorktypes().forEach(({wt})=>(wt.mappings||[]).forEach(m=>{if(m.active===undefined){m.active=true;const t=m.createdAt||nowISO();if(!m.activeSince)m.activeSince=t;if(!m.statusChangedAt)m.statusChangedAt=t;}if(m.sharedQueue===undefined)m.sharedQueue=false;if(m.statusCategory===undefined)m.statusCategory=guessStatusCat(m.status)||"";}));}
 function allWorktypes(){const o=[];state.functions.forEach(fn=>(fn.subFunctions||[]).forEach(sf=>(sf.worktypes||[]).forEach(wt=>o.push({fn,sf,wt}))));return o;}
 function findWorktype(id){for(const fn of state.functions)for(const sf of(fn.subFunctions||[]))for(const wt of(sf.worktypes||[]))if(wt.id===id)return{fn,sf,wt};return null;}
 function orgCount(wt){const s=new Set();(wt.mappings||[]).forEach(m=>(m.organizations||[]).forEach(o=>s.add(o.toLowerCase())));return s.size;}
@@ -825,7 +948,7 @@ function stampEdit(m,before){if(!m.createdAt)m.createdAt=nowISO();const after=sn
 function awdManualKey(type,m){if(type==="manual")return(m.manualQueue||"").trim();return[m.businessArea,m.worktype,m.status].map(v=>(v||"").trim()).join("_");}
 function findKeyOccurrences(key,excludeWtId){const out=[];const k=(key||"").trim().toLowerCase();if(!k)return out;allWorktypes().forEach(({fn,sf,wt})=>{(wt.mappings||[]).forEach(m=>{if(awdManualKey(wt.type,m).trim().toLowerCase()===k)out.push({fn,sf,wt,m,current:wt.id===excludeWtId});});});return out;}
 function svg(path,cls){return `<svg class="icon ${cls||''}" viewBox="0 0 24 24">${path}</svg>`;}
-const IC={caret:'<path d="M9 6l6 6-6 6"/>',folder:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',layers:'<path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="M3 13l9 5 9-5"/>',doc:'<path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/>',edit:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>',del:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',plus:'<path d="M12 5v14M5 12h14"/>',check:'<path d="M20 6 9 17l-5-5"/>',x:'<path d="M6 6l12 12M18 6L6 18"/>',db:'<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>',list:'<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',restore:'<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 8v4l3 2"/>',warn:'<path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/>',upload:'<path d="M12 3v12M8 7l4-4 4 4M4 21h16"/>',users:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/>',tag:'<path d="M20.59 13.41 13.42 20.6a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82Z"/><path d="M7 7h.01"/>',link:'<path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',swap:'<path d="M7 10h14l-4-4M17 14H3l4 4"/>',melon:'<path d="M20 4A16 16 0 0 1 4 20L20 4Z"/><path d="M10 15h.01M13 12h.01M15 9h.01"/>',timer:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6M12 5V2"/>',gauge:'<path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M13.4 12.6 19 7"/><path d="M4 20a8 8 0 1 1 16 0"/>'};
+const IC={caret:'<path d="M9 6l6 6-6 6"/>',folder:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',layers:'<path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="M3 13l9 5 9-5"/>',doc:'<path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/>',edit:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>',del:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',plus:'<path d="M12 5v14M5 12h14"/>',check:'<path d="M20 6 9 17l-5-5"/>',x:'<path d="M6 6l12 12M18 6L6 18"/>',db:'<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>',list:'<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',restore:'<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 8v4l3 2"/>',warn:'<path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/>',upload:'<path d="M12 3v12M8 7l4-4 4 4M4 21h16"/>',users:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/>',tag:'<path d="M20.59 13.41 13.42 20.6a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82Z"/><path d="M7 7h.01"/>',link:'<path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',swap:'<path d="M7 10h14l-4-4M17 14H3l4 4"/>',melon:'<path d="M20 4A16 16 0 0 1 4 20L20 4Z"/><path d="M10 15h.01M13 12h.01M15 9h.01"/>',timer:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6M12 5V2"/>',gauge:'<path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M13.4 12.6 19 7"/><path d="M4 20a8 8 0 1 1 16 0"/>',chat:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',user:'<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>'};
 function esc(s){return(s==null?'':String(s)).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function renderTree(){
   const tree=document.getElementById("tree"),stats=document.getElementById("sideStats");
@@ -859,8 +982,8 @@ function renderTree(){
             const vState=mapN===0?'empty':(valN===0?'none':(valN===mapN?'full':'partial'));
             const dotTip=mapN===0?'No mappings yet':(vState==='full'?`All ${mapN} validated`:vState==='partial'?`${valN} of ${mapN} validated`:`${mapN} mapping(s) · none validated`);
             const tagBtns=items.map(w=>`<button type="button" class="tag-btn ${w.type} ${w.id===primary.id?'on':''}" data-select="${w.id}" title="Open the ${w.type.toUpperCase()} worktype — ${(w.mappings||[]).length} mapping(s)">${w.type}</button>`).join('<span class="tag-sep">|</span>');
-            const melonW=items.some(w=>w.watermelon);const tatW=items.find(w=>hasTat(w));const ageW=items.find(w=>hasAgeing(w));
-            const badges=`<span class="tag-grp">${tagBtns}</span>`+(melonW?`<span class="wt-melon" title="In Watermelon Project">${svg(IC.melon)}</span>`:'')+(hasTat(tatW)?`<span class="wt-tat" title="TAT: ${esc(tatText(tatW))}">${svg(IC.timer)}${esc(tatText(tatW))}</span>`:'')+(ageW?`<span class="wt-age" title="Ageing basis: ${esc(ageingLabel(ageW.ageingBasis))}">${svg(IC.gauge)}${esc(ageingShort(ageW.ageingBasis))}</span>`:'');
+            const melonW=items.some(w=>w.watermelon);const tatW=items.find(w=>hasTat(w));const ageW=items.find(w=>hasAgeing(w));const rkW=items.find(w=>hasRemark(w));const rkC=rkW?rkStat(rkW.remarkStatus):null;
+            const badges=`<span class="tag-grp">${tagBtns}</span>`+(melonW?`<span class="wt-melon" title="In Watermelon Project">${svg(IC.melon)}</span>`:'')+(hasTat(tatW)?`<span class="wt-tat" title="TAT: ${esc(tatText(tatW))}">${svg(IC.timer)}${esc(tatText(tatW))}</span>`:'')+(ageW?`<span class="wt-age" title="Ageing basis: ${esc(ageingLabel(ageW.ageingBasis))}">${svg(IC.gauge)}${esc(ageingShort(ageW.ageingBasis))}</span>`:'')+(rkW?`<span class="wt-rk" style="${rkC?`background:${rkC.bg};color:${rkC.color}`:'background:#eef0f3;color:var(--muted)'}" title="Remark${rkC?' · '+rkC.label:''}: ${esc(String(rkW.remark).slice(0,140))}">${svg(IC.chat)}${rkC?esc(rkC.label):'Note'}</span>`:'');
             html+=`<div class="node"><div class="label wt-label ${active}" data-select="${primary.id}"><span class="caret hidden"></span>${svg(IC.doc)}<div class="wt-main"><div class="wt-top"><span class="name" title="${esc(g.name)}${items.length>1?' — AWD & Manual':''}">${esc(g.name)}</span><span class="wt-vdot ${vState}" title="${esc(dotTip)}"></span><span class="cnt wt-cnt ${mapN?'':'empty'}" title="${mapN} mapping row(s) across ${items.length} type(s)">${mapN}</span><span class="rowactions"><button class="minibtn ok" title="Add mapping" data-act="addmap" data-wt="${primary.id}">${svg(IC.plus)}</button><button class="minibtn" title="Edit" data-act="editwt" data-wt="${primary.id}">${svg(IC.edit)}</button><button class="minibtn del" title="Delete" data-act="delwt" data-wt="${primary.id}">${svg(IC.del)}</button></span></div><div class="wt-badges">${badges}</div></div></div></div>`;
           });
           if(!hasFilter)html+=`<div class="addline" data-act="addwt" data-sf="${sf.id}">${svg(IC.plus)} Add worktype</div>`;
@@ -910,6 +1033,7 @@ function renderMain(){
   if(viewMode==="list"){renderListView();return;}
   if(viewMode==="directories"){renderDirectoriesPage();return;}
   if(viewMode==="structure"){renderStructurePage();return;}
+  if(viewMode==="remarks"){renderRemarksPage();return;}
   if(viewMode==="import"){renderImportPage();return;}
   const ctx=selection.worktypeId?findWorktype(selection.worktypeId):null;
   if(!ctx){renderOverview();return;}
@@ -919,7 +1043,7 @@ function renderMain(){
   const sibBtn=sibling
     ?`<button class="btn small" title="This worktype also exists as ${sibling.type.toUpperCase()} — switch to it" onclick="openFromList('${sibling.id}')">${svg(IC.swap)} ${sibling.type.toUpperCase()} version</button>`
     :`<button class="btn small" title="Create a ${otherType} Dashboard Worktype named “${esc(wt.name)}” and add its queues" onclick="addCrossTypeMapping('${wt.id}')" style="border-color:${isManual?'var(--awd)':'var(--manual)'};color:${isManual?'var(--awd)':'var(--manual)'}">${svg(IC.plus)} Add ${otherType} queues</button>`;
-  const head=`<div class="detail-head"><div><div class="breadcrumb">${svg(IC.folder)} <b>${esc(fn.name)}</b> ${svg(IC.caret)} ${svg(IC.layers)} <b>${esc(sf.name)}</b></div><h1>${esc(wt.name)} <span class="tag ${wt.type}">${wt.type}</span>${sibling?`<span class="wt-pair" title="Paired with a ${sibling.type.toUpperCase()} worktype of the same name">${svg(IC.link)}</span>`:''}${wt.watermelon?`<span class="wt-melon" title="In Watermelon Project">${svg(IC.melon)}</span>`:''}${hasTat(wt)?`<span class="wt-tat" title="Turnaround Time">${svg(IC.timer)}${esc(tatText(wt))}</span>`:''}${hasAgeing(wt)?`<span class="wt-age" title="Ageing basis">${svg(IC.gauge)}${esc(ageingShort(wt.ageingBasis))}</span>`:''}</h1></div><div class="spacer"></div>${sibBtn}<button class="btn" onclick="openTatEdit('${wt.id}')" title="Set TAT (days) &amp; ageing basis" style="${(hasTat(wt)||hasAgeing(wt))?'border-color:var(--tat);color:var(--tat)':''}">${svg(IC.timer)} ${hasTat(wt)?'TAT: '+esc(tatText(wt)):'Set TAT'}</button><button class="btn" onclick="toggleWorktypeMelon('${wt.id}')" title="Toggle Watermelon Project inclusion" style="${wt.watermelon?'border-color:var(--melon);color:var(--melon)':''}">${svg(IC.melon)} ${wt.watermelon?'In Watermelon':'Add to Watermelon'}</button><button class="btn" onclick="openEntity('worktype','${wt.id}')">${svg(IC.edit)} Edit</button><button class="btn primary" onclick="openMapping('${wt.id}')">${svg(IC.plus)} Add mapping</button></div>`;
+  const head=`<div class="detail-head"><div><div class="breadcrumb">${svg(IC.folder)} <b>${esc(fn.name)}</b> ${svg(IC.caret)} ${svg(IC.layers)} <b>${esc(sf.name)}</b></div><h1>${esc(wt.name)} <span class="tag ${wt.type}">${wt.type}</span>${sibling?`<span class="wt-pair" title="Paired with a ${sibling.type.toUpperCase()} worktype of the same name">${svg(IC.link)}</span>`:''}${wt.watermelon?`<span class="wt-melon" title="In Watermelon Project">${svg(IC.melon)}</span>`:''}${hasTat(wt)?`<span class="wt-tat" title="Turnaround Time">${svg(IC.timer)}${esc(tatText(wt))}</span>`:''}${hasAgeing(wt)?`<span class="wt-age" title="Ageing basis">${svg(IC.gauge)}${esc(ageingShort(wt.ageingBasis))}</span>`:''}${hasRemark(wt)?(function(){const c=rkStat(wt.remarkStatus);return `<span class="wt-rk" style="${c?`background:${c.bg};color:${c.color}`:'background:#eef0f3;color:var(--muted)'}" title="Remark: ${esc(String(wt.remark).slice(0,200))}">${svg(IC.chat)}${c?esc(c.label):'Note'}</span>`;})():''}</h1></div><div class="spacer"></div>${sibBtn}<button class="btn" onclick="openTatEdit('${wt.id}')" title="Set TAT (days) &amp; ageing basis" style="${(hasTat(wt)||hasAgeing(wt))?'border-color:var(--tat);color:var(--tat)':''}">${svg(IC.timer)} ${hasTat(wt)?'TAT: '+esc(tatText(wt)):'Set TAT'}</button><button class="btn" onclick="toggleWorktypeMelon('${wt.id}')" title="Toggle Watermelon Project inclusion" style="${wt.watermelon?'border-color:var(--melon);color:var(--melon)':''}">${svg(IC.melon)} ${wt.watermelon?'In Watermelon':'Add to Watermelon'}</button><button class="btn" onclick="openEntity('worktype','${wt.id}')">${svg(IC.edit)} Edit</button><button class="btn primary" onclick="openMapping('${wt.id}')">${svg(IC.plus)} Add mapping</button></div>`;
   const valCount=maps.filter(m=>m.validated).length;const activeCount=maps.filter(m=>m.active!==false).length;const sharedCount=maps.filter(m=>m.sharedQueue).length;
   const cards=`<div class="cards"><div class="card"><div class="k">Type</div><div class="v" style="text-transform:uppercase;color:${isManual?'var(--manual)':'var(--awd)'}">${wt.type}</div></div><div class="card"><div class="k">Mapping rows</div><div class="v">${maps.length}</div></div><div class="card"><div class="k">Shared queues</div><div class="v" style="color:${sharedCount?'var(--danger)':'var(--ink)'}">${sharedCount}</div></div><div class="card"><div class="k">Active</div><div class="v" style="color:${activeCount===maps.length&&maps.length?'var(--manual)':'var(--ink)'}">${activeCount}<span style="font-size:14px;color:var(--muted);font-weight:500">/${maps.length}</span></div></div><div class="card"><div class="k">Validated</div><div class="v" style="color:${valCount===maps.length&&maps.length?'var(--manual)':'var(--ink)'}">${valCount}<span style="font-size:14px;color:var(--muted);font-weight:500">/${maps.length}</span></div></div></div>`;
   const df=detailFilter;let vmaps=[...maps];const dq=(df.text||"").trim().toLowerCase();
@@ -1388,6 +1512,239 @@ function structCleanupEmpty(){
   state.functions.forEach(fn=>(fn.subFunctions||[]).forEach(sf=>{sf.worktypes=(sf.worktypes||[]).filter(w=>!ids.has(w.id));}));
   if(ids.has(selection.worktypeId))selection.worktypeId=null;
   renderAll();toast(`Removed ${victims.length} empty worktype(s)`);}
+/* ===== Remarks Manager — notes per Dashboard Worktype for data-source discussions ===== */
+const RK_STATUS=[
+ {k:"pending",label:"Pending",color:"#d97706",bg:"#fef3e2"},
+ {k:"discussion",label:"In Discussion",color:"#2f6fed",bg:"#e8f0fe"},
+ {k:"resolved",label:"Resolved",color:"#0f9d76",bg:"#e4f6ef"},
+ {k:"blocked",label:"Blocked",color:"#e0483b",bg:"#fdecea"}
+];
+const RK_ORDER=["","pending","discussion","resolved","blocked"];
+function rkStat(k){return RK_STATUS.find(x=>x.k===k)||null;}
+function rkLabel(k){const c=rkStat(k);return c?c.label:"";}
+function rkSanitize(html){const d=document.createElement("div");d.innerHTML=String(html==null?"":html);d.querySelectorAll("script,style,iframe,object,embed,link,meta,form,input").forEach(n=>n.remove());d.querySelectorAll("*").forEach(el=>{[...el.attributes].forEach(a=>{const n=a.name.toLowerCase();if(n.startsWith("on")||n==="srcdoc"||n==="style"&&/expression|url\s*\(/i.test(a.value)||((n==="href"||n==="src")&&/^\s*(javascript|data):/i.test(a.value)))el.removeAttribute(a.name);});});d.querySelectorAll("a[href]").forEach(a=>{a.setAttribute("target","_blank");a.setAttribute("rel","noopener noreferrer");});return d.innerHTML;}
+function rkPlain(html){const d=document.createElement("div");d.innerHTML=rkSanitize(html);return (d.textContent||"").replace(/\s+/g," ").trim();}
+function rkIsEmpty(html){return !rkPlain(html);}
+function hasRemark(wt){return wt&&!!rkPlain(wt.remark);}
+function rkPreviewHtml(wt){const h=rkSanitize(wt&&wt.remark);return rkIsEmpty(h)?'<span class="rk-ph">Click to add a remark\u2026</span>':h;}
+function rkRows(){
+  return allWorktypes().map(({fn,sf,wt})=>({fn,sf,wt,
+    text:rkPlain(wt.remark),html:String(wt.remark||""),
+    status:wt.remarkStatus||"",
+    at:wt.remarkAt||"",by:wt.remarkBy||"",
+    logN:(wt.remarkLog||[]).length}));
+}
+function renderRemarksPage(){
+  const main=document.getElementById("main");const F=rkFilter;
+  let rows=rkRows();const total=rows.length;
+  const q=(F.text||"").trim().toLowerCase();
+  /* Cascading scope: Function → Sub-function → Dashboard Worktype */
+  if(F.fn)rows=rows.filter(r=>r.fn.id===F.fn);
+  if(F.sf)rows=rows.filter(r=>r.sf.id===F.sf);
+  if(F.wt)rows=rows.filter(r=>r.wt.name.toLowerCase()===F.wt.toLowerCase());
+  if(q)rows=rows.filter(r=>r.wt.name.toLowerCase().includes(q)||r.fn.name.toLowerCase().includes(q)||r.sf.name.toLowerCase().includes(q)||r.text.toLowerCase().includes(q));
+  if(F.status==="has")rows=rows.filter(r=>r.text);
+  else if(F.status==="none")rows=rows.filter(r=>!r.text);
+  else if(F.status)rows=rows.filter(r=>r.status===F.status);
+  const keyFn=(r)=>{switch(rkSort.key){case"function":return r.fn.name+"|"+r.sf.name+"|"+r.wt.name;case"name":return r.wt.name;case"status":return RK_ORDER.indexOf(r.status||"");case"remark":return r.text||"";case"at":return r.at||"";default:return r.fn.name;}};
+  rows=sortBy(rows,keyFn,rkSort.dir);
+  const sig=JSON.stringify([rkFilter,rkSort]);const pg=paginate("rk",rows,sig);const pageRows=pg.slice;
+  const all=rkRows();const withN=all.filter(r=>r.text).length;
+  const cnt=(k)=>all.filter(r=>r.status===k&&r.text).length;
+  const dirtyN=Object.keys(rkDraft).length;
+  const head=`<div class="detail-head"><div><div class="breadcrumb">${svg(IC.chat)} <b>Remarks</b> · data-source discussion notes</div><h1>Remarks</h1></div><div class="spacer"></div><button class="btn" id="rkExport">${svg(IC.doc)} Export CSV</button><button class="btn primary" id="rkNewNote" title="Open the remark editor for the first worktype in view">${svg(IC.chat)} Open editor</button></div>`;
+  const cards=`<div class="cards"><div class="card"><div class="k">With remarks</div><div class="v">${withN}<span style="font-size:14px;color:var(--muted);font-weight:500">/${all.length}</span></div></div>`+RK_STATUS.map(c=>`<div class="card"><div class="k">${c.label}</div><div class="v" style="color:${c.color}">${cnt(c.k)}</div></div>`).join("")+`</div>`;
+  const lead=`<div class="clr-lead" style="background:#e8f0fe;border-color:#c9dcfb;color:var(--ink)"><span style="color:var(--brand)">${svg(IC.chat)}</span><div>Use this page while you're <b>discussing where the data comes from</b>. Click any remark cell to open the <b>rich-text editor</b> \u2014 format with bold, lists, headings and links, set a status, then save. Every save is timestamped and kept in that worktype's remark history.</div></div>`;
+  const bar=`<div class="rk-bar"><span class="who">${svg(IC.user)} <b>Your name</b> <input id="rkAuthor" placeholder="e.g. Mark" value="${esc(rkAuthor)}" title="Saved with each remark so the team knows who wrote it"></span><span class="hint" style="font-size:11.5px;color:var(--muted)">Remarks are stamped with this name and the date/time.</span>${dirtyN?`<span class="rk-save chip" style="color:var(--warn);border-color:#f6d9a5;background:#fef8ec">${dirtyN} unsaved</span>`:''}</div>`;
+  /* ---- Cascading Function → Sub-function → Worktype pickers ---- */
+  const fnObj=F.fn?state.functions.find(f=>f.id===F.fn):null;
+  const sfList=fnObj?(fnObj.subFunctions||[]):[];
+  const sfObj=F.sf?sfList.find(s=>s.id===F.sf):null;
+  let wtPool=[];
+  if(sfObj)wtPool=(sfObj.worktypes||[]);
+  else if(fnObj)sfList.forEach(s=>wtPool.push(...(s.worktypes||[])));
+  else allWorktypes().forEach(x=>wtPool.push(x.wt));
+  const wtNames=[...new Set(wtPool.map(w=>w.name))].sort((a,b)=>a.localeCompare(b));
+  const cntFn=(id)=>rkRows().filter(r=>r.fn.id===id).length;
+  const cntSf=(id)=>rkRows().filter(r=>r.sf.id===id).length;
+  const cntWt=(nm)=>rkRows().filter(r=>r.wt.name.toLowerCase()===nm.toLowerCase()&&(!F.fn||r.fn.id===F.fn)&&(!F.sf||r.sf.id===F.sf)).length;
+  const fnSel=`<select class="select" id="rkFn"><option value="">All functions</option>`+state.functions.map(f=>`<option value="${f.id}" ${F.fn===f.id?'selected':''}>${esc(f.name)} (${cntFn(f.id)})</option>`).join("")+`</select>`;
+  const sfSel=`<select class="select" id="rkSf" ${fnObj?'':'disabled'}><option value="">${fnObj?'All sub-functions':'— pick a function first —'}</option>`+sfList.map(s=>`<option value="${s.id}" ${F.sf===s.id?'selected':''}>${esc(s.name)} (${cntSf(s.id)})</option>`).join("")+`</select>`;
+  const wtSel=`<select class="select" id="rkWt"><option value="">All worktypes${wtNames.length?' ('+wtNames.length+')':''}</option>`+wtNames.map(n=>`<option value="${esc(n)}" ${F.wt.toLowerCase()===n.toLowerCase()?'selected':''}>${esc(n)} (${cntWt(n)})</option>`).join("")+`</select>`;
+  const scoped=F.fn||F.sf||F.wt;
+  const crumb=scoped?`<div class="adv-crumb"><span>Scope:</span>${F.fn?`<span class="adv-pill">${svg(IC.folder)}${esc(fnObj?fnObj.name:'')}<button title="Clear function" onclick="rkSetScope('fn','')">${svg(IC.x)}</button></span>`:''}${F.sf?`<span class="adv-pill">${svg(IC.layers)}${esc(sfObj?sfObj.name:'')}<button title="Clear sub-function" onclick="rkSetScope('sf','')">${svg(IC.x)}</button></span>`:''}${F.wt?`<span class="adv-pill">${svg(IC.doc)}${esc(F.wt)}<button title="Clear worktype" onclick="rkSetScope('wt','')">${svg(IC.x)}</button></span>`:''}<span style="margin-left:auto"><b style="color:var(--ink)">${rows.length}</b> worktype(s) in scope</span></div>`:'';
+  const adv=`<div class="adv-filter"><div class="adv-head">${svg(IC.list)} Advanced filter${scoped?`<span class="adv-reset" onclick="rkResetScope()">Reset scope</span>`:''}</div><div class="adv-row"><div class="adv-fld"><label>${svg(IC.folder)} Function</label>${fnSel}</div><span class="adv-arrow">${svg(IC.caret)}</span><div class="adv-fld"><label>${svg(IC.layers)} Sub-function</label>${sfSel}</div><span class="adv-arrow">${svg(IC.caret)}</span><div class="adv-fld"><label>${svg(IC.doc)} Dashboard Worktype</label>${wtSel}</div></div>${crumb}</div>`;
+  const anyF=q||F.status||scoped||rkSort.key!=="function"||rkSort.dir!=="asc";
+  const statOpts=[{v:"",label:"All"},{v:"has",label:"Has remark",tone:"green"},{v:"none",label:"No remark"}];
+  const filters=`<div class="list-filters"><div class="search" style="max-width:320px"><svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg><input id="rkSearch" placeholder="Search worktype or remark text…" value="${esc(F.text)}"></div>${segField("rkStatus",F.status,statOpts)}<select class="select lv-select" id="rkStatSel"><option value="">Any status</option>${RK_STATUS.map(c=>`<option value="${c.k}" ${F.status===c.k?'selected':''}>${c.label}</option>`).join("")}</select>${anyF?`<button class="btn small" id="rkClear">${svg(IC.x)} Clear</button>`:''}<span class="chip" style="margin-left:auto">${rows.length} of ${total} shown</span></div>`;
+  const rh=(label,key)=>{const on=rkSort.key===key;const ar=on?(rkSort.dir==="asc"?' ▲':' ▼'):'';return `<th data-rksort="${key}" class="th-sort ${on?'active':''}">${label}<span class="tha">${ar}</span></th>`;};
+  const thead=`<tr>${rh('Function','function')}${rh('Sub-Function','subFunction')}${rh('Dashboard Worktype','name')}${rh('Status','status')}${rh('Remark','remark')}${rh('Last updated','at')}<th style="width:96px">Actions</th></tr>`;
+  const body=pageRows.map(r=>{
+    const preview=rkPreviewHtml(r.wt);const isEmptyRk=!r.text;
+    const c=rkStat(r.status);
+    const statBtn=`<button class="rk-stat" style="${c?`background:${c.bg};color:${c.color};border-color:${c.bg}`:''}" title="Click to change status" onclick="rkCycleStatus('${r.wt.id}')">${c?`<span class="rk-dot" style="background:${c.color}"></span>`:'<span class="d3"></span>'}${c?c.label:'Set'}</button>`;
+    const meta=r.at?`<div class="rk-meta">${svg(IC.clock)} ${fmtDateShort(r.at)}${r.by?` · <span class="rk-who">${esc(r.by)}</span>`:''}${r.logN?` · <span class="rk-count" style="cursor:pointer" onclick="openRemarkHistory('${r.wt.id}')" title="View remark history">${svg(IC.chat)}${r.logN}</span>`:''}</div>`:'';
+    return `<tr><td>${esc(r.fn.name)}</td><td>${esc(r.sf.name)}</td><td><b>${esc(r.wt.name)}</b> <span class="tag ${r.wt.type}">${r.wt.type}</span></td><td>${statBtn}</td><td><div class="rk-cell ${isEmptyRk?'empty':''}" onclick="openRemarkEdit('${r.wt.id}')" title="Click to open the remark editor">${preview}</div>${meta}</td><td style="white-space:nowrap">${r.at?fmtDateShort(r.at):'<span class="muted">—</span>'}</td><td><div class="cellactions"><button class="minibtn ok" title="Edit remark" onclick="openRemarkEdit('${r.wt.id}')">${svg(IC.edit)}</button><button class="minibtn" title="Remark history (${r.logN})" onclick="openRemarkHistory('${r.wt.id}')" ${r.logN?'style="position:relative"':''}>${svg(IC.clock)}${r.logN?`<span class="ver-dot">${r.logN}</span>`:''}</button><button class="minibtn" title="Open in Workspace" onclick="openFromList('${r.wt.id}')">${svg(IC.doc)}</button><button class="minibtn del" title="Clear this remark" onclick="rkClearOne('${r.wt.id}')">${svg(IC.x)}</button></div></td></tr>`;
+  }).join("");
+  const table=rows.length?`<div class="table-wrap paged"><table><thead>${thead}</thead><tbody>${body}</tbody></table></div>${pagerBar("rk",pg)}`:`<div class="table-wrap"><div class="table-empty">${svg(IC.db)}<div style="margin-top:8px">${total?'No worktypes match the current filters.':'No worktypes yet.'}</div></div></div>`;
+  main.innerHTML=head+cards+lead+bar+adv+filters+`<div class="section-bar"><h2>Remark per Dashboard Worktype</h2></div>`+table;
+  const eFn=document.getElementById("rkFn");if(eFn)eFn.onchange=()=>{rkCollect();rkFilter.fn=eFn.value;rkFilter.sf="";rkFilter.wt="";pager.rk.page=1;renderRemarksPage();};
+  const eSf=document.getElementById("rkSf");if(eSf)eSf.onchange=()=>{rkCollect();rkFilter.sf=eSf.value;rkFilter.wt="";pager.rk.page=1;renderRemarksPage();};
+  const eWt=document.getElementById("rkWt");if(eWt)eWt.onchange=()=>{rkCollect();rkFilter.wt=eWt.value;pager.rk.page=1;renderRemarksPage();};
+  const au=document.getElementById("rkAuthor");if(au)au.oninput=()=>{rkAuthor=au.value;};
+  const s=document.getElementById("rkSearch");if(s)s.oninput=()=>{rkCollect();rkFilter.text=s.value;renderRemarksPage();const el=document.getElementById("rkSearch");el.focus();el.setSelectionRange(el.value.length,el.value.length);};
+  const g=document.getElementById("rkStatus");if(g)g.onchange=()=>{rkCollect();rkFilter.status=g.value;renderRemarksPage();};
+  const ss=document.getElementById("rkStatSel");if(ss)ss.onchange=()=>{rkCollect();rkFilter.status=ss.value;renderRemarksPage();};
+  const c2=document.getElementById("rkClear");if(c2)c2.onclick=()=>{rkCollect();rkFilter={text:"",status:"",fn:"",sf:"",wt:""};rkSort={key:"function",dir:"asc"};pager.rk.page=1;renderRemarksPage();};
+  document.querySelectorAll("#main th[data-rksort]").forEach(th=>th.onclick=()=>{rkCollect();const k=th.dataset.rksort;if(rkSort.key===k)rkSort.dir=rkSort.dir==="asc"?"desc":"asc";else{rkSort.key=k;rkSort.dir="asc";}renderRemarksPage();});
+  document.querySelectorAll("#main [data-rkid]").forEach(ta=>ta.oninput=()=>{const id=ta.dataset.rkid;const cur=findWorktype(id);const orig=cur?String(cur.wt.remark||"").trim():"";const v=ta.value;if(v===orig)delete rkDraft[id];else rkDraft[id]=v;ta.classList.toggle("dirty",v!==orig);const btn=document.getElementById("rkSaveAll");if(btn){const n=Object.keys(rkDraft).length;btn.disabled=!n;btn.innerHTML=`${svg(IC.check)} Save${n?' '+n+' change'+(n>1?'s':''):''}`;}});
+  const nn=document.getElementById("rkNewNote");if(nn)nn.onclick=()=>{if(pageRows.length)openRemarkEdit(pageRows[0].wt.id);else toast("No worktypes in view","warn");};
+  const ex=document.getElementById("rkExport");if(ex)ex.onclick=rkExportCsv;
+  wirePager("rk",renderRemarksPage);
+}
+/* Cascading scope helpers — clearing a level also clears the levels beneath it */
+function rkSetScope(level,val){rkCollect();
+  if(level==="fn"){rkFilter.fn=val;rkFilter.sf="";rkFilter.wt="";}
+  else if(level==="sf"){rkFilter.sf=val;rkFilter.wt="";}
+  else if(level==="wt"){rkFilter.wt=val;}
+  pager.rk.page=1;renderRemarksPage();}
+function rkResetScope(){rkCollect();rkFilter.fn="";rkFilter.sf="";rkFilter.wt="";pager.rk.page=1;renderRemarksPage();toast("Scope cleared");}
+function rkCollect(){document.querySelectorAll("#main [data-rkid]").forEach(ta=>{const id=ta.dataset.rkid;const cur=findWorktype(id);const orig=cur?String(cur.wt.remark||"").trim():"";if(ta.value===orig)delete rkDraft[id];else rkDraft[id]=ta.value;});}
+function rkSaveAll(){rkCollect();const ids=Object.keys(rkDraft);if(!ids.length){toast("No changes to save","warn");return;}
+  const who=(document.getElementById("rkAuthor")?.value||rkAuthor||"").trim();const t=nowISO();let n=0;
+  ids.forEach(id=>{const c=findWorktype(id);if(!c)return;const nv=String(rkDraft[id]||"").trim();const old=String(c.wt.remark||"").trim();if(nv===old)return;
+    if(old){c.wt.remarkLog=c.wt.remarkLog||[];c.wt.remarkLog.push({text:old,at:c.wt.remarkAt||t,by:c.wt.remarkBy||"",status:c.wt.remarkStatus||""});}
+    c.wt.remark=nv;c.wt.remarkAt=t;c.wt.remarkBy=who;
+    if(nv&&!c.wt.remarkStatus)c.wt.remarkStatus="pending";
+    if(!nv)c.wt.remarkStatus="";
+    n++;});
+  rkDraft={};rkAuthor=who;save();renderAll();toast(n?`Saved ${n} remark${n>1?'s':''}`:"No changes");}
+function rkCycleStatus(wtId){const c=findWorktype(wtId);if(!c)return;const cur=RK_ORDER.indexOf(c.wt.remarkStatus||"");const next=RK_ORDER[(cur+1)%RK_ORDER.length];c.wt.remarkStatus=next;save();renderRemarksPage();toast(next?("Status: "+rkLabel(next)):"Status cleared");}
+function rkClearOne(wtId){const c=findWorktype(wtId);if(!c)return;if(!String(c.wt.remark||"").trim()&&!c.wt.remarkStatus){toast("Nothing to clear","warn");return;}
+  if(!confirm(`Clear the remark on “${c.wt.name}”?\n\nThe current text is kept in its history.`))return;
+  const t=nowISO();if(String(c.wt.remark||"").trim()){c.wt.remarkLog=c.wt.remarkLog||[];c.wt.remarkLog.push({text:c.wt.remark,at:c.wt.remarkAt||t,by:c.wt.remarkBy||"",status:c.wt.remarkStatus||""});}
+  c.wt.remark="";c.wt.remarkStatus="";c.wt.remarkAt=t;delete rkDraft[wtId];save();renderAll();toast("Remark cleared");}
+function openRemarkHistory(wtId){const c=findWorktype(wtId);if(!c)return;const wt=c.wt;
+  document.getElementById("rkTitle").textContent="Remark History · "+wt.name;
+  const cur=String(wt.remark||"").trim();
+  const curC=rkStat(wt.remarkStatus);
+  const head=`<div class="hist-meta"><div class="m"><span class="l">Worktype</span><span class="v">${esc(wt.name)} <span class="tag ${wt.type}">${wt.type}</span></span></div><div class="m"><span class="l">Status</span><span class="v" style="${curC?`color:${curC.color}`:''}">${curC?curC.label:'—'}</span></div><div class="m"><span class="l">Last updated</span><span class="v">${wt.remarkAt?fmtDate(wt.remarkAt):'—'}</span></div><div class="m"><span class="l">Revisions</span><span class="v">${(wt.remarkLog||[]).length}</span></div></div>`;
+  const curBlock=cur?`<div class="rk-hitem" style="border-color:var(--brand);background:#f5f8ff"><div class="hh"><span class="ver-badge" style="background:var(--brand-soft);color:var(--brand)">CURRENT</span>${curC?`<span class="rk-stat" style="cursor:default;background:${curC.bg};color:${curC.color};border-color:${curC.bg}"><span class="rk-dot" style="background:${curC.color}"></span>${curC.label}</span>`:''}<span class="when">${wt.remarkAt?fmtDate(wt.remarkAt):''}</span>${wt.remarkBy?`<span class="when">· <b>${esc(wt.remarkBy)}</b></span>`:''}</div><div class="tx">${esc(cur)}</div></div>`:`<div class="hist-empty">No remark set right now.</div>`;
+  const log=[...(wt.remarkLog||[])].reverse();
+  const prev=log.length?log.map(h=>{const hc=rkStat(h.status);return `<div class="rk-hitem"><div class="hh"><span class="ver-badge">PREVIOUS</span>${hc?`<span class="rk-stat" style="cursor:default;background:${hc.bg};color:${hc.color};border-color:${hc.bg}"><span class="rk-dot" style="background:${hc.color}"></span>${hc.label}</span>`:''}<span class="when">${h.at?fmtDate(h.at):''}</span>${h.by?`<span class="when">· <b>${esc(h.by)}</b></span>`:''}</div><div class="tx">${esc(h.text)}</div></div>`;}).join(""):`<div class="hist-empty">No earlier remarks — this is the first one.</div>`;
+  document.getElementById("rkBody").innerHTML=head+curBlock+`<div class="ab-sec-title" style="margin:16px 0 10px">Earlier remarks</div><div class="rk-hist">${prev}</div>`;
+  showOverlay("rk");}
+/* ===== Remark editor modal (Tiptap rich text, with graceful fallback) ===== */
+let rkEditor=null,rkEditCtx=null,rkModalTab="edit";
+const RK_TB=[
+ {c:"bold",t:"Bold",h:"<b>B</b>"},{c:"italic",t:"Italic",h:"<i>I</i>"},{c:"underline",t:"Underline",h:"<u>U</u>"},{c:"strike",t:"Strikethrough",h:"<s>S</s>"},{sep:1},
+ {c:"h2",t:"Heading",h:"H"},{c:"bullet",t:"Bullet list",h:"&bull;"},{c:"ordered",t:"Numbered list",h:"1."},{c:"quote",t:"Quote",h:"&ldquo;"},{c:"code",t:"Inline code",h:"&lt;&gt;"},{sep:1},
+ {c:"link",t:"Add / edit link",h:"&#128279;"},{c:"clear",t:"Clear formatting",h:"&#10005;"}
+];
+function openRemarkEdit(wtId){const c=findWorktype(wtId);if(!c)return;rkEditCtx={wtId};rkModalTab="edit";
+  document.getElementById("rkEditTitle").textContent="Remark \u00b7 "+c.wt.name;
+  renderRemarkEditBody();showOverlay("rkEdit");}
+function renderRemarkEditBody(){const c=findWorktype(rkEditCtx.wtId);if(!c)return;const {fn,sf,wt}=c;
+  const logN=(wt.remarkLog||[]).length;
+  const tabs=`<div class="rk-mtabs"><button type="button" class="rk-mtab ${rkModalTab==='edit'?'on':''}" data-rkt="edit">${svg(IC.edit)} Edit</button><button type="button" class="rk-mtab ${rkModalTab==='hist'?'on':''}" data-rkt="hist">${svg(IC.clock)} History <span class="n">${logN}</span></button></div>`;
+  const head=`<div class="rk-mhead"><span class="wnm">${esc(wt.name)}</span><span class="tag ${wt.type}">${wt.type}</span><span class="pth">${esc(fn.name)} \u203a ${esc(sf.name)}</span></div>`;
+  let body;
+  if(rkModalTab==="edit"){
+    const tb=RK_TB.map(b=>b.sep?'<span class="sep"></span>':`<button type="button" data-rkc="${b.c}" title="${esc(b.t)}">${b.h}</button>`).join("");
+    const statusChips=segField("rkStatusSel",wt.remarkStatus||"",[{v:"",label:"None"}].concat(RK_STATUS.map(x=>({v:x.k,label:x.label}))));
+    body=`<div class="rk-ed-wrap"><div class="rk-tb" id="rkToolbar">${tb}<span class="tb-note" id="rkEngine"><span class="d"></span><span class="tx">editor</span></span></div><div class="rk-ed" id="rkEditorHost"></div></div>
+      <div class="rk-mrow"><div class="f" style="flex:1;min-width:220px"><label>Discussion status</label>${statusChips}</div><div class="f"><label>Your name</label><input id="rkAuthorModal" placeholder="e.g. Mark" value="${esc(rkAuthor||wt.remarkBy||"")}"></div></div>`;
+  }else{
+    const cur=rkSanitize(wt.remark);const curC=rkStat(wt.remarkStatus);
+    const curBlock=rkIsEmpty(cur)?`<div class="hist-empty">No remark set right now.</div>`:`<div class="rk-hitem" style="border-color:var(--brand);background:#f5f8ff"><div class="hh"><span class="ver-badge" style="background:var(--brand-soft);color:var(--brand)">CURRENT</span>${curC?`<span class="rk-stat" style="cursor:default;background:${curC.bg};color:${curC.color};border-color:${curC.bg}"><span class="rk-dot" style="background:${curC.color}"></span>${curC.label}</span>`:''}<span class="when">${wt.remarkAt?fmtDate(wt.remarkAt):''}</span>${wt.remarkBy?`<span class="when">\u00b7 <b>${esc(wt.remarkBy)}</b></span>`:''}</div><div class="tx">${cur}</div></div>`;
+    const log=[...(wt.remarkLog||[])];
+    const prev=log.length?log.map((h,i)=>{const hc=rkStat(h.status);const idx=log.length-1-i;return {i:idx,h,hc};}).reverse().map(({i,h,hc})=>`<div class="rk-hitem"><div class="hh"><span class="ver-badge">REV ${i+1}</span>${hc?`<span class="rk-stat" style="cursor:default;background:${hc.bg};color:${hc.color};border-color:${hc.bg}"><span class="rk-dot" style="background:${hc.color}"></span>${hc.label}</span>`:''}<span class="when">${h.at?fmtDate(h.at):''}</span>${h.by?`<span class="when">\u00b7 <b>${esc(h.by)}</b></span>`:''}<button class="btn small restore" data-rkrest="${i}" title="Load this revision into the editor">${svg(IC.restore)} Restore</button></div><div class="tx">${rkSanitize(h.text)}</div></div>`).join(""):`<div class="hist-empty">No earlier revisions \u2014 nothing has been overwritten yet.</div>`;
+    body=curBlock+`<div class="ab-sec-title" style="margin:16px 0 10px">Earlier revisions</div><div class="rk-hist">${prev}</div>`;
+  }
+  document.getElementById("rkEditBody").innerHTML=tabs+head+body;
+  document.querySelectorAll("#rkEditBody [data-rkt]").forEach(b=>b.onclick=()=>{if(rkModalTab==="edit")rkEditCtx.pending=rkGetHtml();rkModalTab=b.dataset.rkt;rkDestroyEditor();renderRemarkEditBody();});
+  const saveBtn=document.getElementById("rkEditSave");if(saveBtn)saveBtn.style.display=(rkModalTab==="edit")?"inline-flex":"none";
+  const note=document.getElementById("rkEditNote");
+  if(rkModalTab==="edit"){
+    rkMountEditor(rkEditCtx.pending!==undefined?rkEditCtx.pending:(wt.remark||""));
+    document.querySelectorAll("#rkToolbar [data-rkc]").forEach(b=>b.onmousedown=(e)=>{e.preventDefault();rkCmd(b.dataset.rkc);});
+    if(note)note.innerHTML=wt.remarkAt?`Last updated ${fmtDateShort(wt.remarkAt)}${wt.remarkBy?" by <b>"+esc(wt.remarkBy)+"</b>":""} \u00b7 ${logN} revision(s) kept`:`<span style="color:var(--muted)">New remark \u2014 saved with your name and a timestamp</span>`;
+  }else{
+    if(note)note.innerHTML=`<span style="color:var(--muted)">${logN} earlier revision(s) \u00b7 Restore loads one back into the editor</span>`;
+    document.querySelectorAll("#rkEditBody [data-rkrest]").forEach(b=>b.onclick=()=>{const h=(wt.remarkLog||[])[+b.dataset.rkrest];if(!h)return;rkEditCtx.pending=h.text||"";rkModalTab="edit";renderRemarkEditBody();toast("Revision loaded \u2014 review then Save");});
+  }
+}
+function rkDestroyEditor(){if(rkEditor){try{rkEditor.destroy();}catch(e){}rkEditor=null;}}
+function rkMountEditor(html){const host=document.getElementById("rkEditorHost");if(!host)return;rkDestroyEditor();
+  const T=window.__TIPTAP;const eng=document.getElementById("rkEngine");
+  const PH="Where does this data come from? Note the source system, table/report, owner, and any blockers\u2026";
+  if(T&&T.Editor){
+    try{
+      rkEditor=new T.Editor({element:host,extensions:[T.StarterKit.configure({heading:{levels:[2,3]}}),T.Underline,T.Link.configure({openOnClick:false,autolink:true}),T.Placeholder.configure({placeholder:PH})],content:rkSanitize(html)||"",onUpdate:rkSyncToolbar,onSelectionUpdate:rkSyncToolbar});
+      if(eng){eng.classList.remove("fb");eng.querySelector(".tx").textContent="Tiptap";}
+      setTimeout(()=>{try{rkEditor.commands.focus("end");}catch(e){}},30);rkSyncToolbar();return;
+    }catch(e){rkEditor=null;}
+  }
+  host.innerHTML=`<div id="rkFallback" contenteditable="true" data-ph="${esc(PH)}" style="min-height:170px;outline:none">${rkSanitize(html)}</div>`;
+  if(eng){eng.classList.add("fb");eng.querySelector(".tx").textContent="Basic editor";eng.title="Tiptap could not be loaded (offline) \u2014 using the built-in editor";}
+  setTimeout(()=>document.getElementById("rkFallback")?.focus(),30);
+}
+function rkGetHtml(){if(rkEditor){try{return rkEditor.getHTML();}catch(e){}}const el=document.getElementById("rkFallback");return el?el.innerHTML:"";}
+function rkSyncToolbar(){if(!rkEditor)return;const map={bold:"bold",italic:"italic",underline:"underline",strike:"strike",bullet:"bulletList",ordered:"orderedList",quote:"blockquote",code:"code",link:"link"};document.querySelectorAll("#rkToolbar [data-rkc]").forEach(b=>{const k=map[b.dataset.rkc];let on=false;if(k){try{on=b.dataset.rkc==="h2"?rkEditor.isActive("heading",{level:2}):rkEditor.isActive(k);}catch(e){}}if(b.dataset.rkc==="h2"){try{on=rkEditor.isActive("heading",{level:2});}catch(e){}}b.classList.toggle("on",!!on);});}
+function rkCmd(cmd){
+  if(rkEditor){const c=rkEditor.chain().focus();
+    try{
+      if(cmd==="bold")c.toggleBold().run();
+      else if(cmd==="italic")c.toggleItalic().run();
+      else if(cmd==="underline")c.toggleUnderline().run();
+      else if(cmd==="strike")c.toggleStrike().run();
+      else if(cmd==="h2")c.toggleHeading({level:2}).run();
+      else if(cmd==="bullet")c.toggleBulletList().run();
+      else if(cmd==="ordered")c.toggleOrderedList().run();
+      else if(cmd==="quote")c.toggleBlockquote().run();
+      else if(cmd==="code")c.toggleCode().run();
+      else if(cmd==="clear")c.unsetAllMarks().clearNodes().run();
+      else if(cmd==="link"){const url=prompt("Link URL (leave blank to remove):","https://");if(url===null)return;if(!url.trim())rkEditor.chain().focus().unsetLink().run();else rkEditor.chain().focus().extendMarkRange("link").setLink({href:url.trim()}).run();}
+    }catch(e){}
+    rkSyncToolbar();return;}
+  const el=document.getElementById("rkFallback");if(!el)return;el.focus();
+  const ex=(c,v)=>{try{document.execCommand(c,false,v||null);}catch(e){}};
+  if(cmd==="bold")ex("bold");else if(cmd==="italic")ex("italic");else if(cmd==="underline")ex("underline");
+  else if(cmd==="strike")ex("strikeThrough");else if(cmd==="h2")ex("formatBlock","h2");
+  else if(cmd==="bullet")ex("insertUnorderedList");else if(cmd==="ordered")ex("insertOrderedList");
+  else if(cmd==="quote")ex("formatBlock","blockquote");else if(cmd==="clear")ex("removeFormat");
+  else if(cmd==="code")ex("fontName","Consolas");
+  else if(cmd==="link"){const url=prompt("Link URL:","https://");if(url&&url.trim())ex("createLink",url.trim());}
+}
+function rkSaveModal(){if(!rkEditCtx)return;const c=findWorktype(rkEditCtx.wtId);if(!c)return;const wt=c.wt;
+  const raw=rkSanitize(rkGetHtml());const nv=rkIsEmpty(raw)?"":raw;
+  const oldHtml=String(wt.remark||"");const oldPlain=rkPlain(oldHtml);
+  const who=(document.getElementById("rkAuthorModal")?.value||rkAuthor||"").trim();
+  const statusSel=document.getElementById("rkStatusSel")?.value||"";
+  const t=nowISO();
+  const textChanged=(rkPlain(nv)!==oldPlain)||(nv!==oldHtml&&!!nv);
+  const statusChanged=((wt.remarkStatus||"")!==statusSel);
+  if(!textChanged&&!statusChanged){rkAuthor=who;closeOverlay("rkEdit");toast("No changes");return;}
+  if(textChanged&&oldPlain){wt.remarkLog=wt.remarkLog||[];wt.remarkLog.push({text:oldHtml,at:wt.remarkAt||t,by:wt.remarkBy||"",status:wt.remarkStatus||""});}
+  if(textChanged){wt.remark=nv;wt.remarkAt=t;wt.remarkBy=who;}
+  wt.remarkStatus=nv?(statusSel||wt.remarkStatus||"pending"):"";
+  rkAuthor=who;rkEditCtx.pending=undefined;rkDestroyEditor();
+  save();renderAll();closeOverlay("rkEdit");
+  toast(textChanged?(wt.remarkLog||[]).length?"Remark saved \u00b7 previous kept in history":"Remark saved":"Status updated");}
+document.getElementById("rkEditSave").onclick=rkSaveModal;
+document.querySelectorAll('[data-close="rkEdit"]').forEach(b=>b.addEventListener("click",()=>{rkDestroyEditor();if(rkEditCtx)rkEditCtx.pending=undefined;}));
+function rkExportCsv(){rkCollect();const F=rkFilter;
+  let src=rkRows();
+  if(F.fn)src=src.filter(r=>r.fn.id===F.fn);
+  if(F.sf)src=src.filter(r=>r.sf.id===F.sf);
+  if(F.wt)src=src.filter(r=>r.wt.name.toLowerCase()===F.wt.toLowerCase());
+  const q=(F.text||"").trim().toLowerCase();
+  if(q)src=src.filter(r=>r.wt.name.toLowerCase().includes(q)||r.fn.name.toLowerCase().includes(q)||r.sf.name.toLowerCase().includes(q)||r.text.toLowerCase().includes(q));
+  if(F.status==="has")src=src.filter(r=>r.text);else if(F.status==="none")src=src.filter(r=>!r.text);else if(F.status)src=src.filter(r=>r.status===F.status);
+  const rows=[["Function","Sub-Function","Dashboard Worktype","Type","Remark Status","Remark","Updated By","Updated Date","Revisions"]];
+  src.forEach(r=>{rows.push([r.fn.name,r.sf.name,r.wt.name,r.wt.type,rkLabel(r.status),r.text,r.by,r.at?fmtDate(r.at):"",r.logN]);});
+  download("verint-remarks-"+stamp()+".csv",rows.map(r=>r.map(csvCell).join(",")).join("\r\n"),"text/csv");
+  toast(`${rows.length-1} row(s) exported`);}
 function flattenMappings(){const out=[];state.functions.forEach(fn=>(fn.subFunctions||[]).forEach(sf=>(sf.worktypes||[]).forEach(wt=>(wt.mappings||[]).forEach(m=>out.push({fn,sf,wt,m})))));return out;}
 function renderListView(){
   const main=document.getElementById("main");let rows=flattenMappings();const total=rows.length;const f=listFilters;const q=(f.text||"").trim().toLowerCase();
@@ -1464,7 +1821,7 @@ function buildConfiguredCsv(){
   return {csv:rows.map(r=>r.map(csvCell).join(",")).join("\r\n"),count:rows.length-1};
 }
 document.getElementById("exportRun").onclick=()=>{if(!exportCfg.cols||exportCfg.cols.size===0){toast("Select at least one column","warn");return;}const {csv,count}=buildConfiguredCsv();download("verint-listview-"+stamp()+".csv",csv,"text/csv");closeOverlay("export");toast(count+" row"+(count!==1?"s":"")+" exported");};
-function openAbout(){const wts=allWorktypes();const maps=flattenMappings();const dirCount=DIR_KEYS.reduce((a,k)=>a+((state.directories[k]||[]).length),0);const validated=maps.filter(r=>r.m.validated).length;const feature=(t,d)=>`<div class="ab-feat"><div class="ab-fi">${svg(IC.check)}</div><div><b>${t}</b><span>${d}</span></div></div>`;document.getElementById("aboutBody").innerHTML=`<div class="ab-hero"><div class="ab-logo"><svg class="icon" viewBox="0 0 24 24" style="width:26px;height:26px;stroke:#fff"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div><div><div class="ab-name">Verint Mapping Manager</div><div class="ab-ver">Version 5.1 · September 2026</div></div></div><p class="ab-purpose">Accurately map and count processed items from Verint by linking each Dashboard Worktype (AWD or Manual) to its supporting combinations. Optional per-mapping organization with sub-function defaults, Shared Queue handling, import structures, multi-select expansion, duplicate detection, and queue-key splitting.</p><div class="ab-sec-title">At a glance</div><div class="ab-stats"><div class="ab-stat"><span class="n">${state.functions.length}</span><span class="l">Functions</span></div><div class="ab-stat"><span class="n">${wts.length}</span><span class="l">Worktypes</span></div><div class="ab-stat"><span class="n">${maps.length}</span><span class="l">Mappings</span></div><div class="ab-stat"><span class="n">${validated}</span><span class="l">Validated</span></div><div class="ab-stat"><span class="n">${dirCount}</span><span class="l">Directory items</span></div></div><div class="ab-sec-title">Key features</div><div class="ab-feats">${feature("Optional organization + defaults","Org is optional per mapping; set a default org per sub-function to auto-fill.")}${feature("Shared Queue handling","Flag shared queues (Yes/No); shared queues capture the correct organization.")}${feature("Import Structure","Build the tree from Excel copy-paste, CSV/TXT, or manual paste with preview.")}${feature("AWD & Manual types","AWD captures BA/Worktype/Status; Manual captures Verint Queue. The same name can exist as both — shown paired in the tree with a quick switcher.")}${feature("Smart suggestions","Business Area → Worktype → Status suggest contextually from your real data; Status Category auto-learns from history.")}${feature("TAT &amp; Ageing Basis","Set TAT in days and tag each worktype's ageing calculation as Priority Code or Business Days; bulk-edit inline or per Sub-function in the TAT Manager.")}${feature("Watermelon Project tagging","Tag worktypes into the Watermelon Project (single or multi-select), filter by it everywhere, and include/exclude them in the CSV extraction.")}${feature("Add the paired AWD / Manual queues","From Add Mapping (or the header), one click creates the same-named worktype of the opposite type and jumps straight to adding its queues — TAT, ageing basis &amp; Watermelon are carried over.")}${feature("Paste multiple in Add Mapping","Switch to “Paste multiple” to add many Verint queue names (Manual) or BUSINESSAREA_WORKTYPE_STATUS keys (AWD) at once — one per line, live-previewed.")}${feature("Multi-select row expansion","Pick multiple values — every combination becomes a row.")}${feature("Bulk actions","Set Organization, Shared/Active/Validated, export or delete many at once.")}${feature("Directories full page","Advanced search, sort, bulk actions, add/import/split panels.")}${feature("Duplicate detection","Blocks directory dupes; flags queue keys reused across functions.")}${feature("Change history","Created/modified dates plus full version history with restore.")}${feature("Keyboard shortcuts","Shift+S save · Shift+A add another · Ctrl/⌘+Enter save · press Shift+K for all.")}${feature("1-click segmented filters","Type, status, validation, watermelon &amp; ageing use inline chip toggles instead of dropdowns — pick in a single click.")}${feature("Structure Manager","One row per Function · Sub-function · Worktype with AWD / Manual mapping counts, plus edit &amp; delete — including a one-click cleanup of empty worktypes.")}${feature("List view · clear data · responsive","Consolidated view, selective clearing, works on all screens.")}</div><div class="ab-sec-title">Data & storage</div><div class="ab-kv"><div><span>Persistence</span><b>Browser localStorage + IndexedDB (offline, on-device)</b></div><div><span>Storage key</span><b>${LS_KEY}</b></div><div><span>Privacy</span><b>All data stays in your browser — nothing is sent to any server</b></div></div><div class="ab-sec-title">Developer</div><div class="ab-dev"><div class="dev-avatar">MR</div><div class="ab-dev-meta"><div class="ab-dev-name">Mark F. Rusco</div><div class="ab-dev-role">Bus & Technology Delivery Senior Analyst</div><a class="dev-mail" href="mailto:mark.rusco@accenture.com">mark.rusco@accenture.com</a></div></div><div class="ab-tech">Single-file web application · HTML · CSS · Vanilla JavaScript · No external dependencies</div>`;showOverlay("about");}
+function openAbout(){const wts=allWorktypes();const maps=flattenMappings();const dirCount=DIR_KEYS.reduce((a,k)=>a+((state.directories[k]||[]).length),0);const validated=maps.filter(r=>r.m.validated).length;const feature=(t,d)=>`<div class="ab-feat"><div class="ab-fi">${svg(IC.check)}</div><div><b>${t}</b><span>${d}</span></div></div>`;document.getElementById("aboutBody").innerHTML=`<div class="ab-hero"><div class="ab-logo"><svg class="icon" viewBox="0 0 24 24" style="width:26px;height:26px;stroke:#fff"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div><div><div class="ab-name">Verint Mapping Manager</div><div class="ab-ver">Version 5.4 · September 2026</div></div></div><p class="ab-purpose">Accurately map and count processed items from Verint by linking each Dashboard Worktype (AWD or Manual) to its supporting combinations. Optional per-mapping organization with sub-function defaults, Shared Queue handling, import structures, multi-select expansion, duplicate detection, and queue-key splitting.</p><div class="ab-sec-title">At a glance</div><div class="ab-stats"><div class="ab-stat"><span class="n">${state.functions.length}</span><span class="l">Functions</span></div><div class="ab-stat"><span class="n">${wts.length}</span><span class="l">Worktypes</span></div><div class="ab-stat"><span class="n">${maps.length}</span><span class="l">Mappings</span></div><div class="ab-stat"><span class="n">${validated}</span><span class="l">Validated</span></div><div class="ab-stat"><span class="n">${dirCount}</span><span class="l">Directory items</span></div></div><div class="ab-sec-title">Key features</div><div class="ab-feats">${feature("Optional organization + defaults","Org is optional per mapping; set a default org per sub-function to auto-fill.")}${feature("Shared Queue handling","Flag shared queues (Yes/No); shared queues capture the correct organization.")}${feature("Import Structure","Build the tree from Excel copy-paste, CSV/TXT, or manual paste with preview.")}${feature("AWD & Manual types","AWD captures BA/Worktype/Status; Manual captures Verint Queue. The same name can exist as both — shown paired in the tree with a quick switcher.")}${feature("Smart suggestions","Business Area → Worktype → Status suggest contextually from your real data; Status Category auto-learns from history.")}${feature("TAT &amp; Ageing Basis","Set TAT in days and tag each worktype's ageing calculation as Priority Code or Business Days; bulk-edit inline or per Sub-function in the TAT Manager.")}${feature("Watermelon Project tagging","Tag worktypes into the Watermelon Project (single or multi-select), filter by it everywhere, and include/exclude them in the CSV extraction.")}${feature("Add the paired AWD / Manual queues","From Add Mapping (or the header), one click creates the same-named worktype of the opposite type and jumps straight to adding its queues — TAT, ageing basis &amp; Watermelon are carried over.")}${feature("Paste multiple in Add Mapping","Switch to “Paste multiple” to add many Verint queue names (Manual) or BUSINESSAREA_WORKTYPE_STATUS keys (AWD) at once — one per line, live-previewed.")}${feature("Multi-select row expansion","Pick multiple values — every combination becomes a row.")}${feature("Bulk actions","Set Organization, Shared/Active/Validated, export or delete many at once.")}${feature("Directories full page","Advanced search, sort, bulk actions, add/import/split panels.")}${feature("Duplicate detection","Blocks directory dupes; flags queue keys reused across functions.")}${feature("Change history","Created/modified dates plus full version history with restore.")}${feature("Keyboard shortcuts","Shift+S save · Shift+A add another · Ctrl/⌘+Enter save · press Shift+K for all.")}${feature("1-click segmented filters","Type, status, validation, watermelon &amp; ageing use inline chip toggles instead of dropdowns — pick in a single click.")}${feature("Rich-text Remarks","Edit remarks in a modal powered by Tiptap \u2014 bold, lists, headings, quotes &amp; links \u2014 with status, author, timestamp and full revision history you can restore.")}${feature("Structure Manager","One row per Function · Sub-function · Worktype with AWD / Manual mapping counts, plus edit &amp; delete — including a one-click cleanup of empty worktypes.")}${feature("List view · clear data · responsive","Consolidated view, selective clearing, works on all screens.")}</div><div class="ab-sec-title">Data & storage</div><div class="ab-kv"><div><span>Persistence</span><b>Browser localStorage + IndexedDB (offline, on-device)</b></div><div><span>Storage key</span><b>${LS_KEY}</b></div><div><span>Privacy</span><b>All data stays in your browser — nothing is sent to any server</b></div></div><div class="ab-sec-title">Developer</div><div class="ab-dev"><div class="dev-avatar">MR</div><div class="ab-dev-meta"><div class="ab-dev-name">Mark F. Rusco</div><div class="ab-dev-role">Bus & Technology Delivery Senior Analyst</div><a class="dev-mail" href="mailto:mark.rusco@accenture.com">mark.rusco@accenture.com</a></div></div><div class="ab-tech">Single-file web application · HTML · CSS · Vanilla JavaScript · No external dependencies</div>`;showOverlay("about");}
 document.getElementById("tree").addEventListener("click",(e)=>{const actBtn=e.target.closest("[data-act]");if(actBtn){e.stopPropagation();const a=actBtn.dataset.act;if(a==="addsf")openEntity("subfunction",null,actBtn.dataset.fn);if(a==="editfn")openEntity("function",actBtn.dataset.fn);if(a==="delfn")deleteFunction(actBtn.dataset.fn);if(a==="addwt")openEntity("worktype",null,actBtn.dataset.sf);if(a==="editsf")openEntity("subfunction",actBtn.dataset.sf);if(a==="delsf")deleteSub(actBtn.dataset.sf);if(a==="editwt")openEntity("worktype",actBtn.dataset.wt);if(a==="delwt")deleteWorktype(actBtn.dataset.wt);if(a==="addmap"){selection.worktypeId=actBtn.dataset.wt;viewMode="detail";openMapping(actBtn.dataset.wt);}return;}const sel=e.target.closest("[data-select]");if(sel){viewMode="detail";selection.worktypeId=sel.dataset.select;editingMapId=null;selectedIds.clear();dirPageActivePanel=null;renderAll();const mm=document.getElementById("main");if(mm)mm.scrollTop=0;if(isDrawerMode())closeDrawer();return;}const tog=e.target.closest("[data-toggle]");if(tog){const id=tog.dataset.toggle;expanded.has(id)?expanded.delete(id):expanded.add(id);renderTree();}});
 function deleteFunction(id){const fn=state.functions.find(f=>f.id===id);if(!confirm(`Delete function "${fn.name}" and all its sub-functions & worktypes?`))return;state.functions=state.functions.filter(f=>f.id!==id);renderAll();toast("Function deleted");}
 function deleteSub(id){for(const f of state.functions){const sf=(f.subFunctions||[]).find(s=>s.id===id);if(sf){if(!confirm(`Delete sub-function "${sf.name}" and its worktypes?`))return;f.subFunctions=f.subFunctions.filter(s=>s.id!==id);break;}}renderAll();toast("Sub-function deleted");}
@@ -1480,6 +1837,7 @@ document.getElementById("navOverview").onclick=()=>goView("overview");
 document.getElementById("navWorkspace").onclick=()=>goView("detail");
 document.getElementById("btnListView").onclick=()=>goView("list");
 document.getElementById("btnStructure").onclick=()=>goView("structure");
+document.getElementById("btnRemarks").onclick=()=>goView("remarks");
 document.getElementById("btnDirectories").onclick=()=>goView("directories");
 /* ---- dropdown menus ---- */
 function closeMenus(){document.querySelectorAll(".dropdown.show").forEach(d=>d.classList.remove("show"));}
@@ -1532,7 +1890,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"){document.querySelec
 /* ===================== KEYBOARD SHORTCUTS ===================== */
 function topOverlay(){const ovs=[...document.querySelectorAll(".overlay.show")];return ovs.length?ovs[ovs.length-1]:null;}
 function activeIsEditable(){const el=document.activeElement;if(!el)return false;const t=el.tagName;return t==="INPUT"||t==="TEXTAREA"||t==="SELECT"||el.isContentEditable;}
-const PRIMARY_BTN={entityOverlay:"entitySave",mapOverlay:"mapSave",orgOverlay:"orgApply",structOverlay:"structImport",clearOverlay:"clearProceed",dupOverlay:"dupProceed",wmOverlay:"wmApply",tatOverlay:"tatApply"};
+const PRIMARY_BTN={entityOverlay:"entitySave",mapOverlay:"mapSave",orgOverlay:"orgApply",structOverlay:"structImport",clearOverlay:"clearProceed",dupOverlay:"dupProceed",wmOverlay:"wmApply",tatOverlay:"tatApply",rkEditOverlay:"rkEditSave"};
 const ADD_BTN={entityOverlay:"entitySaveAdd",mapOverlay:"mapSaveAdd"};
 function clickIf(id){const b=id&&document.getElementById(id);if(b&&b.offsetParent!==null&&!b.disabled){b.click();return true;}return false;}
 document.addEventListener("keydown",e=>{
@@ -1563,12 +1921,13 @@ document.addEventListener("keydown",e=>{
   if(k==="l"){e.preventDefault();document.getElementById("btnListView").click();return;}
   if(k==="i"){e.preventDefault();openStructImport();return;}
   if(k==="g"){e.preventDefault();goView("structure");return;}
+  if(k==="r"){e.preventDefault();goView("remarks");return;}
   if(k==="w"){e.preventDefault();openWatermelon();return;}
   if(k==="t"){e.preventDefault();openTat();return;}
   if(k==="k"){e.preventDefault();openShortcuts();return;}
   if(k==="?"){e.preventDefault();openShortcuts();return;}
 });
-function openShortcuts(){const rows=[["Shift + S","Save the open form"],["Shift + A","Save &amp; add another (keeps the form open)"],["Ctrl / ⌘ + Enter","Save from any field, even while typing"],["Shift + Enter","Save &amp; add another, even while typing"],["Esc","Close / cancel the dialog"],["Shift + N","New — Add mapping (in a worktype) or New Function"],["Shift + F","Focus the search box"],["Shift + D","Open Directories"],["Shift + L","Open List View"],["Shift + I","Import structure"],["Shift + G","Open Structure Manager"],["Shift + W","Open Watermelon Project tagging"],["Shift + T","Open TAT Manager"],["Shift + K  /  ?","Show this shortcuts help"]];document.getElementById("aboutBody").innerHTML=`<div class="ab-hero"><div class="ab-logo"><svg class="icon" viewBox="0 0 24 24" style="width:26px;height:26px;stroke:#fff"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M6 9h.01M10 9h.01M14 9h.01M18 9h.01M6 13h.01M18 13h.01M9 13h6"/></svg></div><div><div class="ab-name">Keyboard Shortcuts</div><div class="ab-ver">Work faster with the keyboard</div></div></div><div class="sc-list">${rows.map(r=>`<div class="r"><span class="keys">${r[0].split(" ").map(p=>(p==="+"||p==="/")?`<span style="color:var(--muted)">${p}</span>`:`<span class="kbd">${p}</span>`).join(" ")}</span><span class="d">${r[1]}</span></div>`).join("")}</div><div class="ab-tech" style="margin-top:16px">Tip: letter shortcuts (Shift+S, Shift+A, …) work when you're not typing in a field. While typing, use Ctrl/⌘+Enter to save or Shift+Enter to save &amp; add another.</div>`;showOverlay("about");}
+function openShortcuts(){const rows=[["Shift + S","Save the open form"],["Shift + A","Save &amp; add another (keeps the form open)"],["Ctrl / ⌘ + Enter","Save from any field, even while typing"],["Shift + Enter","Save &amp; add another, even while typing"],["Esc","Close / cancel the dialog"],["Shift + N","New — Add mapping (in a worktype) or New Function"],["Shift + F","Focus the search box"],["Shift + D","Open Directories"],["Shift + L","Open List View"],["Shift + I","Import structure"],["Shift + G","Open Structure Manager"],["Shift + R","Open Remarks"],["Shift + W","Open Watermelon Project tagging"],["Shift + T","Open TAT Manager"],["Shift + K  /  ?","Show this shortcuts help"]];document.getElementById("aboutBody").innerHTML=`<div class="ab-hero"><div class="ab-logo"><svg class="icon" viewBox="0 0 24 24" style="width:26px;height:26px;stroke:#fff"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M6 9h.01M10 9h.01M14 9h.01M18 9h.01M6 13h.01M18 13h.01M9 13h6"/></svg></div><div><div class="ab-name">Keyboard Shortcuts</div><div class="ab-ver">Work faster with the keyboard</div></div></div><div class="sc-list">${rows.map(r=>`<div class="r"><span class="keys">${r[0].split(" ").map(p=>(p==="+"||p==="/")?`<span style="color:var(--muted)">${p}</span>`:`<span class="kbd">${p}</span>`).join(" ")}</span><span class="d">${r[1]}</span></div>`).join("")}</div><div class="ab-tech" style="margin-top:16px">Tip: letter shortcuts (Shift+S, Shift+A, …) work when you're not typing in a field. While typing, use Ctrl/⌘+Enter to save or Shift+Enter to save &amp; add another.</div>`;showOverlay("about");}
 let toastT;
 function toast(msg,type){const t=document.getElementById("toast");t.innerHTML=(type==="warn"?'<svg class="icon" viewBox="0 0 24 24" style="color:#fbbf24"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>':'<svg class="icon" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>')+esc(msg);t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("show"),2400);}
 function enhanceA11y(){document.querySelectorAll(".overlay").forEach(ov=>{const modal=ov.querySelector(".modal");if(!modal)return;modal.setAttribute("role","dialog");modal.setAttribute("aria-modal","true");const h=modal.querySelector(".modal-head h3");if(h){if(!h.id)h.id=ov.id+"_title";modal.setAttribute("aria-labelledby",h.id);}});}
