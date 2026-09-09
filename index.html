@@ -148,6 +148,20 @@
   .tag-sep{font-size:10px;color:#c3c8d0;font-weight:700;padding:0 3px;user-select:none}
   .wt-sub{display:inline-flex;align-items:center;gap:4px;font-size:10px;color:var(--muted);flex:0 0 auto}
   .wt-sub b{font-weight:700;color:var(--ink)}
+  /* ===== Structure Manager ===== */
+  .st-cell{display:inline-flex;align-items:center;gap:6px}
+  .st-cnt{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:24px;padding:0 8px;border-radius:6px;font-size:12px;font-weight:700}
+  .st-cnt.awd{background:#e8f0fe;color:var(--awd)}
+  .st-cnt.manual{background:#e4f6ef;color:var(--manual)}
+  .st-cnt.zero{background:#fdecea;color:var(--danger);box-shadow:inset 0 0 0 1px #f6d9d5}
+  .st-none{font-size:12px;color:#c3c8d0;font-weight:600}
+  .st-mini{width:22px;height:22px;border:0;background:transparent;color:var(--muted);border-radius:5px;display:inline-flex;align-items:center;justify-content:center}
+  .st-mini .icon{width:13px;height:13px}
+  .st-mini:hover{background:#e6e8ec;color:var(--ink)}
+  .st-mini.del:hover{background:#fde7e5;color:var(--danger)}
+  tr.st-empty-row td{background:#fffaf9}
+  .st-warn{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:var(--danger)}
+  .st-warn .icon{width:13px;height:13px}
   .wt-pair{display:inline-flex;align-items:center;color:var(--muted);flex:0 0 auto}
   .wt-pair .icon{width:12px;height:12px;stroke-width:2}
   .detail-head h1 .wt-pair .icon{width:15px;height:15px}
@@ -630,6 +644,7 @@
     <button class="seg" id="navOverview" data-view="overview" title="Overview" aria-label="Overview"><svg class="icon" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v9a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9"/></svg>Overview</button>
     <button class="seg" id="navWorkspace" data-view="detail" title="Workspace" aria-label="Workspace"><svg class="icon" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Workspace</button>
     <button class="seg" id="btnListView" data-view="list" title="List View" aria-label="List View"><svg class="icon" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>List View</button>
+    <button class="seg" id="btnStructure" data-view="structure" title="Structure — manage worktypes &amp; counts" aria-label="Structure"><svg class="icon" viewBox="0 0 24 24"><path d="M3 5h18M3 12h18M3 19h18"/><path d="M8 5v14"/></svg>Structure</button>
     <button class="seg" id="btnDirectories" data-view="directories" title="Directories" aria-label="Directories"><svg class="icon" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M8 12h8M8 15h5"/></svg>Directories</button>
   </nav>
   <div class="spacer"></div>
@@ -742,8 +757,9 @@ let dirPageSort={key:"value",dir:"asc"};
 let dirSelected=new Set();
 let dirEditKey=null;
 let dirPageActivePanel=null;
+let structFilter={text:"",gap:""};let structSort={key:"function",dir:"asc"};
 /* ===== Pagination state & helpers ===== */
-let pager={detail:{page:1,size:25,sig:""},list:{page:1,size:25,sig:""},dir:{page:1,size:25,sig:""},import:{page:1,size:50,sig:""}};
+let pager={detail:{page:1,size:25,sig:""},list:{page:1,size:25,sig:""},dir:{page:1,size:25,sig:""},import:{page:1,size:50,sig:""},struct:{page:1,size:25,sig:""}};
 let importText="";let importFilter="all";let structOpts={forceDupes:false};
 let lvFilteredRows=[];
 const EXPORT_COLS=[
@@ -893,6 +909,7 @@ function renderMain(){
   const main=document.getElementById("main");
   if(viewMode==="list"){renderListView();return;}
   if(viewMode==="directories"){renderDirectoriesPage();return;}
+  if(viewMode==="structure"){renderStructurePage();return;}
   if(viewMode==="import"){renderImportPage();return;}
   const ctx=selection.worktypeId?findWorktype(selection.worktypeId):null;
   if(!ctx){renderOverview();return;}
@@ -1290,6 +1307,87 @@ function dirPageRenderPanel(){
     setTimeout(()=>document.getElementById("dpSplitText")?.focus(),20);
   }
 }
+/* ===== Structure Manager — one row per Function · Sub-function · Worktype name,
+   with AWD / Manual mapping counts and per-type edit + delete actions. ===== */
+function structureRows(){
+  const map={};const out=[];
+  allWorktypes().forEach(({fn,sf,wt})=>{
+    const k=fn.id+"|"+sf.id+"|"+wt.name.toLowerCase();
+    if(map[k]===undefined){map[k]=out.length;out.push({fn,sf,name:wt.name,awd:null,manual:null});}
+    out[map[k]][wt.type==="manual"?"manual":"awd"]=wt;
+  });
+  out.forEach(r=>{
+    r.awdN=r.awd?(r.awd.mappings||[]).length:-1;
+    r.manN=r.manual?(r.manual.mappings||[]).length:-1;
+    r.total=(r.awdN>0?r.awdN:0)+(r.manN>0?r.manN:0);
+    r.hasEmpty=(!!r.awd&&r.awdN===0)||(!!r.manual&&r.manN===0);
+  });
+  return out;
+}
+function renderStructurePage(){
+  const main=document.getElementById("main");const F=structFilter;
+  let rows=structureRows();const total=rows.length;
+  const q=(F.text||"").trim().toLowerCase();
+  if(q)rows=rows.filter(r=>r.name.toLowerCase().includes(q)||r.fn.name.toLowerCase().includes(q)||r.sf.name.toLowerCase().includes(q));
+  if(F.gap==="empty")rows=rows.filter(r=>r.hasEmpty);
+  if(F.gap==="both")rows=rows.filter(r=>r.awd&&r.manual);
+  if(F.gap==="awdonly")rows=rows.filter(r=>r.awd&&!r.manual);
+  if(F.gap==="manualonly")rows=rows.filter(r=>r.manual&&!r.awd);
+  const keyFn=(r)=>{switch(structSort.key){case"function":return r.fn.name+"|"+r.sf.name+"|"+r.name;case"subFunction":return r.sf.name+"|"+r.name;case"name":return r.name;case"awd":return r.awdN;case"manual":return r.manN;case"total":return r.total;default:return r.fn.name;}};
+  rows=sortBy(rows,keyFn,structSort.dir);
+  const sig=JSON.stringify([structFilter,structSort]);const pg=paginate("struct",rows,sig);const pageRows=pg.slice;
+  const allRows=structureRows();
+  const emptyN=allRows.reduce((a,r)=>a+((r.awd&&r.awdN===0)?1:0)+((r.manual&&r.manN===0)?1:0),0);
+  const head=`<div class="detail-head"><div><div class="breadcrumb">${svg(IC.layers)} <b>Structure</b> · manage worktypes &amp; mapping counts</div><h1>Structure Manager</h1></div><div class="spacer"></div>${emptyN?`<button class="btn danger-btn" id="stCleanup">${svg(IC.del)} Remove ${emptyN} empty worktype${emptyN>1?'s':''}</button>`:''}</div>`;
+  const cards=`<div class="cards"><div class="card"><div class="k">Worktype names</div><div class="v">${allRows.length}</div></div><div class="card"><div class="k">AWD worktypes</div><div class="v" style="color:var(--awd)">${allRows.filter(r=>r.awd).length}</div></div><div class="card"><div class="k">Manual worktypes</div><div class="v" style="color:var(--manual)">${allRows.filter(r=>r.manual).length}</div></div><div class="card"><div class="k">Both types</div><div class="v">${allRows.filter(r=>r.awd&&r.manual).length}</div></div><div class="card"><div class="k">Empty (0 mappings)</div><div class="v" style="color:${emptyN?'var(--danger)':'var(--ink)'}">${emptyN}</div></div></div>`;
+  const anyF=q||F.gap||structSort.key!=="function"||structSort.dir!=="asc";
+  const filters=`<div class="list-filters"><div class="search" style="max-width:320px"><svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg><input id="stSearch" placeholder="Search function, sub-function, worktype…" value="${esc(F.text)}"></div>${segField("stGap",F.gap,[{v:"",label:"All"},{v:"empty",label:"Has empty",tone:"danger"},{v:"both",label:"Both types"},{v:"awdonly",label:"AWD only"},{v:"manualonly",label:"Manual only",tone:"green"}])}${anyF?`<button class="btn small" id="stClear">${svg(IC.x)} Clear</button>`:''}<span class="chip" style="margin-left:auto">${rows.length} of ${total} shown</span></div>`;
+  const sth=(label,key)=>{const on=structSort.key===key;const ar=on?(structSort.dir==="asc"?' ▲':' ▼'):'';return `<th data-stsort="${key}" class="th-sort ${on?'active':''}">${label}<span class="tha">${ar}</span></th>`;};
+  const thead=`<tr>${sth('Function','function')}${sth('Sub-Function','subFunction')}${sth('Dashboard Worktype','name')}${sth('AWD mappings','awd')}${sth('Manual mappings','manual')}${sth('Total','total')}<th style="width:150px">Actions</th></tr>`;
+  const typeCell=(wt,type,n)=>{
+    if(!wt)return `<span class="st-none">— none —</span>`;
+    const cls=n===0?'zero':type;
+    const warn=n===0?` <span class="st-warn" title="This ${type.toUpperCase()} worktype has no mappings — safe to delete">${svg(IC.warn)}</span>`:'';
+    return `<span class="st-cell"><span class="st-cnt ${cls}" title="${n} mapping row(s)">${n}</span>${warn}<button class="st-mini" title="Open the ${type.toUpperCase()} worktype" onclick="openFromList('${wt.id}')">${svg(IC.doc)}</button><button class="st-mini" title="Edit the ${type.toUpperCase()} worktype" onclick="openEntity('worktype','${wt.id}')">${svg(IC.edit)}</button><button class="st-mini del" title="Delete the ${type.toUpperCase()} worktype${n===0?' (empty)':' and its '+n+' mapping(s)'}" onclick="structDeleteWt('${wt.id}')">${svg(IC.del)}</button></span>`;
+  };
+  const body=pageRows.map(r=>{
+    const rowCls=r.hasEmpty?' class="st-empty-row"':'';
+    const primary=r.awd||r.manual;
+    return `<tr${rowCls}><td>${esc(r.fn.name)}</td><td>${esc(r.sf.name)}</td><td><b>${esc(r.name)}</b></td><td>${typeCell(r.awd,'awd',r.awdN)}</td><td>${typeCell(r.manual,'manual',r.manN)}</td><td><b>${r.total}</b></td><td><div class="cellactions"><button class="minibtn ok" title="Add mapping" onclick="openFromList('${primary.id}');setTimeout(()=>openMapping('${primary.id}'),80)">${svg(IC.plus)}</button><button class="minibtn" title="Open in Workspace" onclick="openFromList('${primary.id}')">${svg(IC.doc)}</button><button class="minibtn del" title="Delete this worktype name (both types)" onclick="structDeleteName('${r.fn.id}','${r.sf.id}','${esc(r.name).replace(/'/g,"\\'")}')">${svg(IC.del)}</button></div></td></tr>`;
+  }).join("");
+  const table=rows.length?`<div class="table-wrap paged"><table><thead>${thead}</thead><tbody>${body}</tbody></table></div>${pagerBar("struct",pg)}`:`<div class="table-wrap"><div class="table-empty">${svg(IC.db)}<div style="margin-top:8px">${total?'No worktypes match the current filters.':'No worktypes yet.'}</div></div></div>`;
+  const lead=emptyN?`<div class="clr-lead" style="background:#fef6f5"><span>${svg(IC.warn)}</span><div><b>${emptyN} worktype${emptyN>1?'s have':' has'} 0 mappings.</b> These are usually empty AWD/Manual shells created by an import row that had no Verint Queue. Delete them here so they stop appearing in the tree.</div></div>`:"";
+  main.innerHTML=head+cards+lead+filters+`<div class="section-bar"><h2>Function · Sub-function · Dashboard Worktype</h2></div>`+table;
+  const s=document.getElementById("stSearch");if(s)s.oninput=()=>{structFilter.text=s.value;renderStructurePage();const el=document.getElementById("stSearch");el.focus();el.setSelectionRange(el.value.length,el.value.length);};
+  const g=document.getElementById("stGap");if(g)g.onchange=()=>{structFilter.gap=g.value;renderStructurePage();};
+  const c=document.getElementById("stClear");if(c)c.onclick=()=>{structFilter={text:"",gap:""};structSort={key:"function",dir:"asc"};renderStructurePage();};
+  document.querySelectorAll("#main th[data-stsort]").forEach(th=>th.onclick=()=>{const k=th.dataset.stsort;if(structSort.key===k)structSort.dir=structSort.dir==="asc"?"desc":"asc";else{structSort.key=k;structSort.dir="asc";}renderStructurePage();});
+  const cu=document.getElementById("stCleanup");if(cu)cu.onclick=structCleanupEmpty;
+  wirePager("struct",renderStructurePage);
+}
+function structDeleteWt(wtId){const c=findWorktype(wtId);if(!c)return;const n=(c.wt.mappings||[]).length;
+  if(!confirm(`Delete the ${c.wt.type.toUpperCase()} worktype “${c.wt.name}”?\n\n${n===0?'It has no mappings.':'This also deletes its '+n+' mapping row(s).'}\nThis cannot be undone.`))return;
+  c.sf.worktypes=c.sf.worktypes.filter(w=>w.id!==wtId);
+  if(selection.worktypeId===wtId)selection.worktypeId=null;
+  renderAll();toast(`Deleted ${c.wt.type.toUpperCase()} “${c.wt.name}”`);}
+function structDeleteName(fnId,sfId,name){const fn=state.functions.find(f=>f.id===fnId);if(!fn)return;const sf=(fn.subFunctions||[]).find(s=>s.id===sfId);if(!sf)return;
+  const hits=(sf.worktypes||[]).filter(w=>w.name.toLowerCase()===String(name).toLowerCase());if(!hits.length)return;
+  const maps=hits.reduce((a,w)=>a+((w.mappings||[]).length),0);
+  if(!confirm(`Delete “${name}” (${hits.map(w=>w.type.toUpperCase()).join(" + ")}) from ${sf.name}?\n\nThis removes ${hits.length} worktype(s) and ${maps} mapping row(s).\nThis cannot be undone.`))return;
+  const ids=new Set(hits.map(w=>w.id));
+  sf.worktypes=sf.worktypes.filter(w=>!ids.has(w.id));
+  if(ids.has(selection.worktypeId))selection.worktypeId=null;
+  renderAll();toast(`Deleted “${name}” · ${hits.length} worktype(s)`);}
+function structCleanupEmpty(){
+  const victims=[];
+  allWorktypes().forEach(({fn,sf,wt})=>{if((wt.mappings||[]).length===0)victims.push({fn,sf,wt});});
+  if(!victims.length){toast("No empty worktypes to remove","warn");return;}
+  const preview=victims.slice(0,12).map(v=>`• ${v.fn.name} › ${v.sf.name} › ${v.wt.name} (${v.wt.type.toUpperCase()})`).join("\n");
+  if(!confirm(`Remove ${victims.length} worktype(s) that have 0 mappings?\n\n${preview}${victims.length>12?`\n…and ${victims.length-12} more`:''}\n\nThis cannot be undone.`))return;
+  const ids=new Set(victims.map(v=>v.wt.id));
+  state.functions.forEach(fn=>(fn.subFunctions||[]).forEach(sf=>{sf.worktypes=(sf.worktypes||[]).filter(w=>!ids.has(w.id));}));
+  if(ids.has(selection.worktypeId))selection.worktypeId=null;
+  renderAll();toast(`Removed ${victims.length} empty worktype(s)`);}
 function flattenMappings(){const out=[];state.functions.forEach(fn=>(fn.subFunctions||[]).forEach(sf=>(sf.worktypes||[]).forEach(wt=>(wt.mappings||[]).forEach(m=>out.push({fn,sf,wt,m})))));return out;}
 function renderListView(){
   const main=document.getElementById("main");let rows=flattenMappings();const total=rows.length;const f=listFilters;const q=(f.text||"").trim().toLowerCase();
@@ -1366,7 +1464,7 @@ function buildConfiguredCsv(){
   return {csv:rows.map(r=>r.map(csvCell).join(",")).join("\r\n"),count:rows.length-1};
 }
 document.getElementById("exportRun").onclick=()=>{if(!exportCfg.cols||exportCfg.cols.size===0){toast("Select at least one column","warn");return;}const {csv,count}=buildConfiguredCsv();download("verint-listview-"+stamp()+".csv",csv,"text/csv");closeOverlay("export");toast(count+" row"+(count!==1?"s":"")+" exported");};
-function openAbout(){const wts=allWorktypes();const maps=flattenMappings();const dirCount=DIR_KEYS.reduce((a,k)=>a+((state.directories[k]||[]).length),0);const validated=maps.filter(r=>r.m.validated).length;const feature=(t,d)=>`<div class="ab-feat"><div class="ab-fi">${svg(IC.check)}</div><div><b>${t}</b><span>${d}</span></div></div>`;document.getElementById("aboutBody").innerHTML=`<div class="ab-hero"><div class="ab-logo"><svg class="icon" viewBox="0 0 24 24" style="width:26px;height:26px;stroke:#fff"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div><div><div class="ab-name">Verint Mapping Manager</div><div class="ab-ver">Version 5.0 · September 2026</div></div></div><p class="ab-purpose">Accurately map and count processed items from Verint by linking each Dashboard Worktype (AWD or Manual) to its supporting combinations. Optional per-mapping organization with sub-function defaults, Shared Queue handling, import structures, multi-select expansion, duplicate detection, and queue-key splitting.</p><div class="ab-sec-title">At a glance</div><div class="ab-stats"><div class="ab-stat"><span class="n">${state.functions.length}</span><span class="l">Functions</span></div><div class="ab-stat"><span class="n">${wts.length}</span><span class="l">Worktypes</span></div><div class="ab-stat"><span class="n">${maps.length}</span><span class="l">Mappings</span></div><div class="ab-stat"><span class="n">${validated}</span><span class="l">Validated</span></div><div class="ab-stat"><span class="n">${dirCount}</span><span class="l">Directory items</span></div></div><div class="ab-sec-title">Key features</div><div class="ab-feats">${feature("Optional organization + defaults","Org is optional per mapping; set a default org per sub-function to auto-fill.")}${feature("Shared Queue handling","Flag shared queues (Yes/No); shared queues capture the correct organization.")}${feature("Import Structure","Build the tree from Excel copy-paste, CSV/TXT, or manual paste with preview.")}${feature("AWD & Manual types","AWD captures BA/Worktype/Status; Manual captures Verint Queue. The same name can exist as both — shown paired in the tree with a quick switcher.")}${feature("Smart suggestions","Business Area → Worktype → Status suggest contextually from your real data; Status Category auto-learns from history.")}${feature("TAT &amp; Ageing Basis","Set TAT in days and tag each worktype's ageing calculation as Priority Code or Business Days; bulk-edit inline or per Sub-function in the TAT Manager.")}${feature("Watermelon Project tagging","Tag worktypes into the Watermelon Project (single or multi-select), filter by it everywhere, and include/exclude them in the CSV extraction.")}${feature("Add the paired AWD / Manual queues","From Add Mapping (or the header), one click creates the same-named worktype of the opposite type and jumps straight to adding its queues — TAT, ageing basis &amp; Watermelon are carried over.")}${feature("Paste multiple in Add Mapping","Switch to “Paste multiple” to add many Verint queue names (Manual) or BUSINESSAREA_WORKTYPE_STATUS keys (AWD) at once — one per line, live-previewed.")}${feature("Multi-select row expansion","Pick multiple values — every combination becomes a row.")}${feature("Bulk actions","Set Organization, Shared/Active/Validated, export or delete many at once.")}${feature("Directories full page","Advanced search, sort, bulk actions, add/import/split panels.")}${feature("Duplicate detection","Blocks directory dupes; flags queue keys reused across functions.")}${feature("Change history","Created/modified dates plus full version history with restore.")}${feature("Keyboard shortcuts","Shift+S save · Shift+A add another · Ctrl/⌘+Enter save · press Shift+K for all.")}${feature("1-click segmented filters","Type, status, validation, watermelon &amp; ageing use inline chip toggles instead of dropdowns — pick in a single click.")}${feature("List view · clear data · responsive","Consolidated view, selective clearing, works on all screens.")}</div><div class="ab-sec-title">Data & storage</div><div class="ab-kv"><div><span>Persistence</span><b>Browser localStorage + IndexedDB (offline, on-device)</b></div><div><span>Storage key</span><b>${LS_KEY}</b></div><div><span>Privacy</span><b>All data stays in your browser — nothing is sent to any server</b></div></div><div class="ab-sec-title">Developer</div><div class="ab-dev"><div class="dev-avatar">MR</div><div class="ab-dev-meta"><div class="ab-dev-name">Mark F. Rusco</div><div class="ab-dev-role">Bus & Technology Delivery Senior Analyst</div><a class="dev-mail" href="mailto:mark.rusco@accenture.com">mark.rusco@accenture.com</a></div></div><div class="ab-tech">Single-file web application · HTML · CSS · Vanilla JavaScript · No external dependencies</div>`;showOverlay("about");}
+function openAbout(){const wts=allWorktypes();const maps=flattenMappings();const dirCount=DIR_KEYS.reduce((a,k)=>a+((state.directories[k]||[]).length),0);const validated=maps.filter(r=>r.m.validated).length;const feature=(t,d)=>`<div class="ab-feat"><div class="ab-fi">${svg(IC.check)}</div><div><b>${t}</b><span>${d}</span></div></div>`;document.getElementById("aboutBody").innerHTML=`<div class="ab-hero"><div class="ab-logo"><svg class="icon" viewBox="0 0 24 24" style="width:26px;height:26px;stroke:#fff"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div><div><div class="ab-name">Verint Mapping Manager</div><div class="ab-ver">Version 5.1 · September 2026</div></div></div><p class="ab-purpose">Accurately map and count processed items from Verint by linking each Dashboard Worktype (AWD or Manual) to its supporting combinations. Optional per-mapping organization with sub-function defaults, Shared Queue handling, import structures, multi-select expansion, duplicate detection, and queue-key splitting.</p><div class="ab-sec-title">At a glance</div><div class="ab-stats"><div class="ab-stat"><span class="n">${state.functions.length}</span><span class="l">Functions</span></div><div class="ab-stat"><span class="n">${wts.length}</span><span class="l">Worktypes</span></div><div class="ab-stat"><span class="n">${maps.length}</span><span class="l">Mappings</span></div><div class="ab-stat"><span class="n">${validated}</span><span class="l">Validated</span></div><div class="ab-stat"><span class="n">${dirCount}</span><span class="l">Directory items</span></div></div><div class="ab-sec-title">Key features</div><div class="ab-feats">${feature("Optional organization + defaults","Org is optional per mapping; set a default org per sub-function to auto-fill.")}${feature("Shared Queue handling","Flag shared queues (Yes/No); shared queues capture the correct organization.")}${feature("Import Structure","Build the tree from Excel copy-paste, CSV/TXT, or manual paste with preview.")}${feature("AWD & Manual types","AWD captures BA/Worktype/Status; Manual captures Verint Queue. The same name can exist as both — shown paired in the tree with a quick switcher.")}${feature("Smart suggestions","Business Area → Worktype → Status suggest contextually from your real data; Status Category auto-learns from history.")}${feature("TAT &amp; Ageing Basis","Set TAT in days and tag each worktype's ageing calculation as Priority Code or Business Days; bulk-edit inline or per Sub-function in the TAT Manager.")}${feature("Watermelon Project tagging","Tag worktypes into the Watermelon Project (single or multi-select), filter by it everywhere, and include/exclude them in the CSV extraction.")}${feature("Add the paired AWD / Manual queues","From Add Mapping (or the header), one click creates the same-named worktype of the opposite type and jumps straight to adding its queues — TAT, ageing basis &amp; Watermelon are carried over.")}${feature("Paste multiple in Add Mapping","Switch to “Paste multiple” to add many Verint queue names (Manual) or BUSINESSAREA_WORKTYPE_STATUS keys (AWD) at once — one per line, live-previewed.")}${feature("Multi-select row expansion","Pick multiple values — every combination becomes a row.")}${feature("Bulk actions","Set Organization, Shared/Active/Validated, export or delete many at once.")}${feature("Directories full page","Advanced search, sort, bulk actions, add/import/split panels.")}${feature("Duplicate detection","Blocks directory dupes; flags queue keys reused across functions.")}${feature("Change history","Created/modified dates plus full version history with restore.")}${feature("Keyboard shortcuts","Shift+S save · Shift+A add another · Ctrl/⌘+Enter save · press Shift+K for all.")}${feature("1-click segmented filters","Type, status, validation, watermelon &amp; ageing use inline chip toggles instead of dropdowns — pick in a single click.")}${feature("Structure Manager","One row per Function · Sub-function · Worktype with AWD / Manual mapping counts, plus edit &amp; delete — including a one-click cleanup of empty worktypes.")}${feature("List view · clear data · responsive","Consolidated view, selective clearing, works on all screens.")}</div><div class="ab-sec-title">Data & storage</div><div class="ab-kv"><div><span>Persistence</span><b>Browser localStorage + IndexedDB (offline, on-device)</b></div><div><span>Storage key</span><b>${LS_KEY}</b></div><div><span>Privacy</span><b>All data stays in your browser — nothing is sent to any server</b></div></div><div class="ab-sec-title">Developer</div><div class="ab-dev"><div class="dev-avatar">MR</div><div class="ab-dev-meta"><div class="ab-dev-name">Mark F. Rusco</div><div class="ab-dev-role">Bus & Technology Delivery Senior Analyst</div><a class="dev-mail" href="mailto:mark.rusco@accenture.com">mark.rusco@accenture.com</a></div></div><div class="ab-tech">Single-file web application · HTML · CSS · Vanilla JavaScript · No external dependencies</div>`;showOverlay("about");}
 document.getElementById("tree").addEventListener("click",(e)=>{const actBtn=e.target.closest("[data-act]");if(actBtn){e.stopPropagation();const a=actBtn.dataset.act;if(a==="addsf")openEntity("subfunction",null,actBtn.dataset.fn);if(a==="editfn")openEntity("function",actBtn.dataset.fn);if(a==="delfn")deleteFunction(actBtn.dataset.fn);if(a==="addwt")openEntity("worktype",null,actBtn.dataset.sf);if(a==="editsf")openEntity("subfunction",actBtn.dataset.sf);if(a==="delsf")deleteSub(actBtn.dataset.sf);if(a==="editwt")openEntity("worktype",actBtn.dataset.wt);if(a==="delwt")deleteWorktype(actBtn.dataset.wt);if(a==="addmap"){selection.worktypeId=actBtn.dataset.wt;viewMode="detail";openMapping(actBtn.dataset.wt);}return;}const sel=e.target.closest("[data-select]");if(sel){viewMode="detail";selection.worktypeId=sel.dataset.select;editingMapId=null;selectedIds.clear();dirPageActivePanel=null;renderAll();const mm=document.getElementById("main");if(mm)mm.scrollTop=0;if(isDrawerMode())closeDrawer();return;}const tog=e.target.closest("[data-toggle]");if(tog){const id=tog.dataset.toggle;expanded.has(id)?expanded.delete(id):expanded.add(id);renderTree();}});
 function deleteFunction(id){const fn=state.functions.find(f=>f.id===id);if(!confirm(`Delete function "${fn.name}" and all its sub-functions & worktypes?`))return;state.functions=state.functions.filter(f=>f.id!==id);renderAll();toast("Function deleted");}
 function deleteSub(id){for(const f of state.functions){const sf=(f.subFunctions||[]).find(s=>s.id===id);if(sf){if(!confirm(`Delete sub-function "${sf.name}" and its worktypes?`))return;f.subFunctions=f.subFunctions.filter(s=>s.id!==id);break;}}renderAll();toast("Sub-function deleted");}
@@ -1381,6 +1479,7 @@ document.getElementById("brandHome").onclick=()=>goView("overview");
 document.getElementById("navOverview").onclick=()=>goView("overview");
 document.getElementById("navWorkspace").onclick=()=>goView("detail");
 document.getElementById("btnListView").onclick=()=>goView("list");
+document.getElementById("btnStructure").onclick=()=>goView("structure");
 document.getElementById("btnDirectories").onclick=()=>goView("directories");
 /* ---- dropdown menus ---- */
 function closeMenus(){document.querySelectorAll(".dropdown.show").forEach(d=>d.classList.remove("show"));}
@@ -1463,12 +1562,13 @@ document.addEventListener("keydown",e=>{
   if(k==="d"){e.preventDefault();document.getElementById("btnDirectories").click();return;}
   if(k==="l"){e.preventDefault();document.getElementById("btnListView").click();return;}
   if(k==="i"){e.preventDefault();openStructImport();return;}
+  if(k==="g"){e.preventDefault();goView("structure");return;}
   if(k==="w"){e.preventDefault();openWatermelon();return;}
   if(k==="t"){e.preventDefault();openTat();return;}
   if(k==="k"){e.preventDefault();openShortcuts();return;}
   if(k==="?"){e.preventDefault();openShortcuts();return;}
 });
-function openShortcuts(){const rows=[["Shift + S","Save the open form"],["Shift + A","Save &amp; add another (keeps the form open)"],["Ctrl / ⌘ + Enter","Save from any field, even while typing"],["Shift + Enter","Save &amp; add another, even while typing"],["Esc","Close / cancel the dialog"],["Shift + N","New — Add mapping (in a worktype) or New Function"],["Shift + F","Focus the search box"],["Shift + D","Open Directories"],["Shift + L","Open List View"],["Shift + I","Import structure"],["Shift + W","Open Watermelon Project tagging"],["Shift + T","Open TAT Manager"],["Shift + K  /  ?","Show this shortcuts help"]];document.getElementById("aboutBody").innerHTML=`<div class="ab-hero"><div class="ab-logo"><svg class="icon" viewBox="0 0 24 24" style="width:26px;height:26px;stroke:#fff"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M6 9h.01M10 9h.01M14 9h.01M18 9h.01M6 13h.01M18 13h.01M9 13h6"/></svg></div><div><div class="ab-name">Keyboard Shortcuts</div><div class="ab-ver">Work faster with the keyboard</div></div></div><div class="sc-list">${rows.map(r=>`<div class="r"><span class="keys">${r[0].split(" ").map(p=>(p==="+"||p==="/")?`<span style="color:var(--muted)">${p}</span>`:`<span class="kbd">${p}</span>`).join(" ")}</span><span class="d">${r[1]}</span></div>`).join("")}</div><div class="ab-tech" style="margin-top:16px">Tip: letter shortcuts (Shift+S, Shift+A, …) work when you're not typing in a field. While typing, use Ctrl/⌘+Enter to save or Shift+Enter to save &amp; add another.</div>`;showOverlay("about");}
+function openShortcuts(){const rows=[["Shift + S","Save the open form"],["Shift + A","Save &amp; add another (keeps the form open)"],["Ctrl / ⌘ + Enter","Save from any field, even while typing"],["Shift + Enter","Save &amp; add another, even while typing"],["Esc","Close / cancel the dialog"],["Shift + N","New — Add mapping (in a worktype) or New Function"],["Shift + F","Focus the search box"],["Shift + D","Open Directories"],["Shift + L","Open List View"],["Shift + I","Import structure"],["Shift + G","Open Structure Manager"],["Shift + W","Open Watermelon Project tagging"],["Shift + T","Open TAT Manager"],["Shift + K  /  ?","Show this shortcuts help"]];document.getElementById("aboutBody").innerHTML=`<div class="ab-hero"><div class="ab-logo"><svg class="icon" viewBox="0 0 24 24" style="width:26px;height:26px;stroke:#fff"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M6 9h.01M10 9h.01M14 9h.01M18 9h.01M6 13h.01M18 13h.01M9 13h6"/></svg></div><div><div class="ab-name">Keyboard Shortcuts</div><div class="ab-ver">Work faster with the keyboard</div></div></div><div class="sc-list">${rows.map(r=>`<div class="r"><span class="keys">${r[0].split(" ").map(p=>(p==="+"||p==="/")?`<span style="color:var(--muted)">${p}</span>`:`<span class="kbd">${p}</span>`).join(" ")}</span><span class="d">${r[1]}</span></div>`).join("")}</div><div class="ab-tech" style="margin-top:16px">Tip: letter shortcuts (Shift+S, Shift+A, …) work when you're not typing in a field. While typing, use Ctrl/⌘+Enter to save or Shift+Enter to save &amp; add another.</div>`;showOverlay("about");}
 let toastT;
 function toast(msg,type){const t=document.getElementById("toast");t.innerHTML=(type==="warn"?'<svg class="icon" viewBox="0 0 24 24" style="color:#fbbf24"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>':'<svg class="icon" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>')+esc(msg);t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("show"),2400);}
 function enhanceA11y(){document.querySelectorAll(".overlay").forEach(ov=>{const modal=ov.querySelector(".modal");if(!modal)return;modal.setAttribute("role","dialog");modal.setAttribute("aria-modal","true");const h=modal.querySelector(".modal-head h3");if(h){if(!h.id)h.id=ov.id+"_title";modal.setAttribute("aria-labelledby",h.id);}});}
